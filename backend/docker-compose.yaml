@@ -1,0 +1,13 @@
+# Container para rodar o banco postgres
+version: "3.1"
+
+services:
+  postgres-container:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespw
+      POSTGRES_DB: relifedb
+    ports:
+      - 5432:5432
