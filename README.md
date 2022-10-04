@@ -1,6 +1,7 @@
 # ReLife
 
 ## Como executar
+
 Baixe o projeto para sua máquina com `git clone https://github.com/Atlantis-Fellowship-Instituto-Atlantico/ReLife.git`
 
 Execute no terminal o comando `npm install` para instalar as dependencias necessarias.
