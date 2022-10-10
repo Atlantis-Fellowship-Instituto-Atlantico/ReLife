@@ -4,7 +4,7 @@ import { v4 as uuid } from "uuid";
 @Entity("organs")
 export class Organ {
   @PrimaryGeneratedColumn()
-  organ_id: string;
+  readonly organ_id: string;
 
   @Column({ length: 50 })
   organ_type: string;

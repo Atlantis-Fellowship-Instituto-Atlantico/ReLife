@@ -4,6 +4,7 @@ import {
   Column,
   OneToOne,
   JoinColumn,
+  OneToMany,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
 import { AcessLevel } from "./AcessLevel";
@@ -13,7 +14,7 @@ import { Organ } from "./Organs";
 @Entity("institutions")
 export class Institution {
   @PrimaryGeneratedColumn()
-  readonly id_institution: string;
+  readonly institution_id: string;
 
   @OneToOne(() => AcessLevel)
   @JoinColumn({ name: "level_id" })
@@ -23,7 +24,7 @@ export class Institution {
   @JoinColumn({ name: "address_id" })
   addressId: Address;
 
-  @OneToOne(() => Organ)
+  @OneToMany(() => Organ, (organ) => organ.organ_id)
   @JoinColumn({ name: "organ_id" })
   organId: Organ;
 
@@ -49,8 +50,8 @@ export class Institution {
   active: boolean;
 
   constructor() {
-    if (!this.id_institution) {
-      this.id_institution = uuid();
+    if (!this.institution_id) {
+      this.institution_id = uuid();
     }
   }
 }
