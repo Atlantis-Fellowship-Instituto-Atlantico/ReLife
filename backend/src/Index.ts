@@ -1,11 +1,11 @@
 import * as express from "express";
 import { Request, Response } from "express";
 import { AppDataSource } from "./database/DataSource";
-import { Orgaos } from "./entities/Orgaos";
+import { Organ } from "./entities/Organs";
 
 AppDataSource.initialize()
   .then(() => {
-    const organsRepository = AppDataSource.getRepository(Orgaos);
+    const organsRepository = AppDataSource.getRepository(Organ);
 
     const app = express();
 
@@ -15,20 +15,10 @@ AppDataSource.initialize()
       });
     });
 
-    app.get("/orgaos", async (req: Request, res: Response) => {
-      const orgaos = await organsRepository.find();
+    app.get("/organs", async (req: Request, res: Response) => {
+      const organs = await organsRepository.find();
 
-      res.json(orgaos);
-    });
-
-    app.get("/orgaos/:id_orgao", async (req: Request, res: Response) => {
-      const orgaoid = await organsRepository.findOne({
-        where: {
-          id_orgao: parseInt(req.params.id_orgao),
-        },
-      });
-
-      res.json(orgaoid);
+      res.json(organs);
     });
 
     app.listen(3000);
