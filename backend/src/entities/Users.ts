@@ -9,10 +9,10 @@ import { v4 as uuid } from "uuid"
 import { AcessLevel } from "./AcessLevel"
 import { Address } from "./Address"
 
-@Entity("people")
-export class Person {
+@Entity("users")
+export class User {
     @PrimaryGeneratedColumn()
-    readonly person_id: string;
+    readonly user_id: string;
 
     @OneToOne(() => AcessLevel)
     @JoinColumn({ name: "level_id" })
@@ -47,8 +47,8 @@ export class Person {
     active: boolean;
 
     constructor() {
-        if (!this.person_id) {
-            this.person_id = uuid();
+        if (!this.user_id) {
+            this.user_id = uuid();
         }
       
     }

@@ -1,14 +1,13 @@
 import * as express from "express";
 import { Request, Response } from "express";
 import { AppDataSource } from "./database/DataSource";
-import { Administrator } from "./entities/Administrators";
-import { Person } from "./entities/People";
+import { User } from "./entities/Users";
 
 
 // Testando Entidade "Administrators"
 AppDataSource.initialize()
   .then(() => {
-    const administratorsRepository = AppDataSource.getRepository(Administrator);
+    const usersRepository = AppDataSource.getRepository(User);
 
     const app = express();
 
@@ -18,10 +17,10 @@ AppDataSource.initialize()
       });
     });
 
-    app.get("/administrators", async (req: Request, res: Response) => {
-      const administrators = await administratorsRepository.find();
+    app.get("/users", async (req: Request, res: Response) => {
+      const users = await usersRepository.find();
 
-      res.status(200).json({mensagem: 'Testing entity Administrator'})
+      res.status(200).json({mensagem: 'Testing entity User'})
     });
 
     app.listen(3000);

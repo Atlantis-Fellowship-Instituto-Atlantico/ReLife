@@ -5,16 +5,16 @@ import {
     JoinColumn,
 } from "typeorm"
 import { v4 as uuid } from "uuid"
-import { Person } from "./People"
+import { User } from "./Users"
 
 @Entity("administrators")
 export class Administrator {
     @PrimaryGeneratedColumn()
     readonly administrator_id: string;
 
-    @OneToOne(() => Person)
-    @JoinColumn({ name: "person_id" })
-    personId: Person;
+    @OneToOne(() => User)
+    @JoinColumn({ name: "user_id" })
+    userId: User;
 
     constructor() {
         if (!this.administrator_id) {

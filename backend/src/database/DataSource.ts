@@ -5,7 +5,7 @@ import { Address } from "../entities/Address";
 import { Administrator } from "../entities/Administrators";
 import { Institution } from "../entities/Institution";
 import { Organ } from "../entities/Organs";
-import { Person } from "../entities/People";
+import { User } from "../entities/Users";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -16,7 +16,7 @@ export const AppDataSource = new DataSource({
   database: "relifedb",
   synchronize: true,
   logging: false,
-  entities: [AcessLevel, Address, Institution, Organ, Person, Administrator],
+  entities: [AcessLevel, Address, Institution, Organ, User, Administrator],
   migrations: [],
   subscribers: [],
 });
