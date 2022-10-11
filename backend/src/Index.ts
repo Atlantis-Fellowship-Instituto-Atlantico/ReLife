@@ -4,7 +4,7 @@ import { AppDataSource } from "./database/DataSource";
 import { User } from "./entities/Users";
 
 
-// Testando Entidade "Administrators"
+// Testando Entidade "User"
 AppDataSource.initialize()
   .then(() => {
     const usersRepository = AppDataSource.getRepository(User);
