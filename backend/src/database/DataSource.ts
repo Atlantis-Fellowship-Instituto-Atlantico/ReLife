@@ -2,10 +2,10 @@ import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { AcessLevel } from "../entities/AcessLevel";
 import { Address } from "../entities/Address";
-import { Administrator } from "../entities/Administrators";
+import { Administrator } from "../entities/Administrator";
 import { Institution } from "../entities/Institution";
-import { Organ } from "../entities/Organs";
-import { User } from "../entities/Users";
+import { Organ } from "../entities/Organ";
+import { User } from "../entities/User";
 
 export const AppDataSource = new DataSource({
   type: "postgres",

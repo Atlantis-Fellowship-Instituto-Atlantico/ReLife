@@ -9,7 +9,7 @@ import {
 import { v4 as uuid } from "uuid";
 import { AcessLevel } from "./AcessLevel";
 import { Address } from "./Address";
-import { Organ } from "./Organs";
+import { Organ } from "./Organ";
 
 @Entity("institutions")
 export class Institution {

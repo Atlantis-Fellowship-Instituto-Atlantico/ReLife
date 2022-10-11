@@ -1,7 +1,7 @@
 import * as express from "express";
 import { Request, Response } from "express";
 import { AppDataSource } from "./database/DataSource";
-import { User } from "./entities/Users";
+import { User } from "./entities/User";
 
 
 // Testando Entidade "User"
