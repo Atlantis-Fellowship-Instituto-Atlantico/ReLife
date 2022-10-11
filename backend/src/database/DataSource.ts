@@ -1,6 +1,11 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { Orgaos } from "../entities/Orgaos";
+import { AcessLevel } from "../entities/AcessLevel";
+import { Address } from "../entities/Address";
+import { Administrator } from "../entities/Administrator";
+import { Institution } from "../entities/Institution";
+import { Organ } from "../entities/Organ";
+import { User } from "../entities/User";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -11,7 +16,7 @@ export const AppDataSource = new DataSource({
   database: "relifedb",
   synchronize: true,
   logging: false,
-  entities: [Orgaos],
+  entities: [AcessLevel, Address, Institution, Organ, User, Administrator],
   migrations: [],
   subscribers: [],
 });

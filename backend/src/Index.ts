@@ -1,11 +1,13 @@
 import * as express from "express";
 import { Request, Response } from "express";
 import { AppDataSource } from "./database/DataSource";
-import { Organ } from "./entities/Organs";
+import { User } from "./entities/User";
 
+
+// Testando Entidade "User"
 AppDataSource.initialize()
   .then(() => {
-    const organsRepository = AppDataSource.getRepository(Organ);
+    const usersRepository = AppDataSource.getRepository(User);
 
     const app = express();
 
@@ -15,10 +17,10 @@ AppDataSource.initialize()
       });
     });
 
-    app.get("/organs", async (req: Request, res: Response) => {
-      const organs = await organsRepository.find();
+    app.get("/users", async (req: Request, res: Response) => {
+      const users = await usersRepository.find();
 
-      res.json(organs);
+      res.status(200).json({mensagem: 'Testing entity User'})
     });
 
     app.listen(3000);
