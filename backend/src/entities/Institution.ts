@@ -24,6 +24,7 @@ export class Institution {
   @JoinColumn({ name: "address_id" })
   addressId: Address;
 
+  // Necessita revisão
   @OneToMany(() => Organ, (organ) => organ.organ_id)
   @JoinColumn({ name: "organ_id" })
   organId: Organ;
