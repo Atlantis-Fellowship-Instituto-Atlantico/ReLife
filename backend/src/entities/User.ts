@@ -50,6 +50,5 @@ export class User {
         if (!this.user_id) {
             this.user_id = uuid();
         }
-      
     }
 }
