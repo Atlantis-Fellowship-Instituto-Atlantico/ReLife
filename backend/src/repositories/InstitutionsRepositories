@@ -1,0 +1,5 @@
+import { AppDataSource } from "../database/AppDataSource";
+import { Institution } from "../entities/Institution";
+
+export const InstitutionsRepositories =
+  AppDataSource.getRepository(Institution);

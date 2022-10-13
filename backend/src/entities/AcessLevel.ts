@@ -8,10 +8,4 @@ export class AcessLevel {
 
   @Column({ length: 20 })
   acess_type: string;
-
-  constructor() {
-    if (!this.level_id) {
-      this.level_id = uuid();
-    }
-  }
 }

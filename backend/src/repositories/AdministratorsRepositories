@@ -1,0 +1,5 @@
+import { AppDataSource } from "../database/AppDataSource";
+import { Administrator } from "../entities/Administrator";
+
+export const AdministratorsRepositories =
+  AppDataSource.getRepository(Administrator);
