@@ -13,20 +13,20 @@ import { Organ } from "./Organ";
 
 @Entity("institutions")
 export class Institution {
-  @PrimaryGeneratedColumn()
-  readonly institution_id: string;
+  @PrimaryGeneratedColumn("uuid")
+  readonly id: string;
 
   @OneToOne(() => AcessLevel)
-  @JoinColumn({ name: "level_id" })
-  levelId: AcessLevel;
+  @JoinColumn({ name: "id" })
+  level_id: AcessLevel;
 
   @OneToOne(() => Address)
-  @JoinColumn({ name: "address_id" })
-  addressId: Address;
+  @JoinColumn({ name: "id" })
+  address_id: Address;
 
-  @OneToMany(() => Organ, (organ) => organ.organ_id)
-  @JoinColumn({ name: "organ_id" })
-  organId: Organ[]; //receber array de "organs"
+  @OneToMany(() => Organ, (organ) => organ.id)
+  @JoinColumn({ name: "id" })
+  organ_id: Organ[]; //receber array de "organs"
 
   @Column({ length: 100 })
   institution_name: string;
@@ -48,10 +48,4 @@ export class Institution {
 
   @Column()
   active: boolean;
-
-  constructor() {
-    if (!this.institution_id) {
-      this.institution_id = uuid();
-    }
-  }
 }

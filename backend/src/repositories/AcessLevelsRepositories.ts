@@ -1,4 +1,4 @@
-import { AppDataSource } from "../database/AppDataSource";
+import { AppDataSource } from "../database/Index";
 import { AcessLevel } from "../entities/AcessLevel";
 
 export const AcessLevelsRepositories = AppDataSource.getRepository(AcessLevel);
@@ -13,7 +13,7 @@ acessLevelInstitution.acess_type = "Institution";
 acessLevelDonor.acess_type = "Donor";
 acessLevelReceiver.acess_type = "Receiver";
 
-await AcessLevelsRepositories.save(acessLevelAdm);
-await AcessLevelsRepositories.save(acessLevelInstitution);
-await AcessLevelsRepositories.save(acessLevelDonor);
-await AcessLevelsRepositories.save(acessLevelReceiver);
+AcessLevelsRepositories.save(acessLevelAdm);
+AcessLevelsRepositories.save(acessLevelInstitution);
+AcessLevelsRepositories.save(acessLevelDonor);
+AcessLevelsRepositories.save(acessLevelReceiver);

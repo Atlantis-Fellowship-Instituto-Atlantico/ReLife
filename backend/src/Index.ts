@@ -1,28 +1,30 @@
+import bodyParser = require("body-parser");
 import * as express from "express";
 import { Request, Response } from "express";
-import { AppDataSource } from "./database/DataSource";
-import { Donor } from "./entities/Donor";
+import { AppDataSource } from "./database/Index";
+import { router } from "./routes/Routes";
 
-
-// Testando Entidade "Donor"
 AppDataSource.initialize()
   .then(() => {
-    const donorsRepository = AppDataSource.getRepository(Donor);
-
     const app = express();
+    app.use(express.json());
+    app.use(bodyParser.json());
+    app.use(router);
 
-    app.get("/", async (req: Request, res: Response) => {
-      res.json({
-        status: "working",
+    app.use((err: Error, request: Request, response: Response) => {
+      if (err instanceof Error) {
+        return response.status(400).json({
+          error: err.message,
+        });
+      }
+
+      return response.status(500).json({
+        status: "error",
+        message: "Internal Server Error",
       });
     });
-
-    app.get("/donors", async (req: Request, res: Response) => {
-      const donors = await donorsRepository.find();
-
-      res.status(200).json({mensagem: 'Testing entity Donor'})
-    });
-
-    app.listen(3000);
+    app.listen(3000, () => console.log("Server is running"));
   })
-  .catch((error) => console.log(error));
+  .catch((err) => {
+    console.error("Error during Data Source initialization", err);
+  });

@@ -1,11 +1,11 @@
 import {
-    Entity,
-    PrimaryGeneratedColumn,
-    Column,
-    OneToOne,
-    JoinColumn,
-    OneToMany,
-    ManyToOne,
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToOne,
+  JoinColumn,
+  OneToMany,
+  ManyToOne,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
 import { Institution } from "./Institution";
@@ -14,40 +14,34 @@ import { User } from "./User";
 
 @Entity("donors")
 export class Donor {
-    @PrimaryGeneratedColumn()
-    readonly donor_id: string;
+  @PrimaryGeneratedColumn("uuid")
+  readonly id: string;
 
-    @OneToOne(() => User)
-    @JoinColumn({ name: "user_id" })
-    userId: User;
+  @OneToOne(() => User)
+  @JoinColumn({ name: "id" })
+  user_id: User;
 
-    @OneToMany(() => Organ, (organ) => organ.organ_id)
-    @JoinColumn({ name: "organ_id" })
-    organId: Organ[];
+  @OneToMany(() => Organ, (organ) => organ.id)
+  @JoinColumn({ name: "organ_id" })
+  organ_id: Organ[];
 
-    @ManyToOne(() => Institution, (institution) => institution.institution_id)
-    @JoinColumn({ name: "institution_id "})
-    institutionId: Institution;
+  @ManyToOne(() => Institution, (institution) => institution.id)
+  @JoinColumn({ name: "id " })
+  institution_id: Institution;
 
-    @Column({ length: 45 })
-    name_mother: string
+  @Column({ length: 45 })
+  name_mother: string;
 
-    @Column({ length: 10 })
-    blood_type: string
+  @Column({ length: 10 })
+  blood_type: string;
 
-    @Column()
-    donor_organs: boolean
+  @Column()
+  donor_organs: boolean;
 
-    @Column()
-    donor_tissues: boolean
+  @Column()
+  donor_tissues: boolean;
 
-    // Verificar utilidade no projeto
-    // @Column()
-    // image: Blob;
-
-    constructor() {
-        if (!this.donor_id) {
-            this.donor_id = uuid();
-        }
-    }
+  // Verificar utilidade no projeto
+  // @Column()
+  // image: Blob;
 }
