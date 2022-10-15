@@ -2,14 +2,14 @@ import bodyParser = require("body-parser");
 import * as express from "express";
 import { Request, Response } from "express";
 import { AppDataSource } from "./database/Index";
-import { router } from "./routes/Routes";
+import { routes } from "./routes/Routes";
 
 AppDataSource.initialize()
   .then(() => {
     const app = express();
     app.use(express.json());
     app.use(bodyParser.json());
-    app.use(router);
+    app.use(routes);
 
     app.use((err: Error, request: Request, response: Response) => {
       if (err instanceof Error) {
