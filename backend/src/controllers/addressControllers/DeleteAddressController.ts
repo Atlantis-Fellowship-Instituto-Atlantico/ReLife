@@ -7,13 +7,11 @@ export class DeleteAddressController {
 
     const service = new DeleteAddressSerive();
 
-    await service.execute(id);
+    const result = await service.execute(id);
 
-    //verificar por que deu erro
-
-    // if (result instanceof Error) {
-    //   return response.status(400).json(result.message);
-    // }
+    if (result instanceof Error) {
+      return response.status(400).json(result.message);
+    }
 
     return response.status(204).end();
   }
