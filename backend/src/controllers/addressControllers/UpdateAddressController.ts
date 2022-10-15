@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
-import { CreateAddressService } from "../../services/addressServices/CreateAddressService";
+import { UpdateAddressService } from "../../services/addressServices/UpdateAddressService";
 
-export class CreateAddressController {
+export class UpdateAddressController {
   async handle(request: Request, response: Response) {
+    const { id } = request.params;
     const {
       country_name,
       uf,
@@ -14,9 +15,10 @@ export class CreateAddressController {
       complement,
     } = request.body;
 
-    const service = new CreateAddressService();
+    const service = new UpdateAddressService();
 
     const result = await service.execute({
+      id,
       country_name,
       uf,
       city_name,
@@ -26,10 +28,11 @@ export class CreateAddressController {
       number,
       complement,
     });
+
     if (result instanceof Error) {
       return response.status(400).json(result.message);
     }
 
-    return response.status(201).json(result);
+    return response.status(200).json(result);
   }
 }

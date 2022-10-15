@@ -1,7 +1,17 @@
-import { IAddress } from "../../interfaces/IAddress";
 import { AddressesRepositories } from "../../repositories/AddressesRepositories";
 
-class CreateAddressService {
+type AdddressRequest = {
+  country_name: string;
+  uf: string;
+  city_name: string;
+  zip_code: string;
+  district: string;
+  street: string;
+  number: string;
+  complement?: string;
+};
+
+export class CreateAddressService {
   async execute({
     country_name,
     uf,
@@ -11,7 +21,7 @@ class CreateAddressService {
     street,
     number,
     complement,
-  }: IAddress) {
+  }: AdddressRequest) {
     const addressRepository = AddressesRepositories;
 
     const address = addressRepository.create({
@@ -30,5 +40,3 @@ class CreateAddressService {
     return address;
   }
 }
-
-export { CreateAddressService };
