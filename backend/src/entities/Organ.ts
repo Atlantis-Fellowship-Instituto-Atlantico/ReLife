@@ -6,27 +6,21 @@ import { Receiver } from "./Receiver";
 
 @Entity("organs")
 export class Organ {
-  @PrimaryGeneratedColumn()
-  readonly organ_id: string;
+  @PrimaryGeneratedColumn("uuid")
+  readonly id: string;
 
-  @ManyToOne(() => Institution, (institution) => institution.institution_id)
-  organId: Organ;
+  @ManyToOne(() => Institution, (institution) => institution.id)
+  organ_id: Organ;
 
-  @ManyToOne(() => Donor, (donor) => donor.donor_id)
-  donorId: Donor;
-  
-  @ManyToOne(() => Receiver, (receiver) => receiver.receiver_id)
-  receiverId: Receiver;
+  @ManyToOne(() => Donor, (donor) => donor.id)
+  donor_id: Donor;
+
+  @ManyToOne(() => Receiver, (receiver) => receiver.id)
+  receiver_id: Receiver;
 
   @Column({ length: 50 })
   organ_type: string;
 
   @Column({ length: 50 })
   description: string;
-
-  constructor() {
-    if (!this.organ_id) {
-      this.organ_id = uuid();
-    }
-  }
 }

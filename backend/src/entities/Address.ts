@@ -1,10 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-import { v4 as uuid } from "uuid";
 
 @Entity("addresses")
 export class Address {
-  @PrimaryGeneratedColumn()
-  readonly address_id: string;
+  @PrimaryGeneratedColumn("uuid")
+  readonly id: string;
 
   @Column({ length: 50 })
   country_name: string;
@@ -29,10 +28,4 @@ export class Address {
 
   @Column({ length: 50 })
   complement: string;
-
-  constructor() {
-    if (!this.address_id) {
-      this.address_id = uuid();
-    }
-  }
 }
