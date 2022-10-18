@@ -1,6 +1,6 @@
 import { AddressesRepositories } from "../../repositories/AddressesRepositories";
 
-type AdddressRequest = {
+type AddressRequest = {
   country_name: string;
   uf: string;
   city_name: string;
@@ -21,7 +21,7 @@ export class CreateAddressService {
     street,
     number,
     complement,
-  }: AdddressRequest) {
+  }: AddressRequest) {
     const addressRepository = AddressesRepositories;
 
     const address = addressRepository.create({
