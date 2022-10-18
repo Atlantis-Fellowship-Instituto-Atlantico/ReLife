@@ -22,7 +22,8 @@
   "scripts": {
     "build": "rimraf ./build && tsc",
     "start": "ts-node src/index.ts",
-    "serve": "ts-node ./src/Index.ts",
-    "typeorm": "typeorm-ts-node-commonjs"
+    "migration:generate": "npx typeorm-ts-node-commonjs migration:generate -d src/database/index",
+    "migration:up": "npx typeorm-ts-node-commonjs migration:run -d src/database/index",
+    "migration:down": "npx typeorm-ts-node-commonjs migration:revert -d src/database/index"
   }
 }

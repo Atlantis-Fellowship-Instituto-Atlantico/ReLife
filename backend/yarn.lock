@@ -231,11 +231,6 @@
     "ansi-styles" "^4.1.0"
     "supports-color" "^7.1.0"
 
-"class-transformer@^0.5.1":
-  "integrity" "sha512-SQa1Ws6hUbfC98vKGxZH3KFY0Y1lm5Zm0SY8XX9zbK7FJCyVEac3ATW0RIpwzW+oOfmHE5PMPufDG9hCfoEOMw=="
-  "resolved" "https://registry.npmjs.org/class-transformer/-/class-transformer-0.5.1.tgz"
-  "version" "0.5.1"
-
 "cli-highlight@^2.1.11":
   "integrity" "sha512-9KDcoEVwyUXrjcJNvHD0NFc/hiwe/WPVYIleQh2O1N2Zro5gWJZ/K+3DGn8w8P/F6FxOgzyC5bxDyHIgCSPhGg=="
   "resolved" "https://registry.npmjs.org/cli-highlight/-/cli-highlight-2.1.11.tgz"
