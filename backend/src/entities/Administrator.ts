@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  OneToOne,
+  JoinColumn,
+  PrimaryColumn,
+} from "typeorm";
 import { v4 as uuid } from "uuid";
 import { User } from "./User";
 
@@ -8,6 +14,6 @@ export class Administrator {
   readonly id: string;
 
   @OneToOne(() => User)
-  @JoinColumn({ name: "id" })
+  @JoinColumn({ name: "user_id" })
   user_id: User;
 }

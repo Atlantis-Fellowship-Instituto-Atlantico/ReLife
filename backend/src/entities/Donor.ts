@@ -6,6 +6,7 @@ import {
   JoinColumn,
   OneToMany,
   ManyToOne,
+  PrimaryColumn,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
 import { Institution } from "./Institution";
@@ -18,7 +19,7 @@ export class Donor {
   readonly id: string;
 
   @OneToOne(() => User)
-  @JoinColumn({ name: "id" })
+  @JoinColumn({ name: "user_id" })
   user_id: User;
 
   @OneToMany(() => Organ, (organ) => organ.id)
@@ -26,7 +27,7 @@ export class Donor {
   organ_id: Organ[];
 
   @ManyToOne(() => Institution, (institution) => institution.id)
-  @JoinColumn({ name: "id " })
+  @JoinColumn({ name: "institution_id" })
   institution_id: Institution;
 
   @Column({ length: 45 })

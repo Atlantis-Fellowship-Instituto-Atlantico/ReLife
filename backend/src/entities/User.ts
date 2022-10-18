@@ -4,6 +4,7 @@ import {
   Column,
   OneToOne,
   JoinColumn,
+  PrimaryColumn,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
 import { AcessLevel } from "./AcessLevel";
@@ -15,11 +16,11 @@ export class User {
   readonly id: string;
 
   @OneToOne(() => AcessLevel)
-  @JoinColumn({ name: "id" })
+  @JoinColumn({ name: "level_id" })
   level_id: AcessLevel;
 
   @OneToOne(() => Address)
-  @JoinColumn({ name: "id" })
+  @JoinColumn({ name: "address_id" })
   address_id: Address;
 
   @Column({ length: 45 })
@@ -44,5 +45,5 @@ export class User {
   password: string;
 
   @Column()
-  active: boolean;
+  isActive: boolean;
 }

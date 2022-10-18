@@ -5,11 +5,14 @@ import {
   OneToOne,
   JoinColumn,
   OneToMany,
+  PrimaryColumn,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
 import { AcessLevel } from "./AcessLevel";
 import { Address } from "./Address";
+import { Donor } from "./Donor";
 import { Organ } from "./Organ";
+import { Receiver } from "./Receiver";
 
 @Entity("institutions")
 export class Institution {
@@ -17,16 +20,24 @@ export class Institution {
   readonly id: string;
 
   @OneToOne(() => AcessLevel)
-  @JoinColumn({ name: "id" })
+  @JoinColumn({ name: "level_id" })
   level_id: AcessLevel;
 
   @OneToOne(() => Address)
-  @JoinColumn({ name: "id" })
+  @JoinColumn({ name: "address_id" })
   address_id: Address;
 
   @OneToMany(() => Organ, (organ) => organ.id)
-  @JoinColumn({ name: "id" })
+  @JoinColumn({ name: "organ_id" })
   organ_id: Organ[]; //receber array de "organs"
+
+  // @OneToMany(() => Donor, (donor) => donor.id)
+  // @JoinColumn({ name: "donor_id" })
+  // donor_id: Donor[];
+
+  // @OneToMany(() => Receiver, (receiver) => receiver.id)
+  // @JoinColumn({ name: "receiver_id" })
+  // receiver_id: Receiver[];
 
   @Column({ length: 100 })
   institution_name: string;
@@ -47,5 +58,5 @@ export class Institution {
   password: string;
 
   @Column()
-  active: boolean;
+  isActive: boolean;
 }
