@@ -4,9 +4,7 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
-  PrimaryColumn,
 } from "typeorm";
-import { v4 as uuid } from "uuid";
 import { Donor } from "./Donor";
 import { Institution } from "./Institution";
 import { Receiver } from "./Receiver";
@@ -16,17 +14,17 @@ export class Organ {
   @PrimaryGeneratedColumn("uuid")
   readonly id: string;
 
-  @ManyToOne(() => Institution, (institution) => institution.id)
+  @ManyToOne(() => Institution, (institution) => institution.organs)
   @JoinColumn({ name: "organ_id" })
-  organ_id: Organ;
+  institution: Institution;
 
-  @ManyToOne(() => Donor, (donor) => donor.id)
+  @ManyToOne(() => Donor, (donor) => donor.organs)
   @JoinColumn({ name: "donor_id" })
-  donor_id: Donor;
+  donor: Donor;
 
-  @ManyToOne(() => Receiver, (receiver) => receiver.id)
+  @ManyToOne(() => Receiver, (receiver) => receiver.organs)
   @JoinColumn({ name: "receiver_id" })
-  receiver_id: Receiver;
+  receiver: Receiver;
 
   @Column({ length: 50 })
   organ_type: string;

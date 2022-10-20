@@ -1,11 +1,4 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  OneToOne,
-  JoinColumn,
-  PrimaryColumn,
-} from "typeorm";
-import { v4 as uuid } from "uuid";
+import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from "typeorm";
 import { User } from "./User";
 
 @Entity("administrators")
@@ -15,5 +8,5 @@ export class Administrator {
 
   @OneToOne(() => User)
   @JoinColumn({ name: "user_id" })
-  user_id: User;
+  user: User;
 }

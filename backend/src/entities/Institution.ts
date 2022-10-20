@@ -5,39 +5,37 @@ import {
   OneToOne,
   JoinColumn,
   OneToMany,
-  PrimaryColumn,
 } from "typeorm";
-import { v4 as uuid } from "uuid";
-import { AcessLevel } from "./AcessLevel";
 import { Address } from "./Address";
 import { Donor } from "./Donor";
 import { Organ } from "./Organ";
 import { Receiver } from "./Receiver";
+import { Role } from "./Role";
 
 @Entity("institutions")
 export class Institution {
   @PrimaryGeneratedColumn("uuid")
   readonly id: string;
 
-  @OneToOne(() => AcessLevel)
-  @JoinColumn({ name: "level_id" })
-  level_id: AcessLevel;
+  @OneToOne(() => Role)
+  @JoinColumn({ name: "role_id" })
+  role: Role;
 
   @OneToOne(() => Address)
   @JoinColumn({ name: "address_id" })
-  address_id: Address;
+  address: Address;
 
-  @OneToMany(() => Organ, (organ) => organ.id)
+  @OneToMany(() => Organ, (organ) => organ)
   @JoinColumn({ name: "organ_id" })
-  organ_id: Organ[]; //receber array de "organs"
+  organs: Organ[]; //receber array de "organs"
 
-  // @OneToMany(() => Donor, (donor) => donor.id)
-  // @JoinColumn({ name: "donor_id" })
-  // donor_id: Donor[];
+  @OneToMany(() => Donor, (donor) => donor.id)
+  @JoinColumn({ name: "donor_id" })
+  donors: Donor[];
 
-  // @OneToMany(() => Receiver, (receiver) => receiver.id)
-  // @JoinColumn({ name: "receiver_id" })
-  // receiver_id: Receiver[];
+  @OneToMany(() => Receiver, (receiver) => receiver.id)
+  @JoinColumn({ name: "receiver_id" })
+  receivers: Receiver[];
 
   @Column({ length: 100 })
   institution_name: string;
