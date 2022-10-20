@@ -1,3 +1,4 @@
+import { validate } from "class-validator";
 import { AddressesRepositories } from "../../repositories/AddressesRepositories";
 import { RolesRepositories } from "../../repositories/RolesRepositories";
 import { UsersRepositories } from "../../repositories/UsersRepositories";
@@ -8,7 +9,7 @@ type UserRequest = {
   name: string;
   last_name: string;
   cpf: string;
-  telephone: string;
+  phone: string;
   email: string;
   user_name: string;
   password: string;
@@ -21,7 +22,7 @@ export class CreateUserService {
     name,
     last_name,
     cpf,
-    telephone,
+    phone,
     email,
     user_name,
     password,
@@ -36,7 +37,7 @@ export class CreateUserService {
     const existUserCpf = await userRepository.findOneBy({ cpf: cpf });
     const existUserEmail = await userRepository.findOneBy({ email: email });
     const existUserPhone = await userRepository.findOneBy({
-      telephone: telephone,
+      phone: phone,
     });
     const existRole = await roleRepository.findOne({ where: { id: role } });
     const existAddress = await addressRepository.findOne({
@@ -65,14 +66,19 @@ export class CreateUserService {
       name,
       last_name,
       cpf,
-      telephone,
+      phone,
       email,
       user_name,
       password,
       isActive: true,
     });
 
-    await userRepository.save(user);
+    const errors = await validate(user);
+    if (errors.length > 0) {
+      return new Error(`Validation failed!`);
+    } else {
+      await userRepository.save(user);
+    }
 
     return user;
   }

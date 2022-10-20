@@ -6,6 +6,7 @@ import {
   JoinColumn,
   ManyToOne,
 } from "typeorm";
+import { IsEmail, Min, Max } from "class-validator";
 import { Address } from "./Address";
 import { Role } from "./Role";
 
@@ -32,9 +33,10 @@ export class User {
   cpf: string;
 
   @Column({ length: 15 })
-  telephone: string;
+  phone: string;
 
   @Column({ length: 40 })
+  @IsEmail()
   email: string;
 
   @Column({ length: 40 })

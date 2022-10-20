@@ -6,6 +6,7 @@ import {
   JoinColumn,
   OneToMany,
 } from "typeorm";
+import { IsEmail, Min, Max } from "class-validator";
 import { Address } from "./Address";
 import { Donor } from "./Donor";
 import { Organ } from "./Organ";
@@ -47,9 +48,10 @@ export class Institution {
   cnpj: string;
 
   @Column({ length: 15 })
-  telephone: string;
+  phone: string;
 
   @Column({ length: 40 })
+  @IsEmail()
   email: string;
 
   @Column({ length: 25 })
