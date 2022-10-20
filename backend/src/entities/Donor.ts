@@ -6,9 +6,7 @@ import {
   JoinColumn,
   OneToMany,
   ManyToOne,
-  PrimaryColumn,
 } from "typeorm";
-import { v4 as uuid } from "uuid";
 import { Institution } from "./Institution";
 import { Organ } from "./Organ";
 import { User } from "./User";
@@ -20,15 +18,15 @@ export class Donor {
 
   @OneToOne(() => User)
   @JoinColumn({ name: "user_id" })
-  user_id: User;
+  user: User;
 
-  @OneToMany(() => Organ, (organ) => organ.id)
+  @OneToMany(() => Organ, (organ) => organ.donor)
   @JoinColumn({ name: "organ_id" })
-  organ_id: Organ[];
+  organs: Organ[];
 
-  @ManyToOne(() => Institution, (institution) => institution.id)
+  @ManyToOne(() => Institution, (institution) => institution.donors)
   @JoinColumn({ name: "institution_id" })
-  institution_id: Institution;
+  institution: Institution;
 
   @Column({ length: 45 })
   name_mother: string;

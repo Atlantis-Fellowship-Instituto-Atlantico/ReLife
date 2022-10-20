@@ -4,24 +4,23 @@ import {
   Column,
   OneToOne,
   JoinColumn,
-  PrimaryColumn,
+  ManyToOne,
 } from "typeorm";
-import { v4 as uuid } from "uuid";
-import { AcessLevel } from "./AcessLevel";
 import { Address } from "./Address";
+import { Role } from "./Role";
 
 @Entity("users")
 export class User {
   @PrimaryGeneratedColumn("uuid")
   readonly id: string;
 
-  @OneToOne(() => AcessLevel)
-  @JoinColumn({ name: "level_id" })
-  level_id: AcessLevel;
+  @ManyToOne(() => Role, (role) => role.users)
+  @JoinColumn({ name: "role_id" })
+  role: Role;
 
   @OneToOne(() => Address)
   @JoinColumn({ name: "address_id" })
-  address_id: Address;
+  address: Address;
 
   @Column({ length: 45 })
   name: string;
