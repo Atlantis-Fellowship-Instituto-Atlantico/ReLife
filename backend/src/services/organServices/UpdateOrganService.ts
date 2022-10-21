@@ -15,7 +15,7 @@ export class UpdateOrganService {
     });
 
     if (!organ) {
-      return new Error("Address does not exists");
+      return new Error("Organ does not exists");
     }
 
     organ.organ_type = organ_type ? organ_type : organ.organ_type;

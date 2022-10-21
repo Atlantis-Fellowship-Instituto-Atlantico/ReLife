@@ -13,6 +13,7 @@ type UserRequest = {
   email: string;
   user_name: string;
   password: string;
+  isActive: boolean;
 };
 
 export class CreateUserService {
@@ -26,6 +27,7 @@ export class CreateUserService {
     email,
     user_name,
     password,
+    isActive,
   }: UserRequest) {
     const userRepository = UsersRepositories;
     const roleRepository = RolesRepositories;
@@ -70,7 +72,7 @@ export class CreateUserService {
       email,
       user_name,
       password,
-      isActive: true,
+      isActive,
     });
 
     const errors = await validate(user);

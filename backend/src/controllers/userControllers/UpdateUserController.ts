@@ -1,11 +1,13 @@
 import { Request, Response } from "express";
-import { CreateUserService } from "../../services/userServices/CreateUserService";
+import { UpdateOrganService } from "../../services/organServices/UpdateOrganService";
+import { UpdateUserService } from "../../services/userServices/UpdateUserService";
 
-export class CreateUserController {
+export class UpdateUserController {
   async handle(request: Request, response: Response) {
+    const { id } = request.params;
     const {
-      role,
-      address,
+      userRole,
+      userAddress,
       name,
       last_name,
       cpf,
@@ -16,11 +18,12 @@ export class CreateUserController {
       isActive,
     } = request.body;
 
-    const userService = new CreateUserService();
+    const service = new UpdateUserService();
 
-    const result = await userService.execute({
-      role,
-      address,
+    const result = await service.execute({
+      id,
+      userRole,
+      userAddress,
       name,
       last_name,
       cpf,
@@ -35,6 +38,6 @@ export class CreateUserController {
       return response.status(400).json(result.message);
     }
 
-    return response.status(201).json(result);
+    return response.status(200).json(result);
   }
 }
