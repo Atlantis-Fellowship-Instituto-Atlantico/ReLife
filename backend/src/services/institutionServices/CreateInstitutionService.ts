@@ -1,39 +1,44 @@
 import { validate } from "class-validator";
 import { AddressesRepositories } from "../../repositories/AddressesRepositories";
+import { InstitutionsRepositories } from "../../repositories/InstitutionsRepositories";
 import { RolesRepositories } from "../../repositories/RolesRepositories";
-import { UsersRepositories } from "../../repositories/UsersRepositories";
 
-type UserRequest = {
+type InstitutionRequest = {
   role: number;
   address: string;
-  name: string;
-  last_name: string;
-  cpf: string;
+  institution_name: string;
+  responsible_name: string;
+  cnpj: string;
   phone: string;
   email: string;
   password: string;
   isActive: boolean;
 };
 
-export class CreateUserService {
+export class CreateInstitutionService {
   async execute({
     role,
     address,
-    name,
-    last_name,
-    cpf,
+    institution_name,
+    responsible_name,
+    cnpj,
     phone,
     email,
     password,
     isActive,
-  }: UserRequest) {
-    const userRepository = UsersRepositories;
+  }: InstitutionRequest) {
+    const institutionRepository = InstitutionsRepositories;
     const roleRepository = RolesRepositories;
     const addressRepository = AddressesRepositories;
 
-    const existUserCpf = await userRepository.findOneBy({ cpf: cpf });
-    const existUserEmail = await userRepository.findOneBy({ email: email });
-    const existUserPhone = await userRepository.findOneBy({
+    const existUserName = await institutionRepository.findOneBy({
+      email: email,
+    });
+    const existUserCnpj = await institutionRepository.findOneBy({ cnpj: cnpj });
+    const existUserEmail = await institutionRepository.findOneBy({
+      email: email,
+    });
+    const existUserPhone = await institutionRepository.findOneBy({
       phone: phone,
     });
     const existRole = await roleRepository.findOne({ where: { id: role } });
@@ -41,7 +46,11 @@ export class CreateUserService {
       where: { id: address },
     });
 
-    if (existUserCpf) {
+    if (existUserName) {
+      return new Error("User name already exists");
+    }
+
+    if (existUserCnpj) {
       return new Error("CPF already exists");
     }
 
@@ -53,25 +62,25 @@ export class CreateUserService {
       return new Error("Phone already exists");
     }
 
-    const user = userRepository.create({
+    const institution = institutionRepository.create({
       role: existRole,
       address: existAddress,
-      name,
-      last_name,
-      cpf,
+      institution_name,
+      responsible_name,
+      cnpj,
       phone,
       email,
       password,
       isActive,
     });
 
-    const errors = await validate(user);
+    const errors = await validate(institution);
     if (errors.length > 0) {
       return new Error(`Validation failed!`);
     } else {
-      await userRepository.save(user);
+      await institutionRepository.save(institution);
     }
 
-    return user;
+    return institution;
   }
 }

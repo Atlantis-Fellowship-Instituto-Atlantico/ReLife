@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { DeleteUserService } from "../../services/userServices/DeleteUserService";
+import { GetByIdInstitutionService } from "../../services/institutionServices/GetByIdInstitutionService";
 
-export class DeleteUserController {
+export class GetByIdInstitutionController {
   async handle(request: Request, response: Response) {
     const { id } = request.params;
 
-    const service = new DeleteUserService();
+    const service = new GetByIdInstitutionService();
 
     const result = await service.execute(id);
 
@@ -13,6 +13,6 @@ export class DeleteUserController {
       return response.status(400).json(result.message);
     }
 
-    return response.status(204).end();
+    return response.status(200).json(result);
   }
 }

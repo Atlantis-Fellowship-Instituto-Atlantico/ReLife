@@ -1,7 +1,5 @@
 import { Address } from "../../entities/Address";
 import { Role } from "../../entities/Role";
-import { AddressesRepositories } from "../../repositories/AddressesRepositories";
-import { RolesRepositories } from "../../repositories/RolesRepositories";
 import { UsersRepositories } from "../../repositories/UsersRepositories";
 
 type UserUpdateRequest = {
@@ -13,7 +11,6 @@ type UserUpdateRequest = {
   cpf: string;
   phone: string;
   email: string;
-  user_name: string;
   password: string;
   isActive: boolean;
 };
@@ -28,7 +25,6 @@ export class UpdateUserService {
     cpf,
     phone,
     email,
-    user_name,
     password,
     isActive,
   }: UserUpdateRequest) {
@@ -51,7 +47,6 @@ export class UpdateUserService {
     user.cpf = cpf ? cpf : user.cpf;
     user.phone = phone ? phone : user.phone;
     user.email = email ? email : user.email;
-    user.user_name = user_name ? user_name : user.user_name;
     user.password = password ? password : user.password;
     user.isActive = isActive ? isActive : user.isActive;
 

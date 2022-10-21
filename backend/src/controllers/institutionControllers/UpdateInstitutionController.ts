@@ -1,30 +1,28 @@
 import { Request, Response } from "express";
-import { UpdateUserService } from "../../services/userServices/UpdateUserService";
+import { UpdateInstitutionService } from "../../services/institutionServices/UpdateInstitutionService";
 
-export class UpdateUserController {
+export class UpdateInstitutionController {
   async handle(request: Request, response: Response) {
     const { id } = request.params;
     const {
-      userRole,
-      userAddress,
-      name,
-      last_name,
-      cpf,
+      address,
+      institution_name,
+      responsible_name,
+      cnpj,
       phone,
       email,
       password,
       isActive,
     } = request.body;
 
-    const service = new UpdateUserService();
+    const service = new UpdateInstitutionService();
 
     const result = await service.execute({
       id,
-      userRole,
-      userAddress,
-      name,
-      last_name,
-      cpf,
+      address,
+      institution_name,
+      responsible_name,
+      cnpj,
       phone,
       email,
       password,
