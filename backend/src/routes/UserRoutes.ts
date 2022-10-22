@@ -4,6 +4,8 @@ import { DeleteUserController } from "../controllers/userControllers/DeleteUserC
 import { GetAllUsersController } from "../controllers/userControllers/GetAllUsersController";
 import { GetByIdUserController } from "../controllers/userControllers/GetByIdUserController";
 import { UpdateUserController } from "../controllers/userControllers/UpdateUserController";
+import ensureAdmin from "../middlewares/ensureAdmin";
+import ensureAuthenticated from "../middlewares/ensureAuthenticated";
 
 const userRoutes = Router();
 
@@ -27,6 +29,11 @@ userRoutes.get("/:id", getByIdUserController.handle);
 //Put
 userRoutes.put("/:id", updateUserController.handle);
 //Delete
-userRoutes.delete("/:id", deleteUserController.handle);
+userRoutes.delete(
+  "/:id",
+  ensureAuthenticated,
+  ensureAdmin,
+  deleteUserController.handle
+);
 
 export { userRoutes };

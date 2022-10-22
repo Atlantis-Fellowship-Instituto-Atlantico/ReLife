@@ -39,7 +39,7 @@ export class User {
   @IsEmail()
   email: string;
 
-  @Column({ length: 25 })
+  @Column()
   password: string;
 
   @Column()

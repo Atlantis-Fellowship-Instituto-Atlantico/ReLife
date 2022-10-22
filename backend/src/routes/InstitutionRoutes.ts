@@ -4,6 +4,8 @@ import { DeleteInstitutionController } from "../controllers/institutionControlle
 import { GetAllInstitutionsController } from "../controllers/institutionControllers/GetAllInstitutionsController";
 import { GetByIdInstitutionController } from "../controllers/institutionControllers/GetByIdInstitutionController";
 import { UpdateInstitutionController } from "../controllers/institutionControllers/UpdateInstitutionController";
+import ensureAdmin from "../middlewares/ensureAdmin";
+import ensureAuthenticated from "../middlewares/ensureAuthenticated";
 
 const institutionRoutes = Router();
 
@@ -27,6 +29,11 @@ institutionRoutes.get("/:id", getByIdInstitutionController.handle);
 //Put
 institutionRoutes.put("/:id", updateInstitutionController.handle);
 //Delete
-institutionRoutes.delete("/:id", deleteInstitutionController.handle);
+institutionRoutes.delete(
+  "/:id",
+  ensureAuthenticated,
+  ensureAdmin,
+  deleteInstitutionController.handle
+);
 
 export { institutionRoutes };

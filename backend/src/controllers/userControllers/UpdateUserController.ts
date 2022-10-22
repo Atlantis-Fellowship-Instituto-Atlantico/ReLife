@@ -5,8 +5,8 @@ export class UpdateUserController {
   async handle(request: Request, response: Response) {
     const { id } = request.params;
     const {
-      userRole,
-      userAddress,
+      role,
+      address,
       name,
       last_name,
       cpf,
@@ -20,8 +20,8 @@ export class UpdateUserController {
 
     const result = await service.execute({
       id,
-      userRole,
-      userAddress,
+      role,
+      address,
       name,
       last_name,
       cpf,

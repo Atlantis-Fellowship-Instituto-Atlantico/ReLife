@@ -3,8 +3,12 @@ import { InstitutionsRepositories } from "../../repositories/InstitutionsReposit
 export class GetAllInstitutionsService {
   async execute() {
     const repo = InstitutionsRepositories;
-    const users = await repo.find();
+    const institutions = await repo
+      .createQueryBuilder("institutions")
+      .leftJoinAndSelect("institutions.role", "role")
+      .leftJoinAndSelect("institutions.address", "address")
+      .getMany();
 
-    return users;
+    return institutions;
   }
 }

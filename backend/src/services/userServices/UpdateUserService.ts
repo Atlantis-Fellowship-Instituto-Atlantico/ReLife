@@ -4,8 +4,8 @@ import { UsersRepositories } from "../../repositories/UsersRepositories";
 
 type UserUpdateRequest = {
   id: string;
-  userRole: Role;
-  userAddress: Address;
+  role: Role;
+  address: Address;
   name: string;
   last_name: string;
   cpf: string;
@@ -18,8 +18,8 @@ type UserUpdateRequest = {
 export class UpdateUserService {
   async execute({
     id,
-    userRole,
-    userAddress,
+    role,
+    address,
     name,
     last_name,
     cpf,
@@ -40,8 +40,8 @@ export class UpdateUserService {
       return new Error("User does not exists");
     }
 
-    user.role = userRole ? userRole : user.role;
-    user.address = userAddress ? userAddress : user.address;
+    user.role = role ? role : user.role;
+    user.address = address ? address : user.address;
     user.name = name ? name : user.name;
     user.last_name = last_name ? last_name : user.last_name;
     user.cpf = cpf ? cpf : user.cpf;

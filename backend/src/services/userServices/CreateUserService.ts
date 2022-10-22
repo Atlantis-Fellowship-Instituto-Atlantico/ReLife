@@ -1,3 +1,4 @@
+import { hash } from "bcryptjs";
 import { validate } from "class-validator";
 import { AddressesRepositories } from "../../repositories/AddressesRepositories";
 import { RolesRepositories } from "../../repositories/RolesRepositories";
@@ -53,6 +54,8 @@ export class CreateUserService {
       return new Error("Phone already exists");
     }
 
+    const passHash = await hash(password, 6);
+
     const user = userRepository.create({
       role: existRole,
       address: existAddress,
@@ -61,7 +64,7 @@ export class CreateUserService {
       cpf,
       phone,
       email,
-      password,
+      password: passHash,
       isActive,
     });
 
