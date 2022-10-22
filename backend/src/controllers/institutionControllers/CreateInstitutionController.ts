@@ -1,28 +1,28 @@
 import { Request, Response } from "express";
-import { CreateUserService } from "../../services/userServices/CreateUserService";
+import { CreateInstitutionService } from "../../services/institutionServices/CreateInstitutionService";
 
-export class CreateUserController {
+export class CreateInstitutionController {
   async handle(request: Request, response: Response) {
     const {
       role,
       address,
-      name,
-      last_name,
-      cpf,
+      institution_name,
+      responsible_name,
+      cnpj,
       phone,
       email,
       password,
       isActive,
     } = request.body;
 
-    const service = new CreateUserService();
+    const service = new CreateInstitutionService();
 
     const result = await service.execute({
       role,
       address,
-      name,
-      last_name,
-      cpf,
+      institution_name,
+      responsible_name,
+      cnpj,
       phone,
       email,
       password,

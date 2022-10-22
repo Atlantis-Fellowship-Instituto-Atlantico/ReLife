@@ -2,8 +2,8 @@ import { OrgansRepositories } from "../../repositories/OrgansRepositories";
 
 export class GetAllOrgansService {
   async execute() {
-    const orgarnRepository = OrgansRepositories;
-    const organs = await orgarnRepository.find();
+    const repo = OrgansRepositories;
+    const organs = await repo.find();
 
     return organs;
   }

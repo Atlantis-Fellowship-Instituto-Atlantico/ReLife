@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
-import { CreateUserService } from "../../services/userServices/CreateUserService";
+import { UpdateUserService } from "../../services/userServices/UpdateUserService";
 
-export class CreateUserController {
+export class UpdateUserController {
   async handle(request: Request, response: Response) {
+    const { id } = request.params;
     const {
       role,
       address,
@@ -15,9 +16,10 @@ export class CreateUserController {
       isActive,
     } = request.body;
 
-    const service = new CreateUserService();
+    const service = new UpdateUserService();
 
     const result = await service.execute({
+      id,
       role,
       address,
       name,
@@ -33,6 +35,6 @@ export class CreateUserController {
       return response.status(400).json(result.message);
     }
 
-    return response.status(201).json(result);
+    return response.status(200).json(result);
   }
 }

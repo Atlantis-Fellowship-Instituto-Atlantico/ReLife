@@ -1,28 +1,28 @@
 import { Request, Response } from "express";
-import { CreateUserService } from "../../services/userServices/CreateUserService";
+import { UpdateInstitutionService } from "../../services/institutionServices/UpdateInstitutionService";
 
-export class CreateUserController {
+export class UpdateInstitutionController {
   async handle(request: Request, response: Response) {
+    const { id } = request.params;
     const {
-      role,
       address,
-      name,
-      last_name,
-      cpf,
+      institution_name,
+      responsible_name,
+      cnpj,
       phone,
       email,
       password,
       isActive,
     } = request.body;
 
-    const service = new CreateUserService();
+    const service = new UpdateInstitutionService();
 
     const result = await service.execute({
-      role,
+      id,
       address,
-      name,
-      last_name,
-      cpf,
+      institution_name,
+      responsible_name,
+      cnpj,
       phone,
       email,
       password,
@@ -33,6 +33,6 @@ export class CreateUserController {
       return response.status(400).json(result.message);
     }
 
-    return response.status(201).json(result);
+    return response.status(200).json(result);
   }
 }

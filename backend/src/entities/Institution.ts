@@ -54,7 +54,7 @@ export class Institution {
   @IsEmail()
   email: string;
 
-  @Column({ length: 25 })
+  @Column()
   password: string;
 
   @Column()
