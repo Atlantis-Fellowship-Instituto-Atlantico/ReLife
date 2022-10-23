@@ -25,12 +25,7 @@ const updateOrganController = new UpdateOrganController();
 const deleteOrganController = new DeleteOrganController();
 
 //Post
-organRoutes.post(
-  "/",
-  ensureAuthenticated,
-  ensureAdmin,
-  createOrganController.handle
-);
+organRoutes.post("/", createOrganController.handle);
 
 //Get
 organRoutes.get("/", getAllOrgansController.handle);
@@ -39,19 +34,9 @@ organRoutes.get("/", getAllOrgansController.handle);
 organRoutes.get("/:id", getByIdOrganController.handle);
 
 //Update
-organRoutes.put(
-  "/:id",
-  ensureAuthenticated,
-  ensureAdmin,
-  updateOrganController.handle
-);
+organRoutes.put("/:id", updateOrganController.handle);
 
 //Delete
-organRoutes.delete(
-  "/:id",
-  ensureAuthenticated,
-  ensureAdmin,
-  deleteOrganController.handle
-);
+organRoutes.delete("/:id", deleteOrganController.handle);
 
 export { organRoutes };

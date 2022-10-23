@@ -29,11 +29,6 @@ institutionRoutes.get("/:id", getByIdInstitutionController.handle);
 //Put
 institutionRoutes.put("/:id", updateInstitutionController.handle);
 //Delete
-institutionRoutes.delete(
-  "/:id",
-  ensureAuthenticated,
-  ensureAdmin,
-  deleteInstitutionController.handle
-);
+institutionRoutes.delete("/:id", deleteInstitutionController.handle);
 
 export { institutionRoutes };

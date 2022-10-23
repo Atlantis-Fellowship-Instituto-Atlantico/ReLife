@@ -29,11 +29,6 @@ userRoutes.get("/:id", getByIdUserController.handle);
 //Put
 userRoutes.put("/:id", updateUserController.handle);
 //Delete
-userRoutes.delete(
-  "/:id",
-  ensureAuthenticated,
-  ensureAdmin,
-  deleteUserController.handle
-);
+userRoutes.delete("/:id", deleteUserController.handle);
 
 export { userRoutes };
