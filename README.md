@@ -12,8 +12,6 @@ Dentro da pasta **src** utilizar o comando `npm run migration:up`, para criar as
 
 Utilizar dentro do BD o comando SQL `insert into roles (role_name)
 values 
-('Administrador'),
-('Instituicao'),
 ('Doador'),
 ('Receptor')`
 
