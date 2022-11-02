@@ -1,4 +1,4 @@
-import { AppDataSource } from "../database/Index";
+import { AppDataSource } from "../database";
 import { Administrator } from "../entities/Administrator";
 
 export const AdministratorsRepositories =
