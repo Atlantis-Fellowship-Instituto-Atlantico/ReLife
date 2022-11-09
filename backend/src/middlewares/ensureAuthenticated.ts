@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
-import { Role } from "../entities/Role";
 
 interface IToken {
   id: string;
-  role: Role;
+  role: string;
   iat: number;
   exp: number;
 }
@@ -24,7 +23,7 @@ export default function (req: Request, res: Response, next: NextFunction) {
       process.env.SECRET_KEY_JWT as string
     ) as IToken;
     req.headers.userId = id;
-    req.headers.role = role.id.toString();
+    req.headers.role = role;
 
     return next();
   } catch {

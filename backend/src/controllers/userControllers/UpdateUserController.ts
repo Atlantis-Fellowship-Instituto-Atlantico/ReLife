@@ -2,39 +2,49 @@ import { Request, Response } from "express";
 import { UpdateUserService } from "../../services/userServices/UpdateUserService";
 
 export class UpdateUserController {
-  async handle(request: Request, response: Response) {
-    const { id } = request.params;
+  async handle(req: Request, res: Response) {
+    const { user_id } = req.params;
     const {
       role,
-      address,
-      name,
-      last_name,
+      full_name,
       cpf,
       phone,
       email,
       password,
-      isActive,
-    } = request.body;
+      zip_code,
+      country,
+      uf,
+      city,
+      district,
+      street,
+      number,
+      complement,
+    } = req.body;
 
     const service = new UpdateUserService();
 
-    const result = await service.execute({
-      id,
+    const result = await service.updateUser(
+      user_id,
       role,
-      address,
-      name,
-      last_name,
+      full_name,
       cpf,
       phone,
       email,
       password,
-      isActive,
-    });
+      zip_code,
+      country,
+      uf,
+      city,
+      district,
+      street,
+      number,
+      complement
+    );
 
     if (result instanceof Error) {
-      return response.status(400).json(result.message);
+      return res.status(400).json(result.message);
     }
 
-    return response.status(200).json(result);
+    return res.status(200).json(result);
   }
 }

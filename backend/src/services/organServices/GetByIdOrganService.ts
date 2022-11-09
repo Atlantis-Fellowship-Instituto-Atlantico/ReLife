@@ -1,9 +1,9 @@
-import { OrgansRepositories } from "../../repositories/OrgansRepositories";
+import { OrgansRepository } from "../../repositories/OrgansRepository";
 
 export class GetByIdOrganService {
-  async execute(id: string) {
-    const repo = OrgansRepositories;
-    const organ = await repo.findOneBy({ id: id });
+  async getById(organ_id: string) {
+    const repo = new OrgansRepository();
+    const organ = await repo.getById(organ_id);
 
     if (!organ) {
       return Error("Address does not exists");

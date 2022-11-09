@@ -1,21 +1,21 @@
-import { OrgansRepositories } from "../../repositories/OrgansRepositories";
-
-type OrganRequest = {
-  organ_type: string;
-  description: string;
-};
+import { OrgansRepository } from "../../repositories/OrgansRepository";
 
 export class CreateOrganService {
-  async execute({ organ_type, description }: OrganRequest) {
-    const organRepository = OrgansRepositories;
+  async createUser(organ_type: string, description: string) {
+    const organRepo = new OrgansRepository();
+    const organExists = await organRepo.getByDescription(description);
 
-    const organ = organRepository.create({
-      organ_type,
-      description,
-    });
+    if (organExists) throw new Error(`Organ already exists.`);
 
-    await organRepository.save(organ);
+    try {
+      const organ = await organRepo.createOrgan(
+        organ_type.toUpperCase(),
+        description.toUpperCase()
+      );
 
-    return organ;
+      return organ;
+    } catch (error) {
+      throw new Error(`Error on user creation`);
+    }
   }
 }

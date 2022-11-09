@@ -1,57 +1,52 @@
-import { Address } from "../../entities/Address";
-import { Role } from "../../entities/Role";
-import { UsersRepositories } from "../../repositories/UsersRepositories";
-
-type UserUpdateRequest = {
-  id: string;
-  role: Role;
-  address: Address;
-  name: string;
-  last_name: string;
-  cpf: string;
-  phone: string;
-  email: string;
-  password: string;
-  isActive: boolean;
-};
+import { UsersRepository } from "../../repositories/UsersRepository";
 
 export class UpdateUserService {
-  async execute({
-    id,
-    role,
-    address,
-    name,
-    last_name,
-    cpf,
-    phone,
-    email,
-    password,
-    isActive,
-  }: UserUpdateRequest) {
-    const userRepo = UsersRepositories;
+  async updateUser(
+    user_id: string,
+    role: string,
+    full_name: string,
+    cpf: string,
+    phone: string,
+    email: string,
+    password: string,
+    zip_code: string,
+    country: string,
+    uf: string,
+    city: string,
+    district: string,
+    street: string,
+    number: string,
+    complement: string
+  ) {
+    const userRepo = new UsersRepository();
 
-    const user = await userRepo.findOne({
-      where: {
-        id: id,
-      },
-    });
+    const validUser = await userRepo.getById(user_id);
 
-    if (!user) {
+    if (!validUser) {
       return new Error("User does not exists");
     }
 
-    user.role = role ? role : user.role;
-    user.address = address ? address : user.address;
-    user.name = name ? name : user.name;
-    user.last_name = last_name ? last_name : user.last_name;
-    user.cpf = cpf ? cpf : user.cpf;
-    user.phone = phone ? phone : user.phone;
-    user.email = email ? email : user.email;
-    user.password = password ? password : user.password;
-    user.isActive = isActive ? isActive : user.isActive;
-
-    await userRepo.save(user);
-
-    return user;
+    try {
+      const user = await userRepo.updateUser(
+        user_id,
+        role,
+        full_name,
+        cpf,
+        phone,
+        email,
+        password,
+        zip_code,
+        country,
+        uf,
+        city,
+        district,
+        street,
+        number,
+        complement
+      );
+      return user;
+    } catch (err) {
+      throw Error("Error on update user");
+    }
   }
 }

@@ -1,13 +1,13 @@
-import { OrgansRepositories } from "../../repositories/OrgansRepositories";
+import { OrgansRepository } from "../../repositories/OrgansRepository";
 
 export class DeleteOrganService {
-  async execute(id: string) {
-    const repo = OrgansRepositories;
+  async delete(organ_id: string) {
+    const repo = new OrgansRepository();
 
-    if (!(await repo.findOneBy({ id: id }))) {
-      return Error("Address does not exists");
+    if (!(await repo.getById(organ_id))) {
+      return Error("Organ does not exists");
     }
 
-    await repo.delete(id);
+    await repo.organDelete(organ_id);
   }
 }

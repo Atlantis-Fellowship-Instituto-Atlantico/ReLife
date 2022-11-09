@@ -2,11 +2,11 @@ import { Request, Response } from "express";
 import { GetAllUsersService } from "../../services/userServices/GetAllUsersService";
 
 export class GetAllUsersController {
-  async handle(request: Request, response: Response) {
+  async handle(req: Request, res: Response) {
     const service = new GetAllUsersService();
 
-    const users = await service.execute();
+    const users = await service.getAllUsers();
 
-    return response.json(users);
+    return res.json(users);
   }
 }

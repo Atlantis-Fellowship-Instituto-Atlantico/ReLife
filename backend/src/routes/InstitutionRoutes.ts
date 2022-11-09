@@ -4,8 +4,9 @@ import { DeleteInstitutionController } from "../controllers/institutionControlle
 import { GetAllInstitutionsController } from "../controllers/institutionControllers/GetAllInstitutionsController";
 import { GetByIdInstitutionController } from "../controllers/institutionControllers/GetByIdInstitutionController";
 import { UpdateInstitutionController } from "../controllers/institutionControllers/UpdateInstitutionController";
-import ensureAdmin from "../middlewares/ensureAdmin";
+import { GetUserByEmailController } from "../controllers/userControllers/GetUserByEmailController";
 import ensureAuthenticated from "../middlewares/ensureAuthenticated";
+import ensureAutorization from "../middlewares/ensureAutorization";
 
 const institutionRoutes = Router();
 
@@ -15,6 +16,8 @@ const createInstitutionController = new CreateInstitutionController();
 const getAllInstitutionsController = new GetAllInstitutionsController();
 //ListById
 const getByIdInstitutionController = new GetByIdInstitutionController();
+//GetUsersByEmail
+const getByEmailUserController = new GetUserByEmailController();
 //Update
 const updateInstitutionController = new UpdateInstitutionController();
 //Remove
@@ -23,12 +26,34 @@ const deleteInstitutionController = new DeleteInstitutionController();
 //Post
 institutionRoutes.post("/", createInstitutionController.handle);
 //Get
-institutionRoutes.get("/", getAllInstitutionsController.handle);
+institutionRoutes.get(
+  "/",
+  ensureAuthenticated,
+  getAllInstitutionsController.handle
+);
 //GetById
-institutionRoutes.get("/:id", getByIdInstitutionController.handle);
+institutionRoutes.get(
+  "/:institution_id",
+  ensureAuthenticated,
+  getByIdInstitutionController.handle
+);
+//GetUsersByEmail
+institutionRoutes.get(
+  "/users/:email",
+  ensureAutorization,
+  getByEmailUserController.handle
+);
 //Put
-institutionRoutes.put("/:id", updateInstitutionController.handle);
+institutionRoutes.put(
+  "/:institution_id",
+  ensureAutorization,
+  updateInstitutionController.handle
+);
 //Delete
-institutionRoutes.delete("/:id", deleteInstitutionController.handle);
+institutionRoutes.delete(
+  "/:institution_id",
+  ensureAutorization,
+  deleteInstitutionController.handle
+);
 
 export { institutionRoutes };

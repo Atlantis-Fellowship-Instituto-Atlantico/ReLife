@@ -1,13 +1,9 @@
-import { UsersRepositories } from "../../repositories/UsersRepositories";
+import { UsersRepository } from "../../repositories/UsersRepository";
 
 export class GetAllUsersService {
-  async execute() {
-    const repo = UsersRepositories;
-    const users = await repo
-      .createQueryBuilder("users")
-      .leftJoinAndSelect("users.role", "role")
-      .leftJoinAndSelect("users.address", "address")
-      .getMany();
+  async getAllUsers() {
+    const repo = new UsersRepository();
+    const users = await repo.getAll();
 
     return users;
   }

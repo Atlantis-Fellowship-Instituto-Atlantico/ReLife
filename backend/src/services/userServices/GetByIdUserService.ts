@@ -1,19 +1,13 @@
-import { User } from "../../entities/User";
-import { UsersRepositories } from "../../repositories/UsersRepositories";
+import { UsersRepository } from "../../repositories/UsersRepository";
 
 export class GetByIdUserService {
-  async execute(id: string) {
-    const repo = UsersRepositories;
+  async getById(user_id: string) {
+    const repo = new UsersRepository();
 
-    const user = await repo
-      .createQueryBuilder("user")
-      .leftJoinAndSelect("user.role", "role")
-      .leftJoinAndSelect("user.address", "address")
-      .where("user.id = :id", { id })
-      .getOne();
+    const user = await repo.getById(user_id);
 
     if (!user) {
-      return Error("Address does not exists");
+      return Error("User does not exists");
     }
 
     return user;

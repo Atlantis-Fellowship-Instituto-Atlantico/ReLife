@@ -1,13 +1,15 @@
-import { UsersRepositories } from "../../repositories/UsersRepositories";
+import { UsersRepository } from "../../repositories/UsersRepository";
 
 export class DeleteUserService {
-  async execute(id: string) {
-    const repo = UsersRepositories;
+  async delete(user_id: string) {
+    const repo = new UsersRepository();
 
-    if (!(await repo.findOneBy({ id: id }))) {
+    if (!(await repo.getById(user_id))) {
       return Error("User does not exists");
     }
 
-    await repo.delete(id);
+    const user = await repo.userDelete(user_id);
+
+    return user;
   }
 }

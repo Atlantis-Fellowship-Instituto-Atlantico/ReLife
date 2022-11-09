@@ -2,37 +2,46 @@ import { Request, Response } from "express";
 import { CreateUserService } from "../../services/userServices/CreateUserService";
 
 export class CreateUserController {
-  async handle(request: Request, response: Response) {
+  async handle(req: Request, res: Response) {
     const {
       role,
-      address,
-      name,
-      last_name,
+      full_name,
       cpf,
       phone,
       email,
       password,
-      isActive,
-    } = request.body;
+      zip_code,
+      country,
+      uf,
+      city,
+      district,
+      street,
+      number,
+      complement,
+    } = req.body;
 
-    const service = new CreateUserService();
+    const createService = new CreateUserService();
 
-    const result = await service.execute({
+    const result = await createService.createUser(
       role,
-      address,
-      name,
-      last_name,
+      full_name,
       cpf,
       phone,
       email,
       password,
-      isActive,
-    });
+      zip_code,
+      country,
+      uf,
+      city,
+      district,
+      street,
+      number,
+      complement
+    );
 
-    if (result instanceof Error) {
-      return response.status(400).json(result.message);
-    }
+    if (result instanceof Error)
+      return res.status(400).json("Error on create user");
 
-    return response.status(201).json(result);
+    return res.status(201).json(result);
   }
 }

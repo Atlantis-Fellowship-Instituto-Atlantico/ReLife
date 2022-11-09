@@ -2,11 +2,11 @@ import { Request, Response } from "express";
 import { GetAllOrgansService } from "../../services/organServices/GetAllOrgansService";
 
 export class GetAllOrgansController {
-  async handle(request: Request, response: Response) {
+  async handle(req: Request, res: Response) {
     const service = new GetAllOrgansService();
 
-    const organs = await service.execute();
+    const organs = await service.getAll();
 
-    return response.json(organs);
+    return res.json(organs);
   }
 }

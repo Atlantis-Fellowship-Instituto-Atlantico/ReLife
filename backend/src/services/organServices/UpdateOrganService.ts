@@ -1,27 +1,20 @@
-import { OrgansRepositories } from "../../repositories/OrgansRepositories";
-
-type OrganUpdateRequest = {
-  id: string;
-  organ_type: string;
-  description: string;
-};
+import { OrgansRepository } from "../../repositories/OrgansRepository";
 
 export class UpdateOrganService {
-  async execute({ id, organ_type, description }: OrganUpdateRequest) {
-    const repo = OrgansRepositories;
+  async updateOrgan(organ_id: string, organ_type: string, description: string) {
+    const repo = new OrgansRepository();
 
-    const organ = await repo.findOneBy({
-      id: id,
-    });
+    const validOrgan = await repo.getById(organ_id);
 
-    if (!organ) {
+    if (!validOrgan) {
       return new Error("Organ does not exists");
     }
 
-    organ.organ_type = organ_type ? organ_type : organ.organ_type;
-    organ.description = description ? description : organ.description;
-
-    await repo.save(organ);
-    return organ;
+    try {
+      const organ = await repo.updateOrgan(organ_id, organ_type, description);
+      return organ;
+    } catch (err) {
+      throw Error("Error on update organ");
+    }
   }
 }

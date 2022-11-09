@@ -14,9 +14,13 @@ import { User } from "./User";
 @Entity("donors")
 export class Donor {
   @PrimaryGeneratedColumn("uuid")
-  readonly id: string;
+  readonly donor_id: string;
 
-  @OneToOne(() => User)
+  @OneToOne(() => User, {
+    cascade: true,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
   @JoinColumn({ name: "user_id" })
   user: User;
 
@@ -28,19 +32,9 @@ export class Donor {
   @JoinColumn({ name: "institution_id" })
   institution: Institution;
 
-  @Column({ length: 45 })
-  name_mother: string;
+  @Column({ nullable: true, length: 45, default: "" })
+  mother_name: string;
 
-  @Column({ length: 10 })
+  @Column({ nullable: true, length: 10, default: "" })
   blood_type: string;
-
-  @Column()
-  donor_organs: boolean;
-
-  @Column()
-  donor_tissues: boolean;
-
-  // Verificar utilidade no projeto
-  // @Column()
-  // image: Blob;
 }
