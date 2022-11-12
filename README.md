@@ -35,8 +35,6 @@ ___
 
 - Após rodar o script e os containers estiverem up, basta fazer a conexão com o banco, com pgadmin, dbeaver, utilizando as variaveis que estão dentro do arquivo **docker-compose**.
 
-- Utilizar dentro do BD o comando SQL `insert into roles (role_name) values ('Doador'), ('Receptor')`
-
 - Abra o insomnia e importe as requests utilizando o arquivo **RequestsInsominia.json**.
 
 ### Pronto agora é só testar os endpoints 😄
