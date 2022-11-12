@@ -10,8 +10,6 @@
 
 - Dentro da pasta **src** utilizar o comando `npm run migration:up`, para criar as tabelas dentro do BD.
 
-- Utilizar dentro do BD o comando SQL `insert into roles (role_name) values ('Doador'), ('Receptor')`
-
 - Execute o comando `npm run start` dentro da pasta **src** do projeto, abra o insomnia e importe as requests utilizando o arquivo **RequestsInsominia.json**.
 
 ### Pronto agora é só testar os endpoints 😄
