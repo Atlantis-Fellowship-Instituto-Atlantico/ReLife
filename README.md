@@ -15,26 +15,27 @@
 - Execute o comando `npm run start` dentro da pasta **src** do projeto, abra o insomnia e importe as requests utilizando o arquivo **RequestsInsominia.json**.
 
 ### Pronto agora é só testar os endpoints 😄
+___
 
 ## Como executar com o Docker 🐳
 
 - Baixe o projeto para sua máquina com `git clone https://github.com/Atlantis-Fellowship-Instituto-Atlantico/ReLife.git`
 
-- Na pasta 'backend' rode o comando `docker build . -t relife-web` para realizar o build da imagem do projeto.
+- Na pasta 'backend' rode o comando `./script.bat` para subir os containers de forma automatizada.
 
-  - Neste arquivo dockerfile é executado os comandos: 
+  - Neste arquivo é executado os comandos: 
   
-    - `npm install`
+    - ***docker build -t relife-web .***
+
+      - ***npm install***
     
-    - `npm run migration:up`
+      - ***npm run migration:up***
 
-- Rode o comando `docker-compose up -d` para subir o container do banco de dados e o container da aplicação a partir da imagem que foi gerada com o dockerfile.
-
-  - Neste arquivo docker-compose é executado o comando: 
+    - ***docker-compose up -d***
   
-    - `npm run start`
+      - ***npm run start***
 
-- Após rodar o container e ele estiver up, basta fazer a conexão com o banco, com pgadmin, dbeaver, utilizando as variaveis que estão dentro do arquivo **docker-compose**.
+- Após rodar o script e os containers estiverem up, basta fazer a conexão com o banco, com pgadmin, dbeaver, utilizando as variaveis que estão dentro do arquivo **docker-compose**.
 
 - Utilizar dentro do BD o comando SQL `insert into roles (role_name) values ('Doador'), ('Receptor')`
 
