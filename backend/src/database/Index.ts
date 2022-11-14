@@ -4,7 +4,7 @@ require("dotenv/config");
 
 export const AppDataSource = new DataSource({
   type: "postgres",
-  host: "localhost",
+  host: "db",
   port: 5432,
   username: "postgres",
   password: "postgrespw",
@@ -15,3 +15,5 @@ export const AppDataSource = new DataSource({
   entities: ["./src/entities/*.ts"],
   migrations: ["./src/database/migrations/*.ts"],
 });
+
+

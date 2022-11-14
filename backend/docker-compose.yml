@@ -1,0 +1,21 @@
+version: '3'                      #Versao do docker compose
+services: 
+    db:
+      image: postgres             #Imagem do postgres para subir um container com o banco
+      restart: always             #Parametro para sempre dar um restart no container caso ele caia
+      environment:                #Variaveis de ambiente do banco
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgrespw
+        POSTGRES_DB: relifedb
+      ports:
+        - "5432:5432"
+    app:
+      image: relife-web           #Define a imagem que sera utilizada, que eh a mesma que criamos com o dockerfile
+      container_name: relife-web  #Define um nome para o container
+      restart: always             #Parametro para sempre dar um restart no container caso ele caia
+      build: .
+      ports:
+        - "3000:3000"
+      depends_on:                 #Define que este container so pode ser criado apos a criacao do bd
+        - db
+      command: npm start          #Roda o comando npm run start para iniciar o script que que está no package.json

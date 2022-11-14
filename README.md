@@ -1,20 +1,40 @@
 # ReLife
 
-## Como executar
+## Como executar localmente 💻
 
-Baixe o projeto para sua máquina com `git clone https://github.com/Atlantis-Fellowship-Instituto-Atlantico/ReLife.git`
+- Baixe o projeto para sua máquina com `git clone https://github.com/Atlantis-Fellowship-Instituto-Atlantico/ReLife.git`
 
-Execute no terminal o comando `npm install` para instalar as dependencias necessarias.
+- Execute no terminal o comando `npm install` para instalar as dependencias necessárias.
 
-Com o docker instalado, utilize o comando dentro da pasta do projeto `docker-compose up -d`, após rodar o container e ele estiver up, basta fazer a conexão com o banco, com pgadmin, dbeaver, utilizando as variaveis que estão dentro do arquivo **docker-compose**.
+- Utilize o comando `docker-compose up -d` dentro da pasta do projeto , após rodar o container e ele estiver up, basta fazer a conexão com o banco, com pgadmin, dbeaver, utilizando as variaveis que estão dentro do arquivo **docker-compose**.
 
-Dentro da pasta **src** utilizar o comando `npm run migration:up`, para criar as tabelas dentro do BD.
+- Dentro da pasta **src** utilizar o comando `npm run migration:up`, para criar as tabelas dentro do BD.
 
-Utilizar dentro do BD o comando SQL `insert into roles (role_name)
-values 
-('Doador'),
-('Receptor')`
+- Execute o comando `npm run start` dentro da pasta **src** do projeto, abra o insomnia e importe as requests utilizando o arquivo **RequestsInsominia.json**.
 
-Execute o comando `npm run start` dentro da pasta **src** do projeto, abra o insomnia e importe as requests utilizando o arquivo **RequestsInsominia.json**.
+### Pronto agora é só testar os endpoints 😄
+___
 
-Pronto agora é só testar os endpoints 😄
+## Como executar com o Docker 🐳
+
+- Baixe o projeto para sua máquina com `git clone https://github.com/Atlantis-Fellowship-Instituto-Atlantico/ReLife.git`
+
+- Na pasta 'backend' rode o comando `./script.bat` para subir os containers de forma automatizada.
+
+  - Neste arquivo é executado os comandos: 
+  
+    - ***docker build -t relife-web .***
+
+      - ***npm install***
+    
+      - ***npm run migration:up***
+
+    - ***docker-compose up -d***
+  
+      - ***npm run start***
+
+- Após rodar o script e os containers estiverem up, basta fazer a conexão com o banco, com pgadmin, dbeaver, utilizando as variaveis que estão dentro do arquivo **docker-compose**.
+
+- Abra o insomnia e importe as requests utilizando o arquivo **RequestsInsominia.json**.
+
+### Pronto agora é só testar os endpoints 😄

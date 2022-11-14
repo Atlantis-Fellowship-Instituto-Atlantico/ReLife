@@ -1,7 +1,7 @@
 import bodyParser = require("body-parser");
 import * as express from "express";
 import { Request, Response } from "express";
-import { AppDataSource } from "./database/Index";
+import { AppDataSource } from "./database";
 import { routes } from "./routes/Routes";
 
 
@@ -30,3 +30,5 @@ AppDataSource.initialize()
   .catch((err) => {
     console.error("Error during Data Source initialization", err);
   });
+
+  
