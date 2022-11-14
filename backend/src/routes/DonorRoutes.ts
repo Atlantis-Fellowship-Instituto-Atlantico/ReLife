@@ -4,6 +4,7 @@ import { DeleteDonorController } from "../controllers/donorControllers/DeleteDon
 import { GetAllDonorsController } from "../controllers/donorControllers/GetAllDonorsController";
 import { GetDonorByIdController } from "../controllers/donorControllers/GetDonorByIdController";
 import { UpdateDonorController } from "../controllers/donorControllers/UpdateDonorController";
+import ensureAdmin from "../middlewares/ensureAdmin";
 
 const donorRoutes = Router();
 
@@ -27,6 +28,6 @@ donorRoutes.get("/:donor_id", getByIdDonorController.handle);
 // //Put
 donorRoutes.put("/:donor_id", updateDonorController.handle);
 // //Delete
-donorRoutes.delete("/:donor_id", deleteDonorController.handle);
+donorRoutes.delete("/:donor_id", ensureAdmin, deleteDonorController.handle);
 
 export { donorRoutes };

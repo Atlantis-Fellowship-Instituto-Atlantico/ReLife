@@ -149,6 +149,8 @@ export class ReceiversRepository {
     return receiver;
   };
 
+  //criar update somente para instituição
+
   receiverDelete = async (receiver_id: string) => {
     const receiver = await receiversRepo.findOne({
       where: { receiver_id: receiver_id },

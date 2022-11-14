@@ -25,6 +25,7 @@ export class AuthController {
         process.env.SECRET_KEY_JWT as string,
         { expiresIn: "2h" }
       );
+      //retirar na hora da produção
       const user = {
         id: userExist.user_id,
         name: userExist.full_name,
@@ -47,6 +48,7 @@ export class AuthController {
         process.env.SECRET_KEY_JWT as string,
         { expiresIn: "2h" }
       );
+      //retirar na hora da produção
       const institution = {
         id: institutionExist.institution_id,
         name: institutionExist.institution_name,

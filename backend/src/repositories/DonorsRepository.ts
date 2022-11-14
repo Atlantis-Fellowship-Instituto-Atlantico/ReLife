@@ -141,6 +141,8 @@ export class DonorsRepository {
     return donor;
   };
 
+  //criar update somente para instituição
+
   donorDelete = async (donor_id: string) => {
     const donor = await donorsRepo.findOne({
       where: { donor_id: donor_id },
