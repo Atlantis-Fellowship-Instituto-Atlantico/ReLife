@@ -4,11 +4,13 @@ import { Request, Response } from "express";
 import { AppDataSource } from "./database";
 import { routes } from "./routes/Routes";
 
+
 AppDataSource.initialize()
   .then(() => {
     const app = express();
     app.use(express.json());
     app.use(bodyParser.json());
+
     app.use(routes);
 
     app.use((err: Error, request: Request, response: Response) => {

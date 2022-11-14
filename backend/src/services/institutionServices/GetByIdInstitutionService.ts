@@ -1,17 +1,12 @@
-import { InstitutionsRepositories } from "../../repositories/InstitutionsRepositories";
+import { InstitutionRepository } from "../../repositories/InstitutionsRepository";
 
 export class GetByIdInstitutionService {
-  async execute(id: string) {
-    const repo = InstitutionsRepositories;
-    const institution = await repo
-      .createQueryBuilder("institution")
-      .leftJoinAndSelect("institution.role", "role")
-      .leftJoinAndSelect("institution.address", "address")
-      .where("institution.id = :id", { id })
-      .getMany();
+  async getById(institution_id: string) {
+    const repo = new InstitutionRepository();
+    const institution = await repo.getById(institution_id);
 
     if (!institution) {
-      return Error("Address does not exists");
+      return Error("Institution does not exists");
     }
 
     return institution;

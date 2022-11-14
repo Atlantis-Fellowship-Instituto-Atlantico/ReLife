@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
-import { Role } from "../entities/Role";
 
 interface IToken {
   id: string;
-  role: Role;
+  role: string;
   iat: number;
   exp: number;
 }
@@ -21,7 +20,7 @@ export default function (req: Request, res: Response, next: NextFunction) {
     const data = verify(token, process.env.SECRET_KEY_JWT as string);
     const { role, id } = data as IToken;
 
-    if (role.id == 1) {
+    if (role === "ADMINISTRADOR") {
       return next();
     }
 

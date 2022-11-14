@@ -2,11 +2,11 @@ import { Request, Response } from "express";
 import { GetAllAddressesService } from "../../services/addressServices/GetAllAddressesService";
 
 export class GetAllAddressesController {
-  async handle(request: Request, response: Response) {
-    const service = new GetAllAddressesService();
+  async getAll(req: Request, res: Response) {
+    const addressService = new GetAllAddressesService();
 
-    const addresses = await service.execute();
+    const addresses = await addressService.getAll();
 
-    return response.json(addresses);
+    return res.json(addresses);
   }
 }

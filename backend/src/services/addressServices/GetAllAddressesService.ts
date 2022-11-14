@@ -1,9 +1,9 @@
-import { AddressesRepositories } from "../../repositories/AddressesRepositories";
+import { AddressesRepository } from "../../repositories/AddressesRepository";
 
 export class GetAllAddressesService {
-  async execute() {
-    const repo = AddressesRepositories;
-    const addresses = await repo.find();
+  async getAll() {
+    const repo = new AddressesRepository();
+    const addresses = await repo.getAll();
 
     return addresses;
   }

@@ -1,58 +1,52 @@
-import { Address } from "../../entities/Address";
-import { Role } from "../../entities/Role";
-import { InstitutionsRepositories } from "../../repositories/InstitutionsRepositories";
-
-type UserUpdateRequest = {
-  id: string;
-  address: Address;
-  institution_name: string;
-  responsible_name: string;
-  cnpj: string;
-  phone: string;
-  email: string;
-  password: string;
-  isActive: boolean;
-};
+import { InstitutionRepository } from "../../repositories/InstitutionsRepository";
 
 export class UpdateInstitutionService {
-  async execute({
-    id,
-    address,
-    institution_name,
-    responsible_name,
-    cnpj,
-    phone,
-    email,
-    password,
-    isActive,
-  }: UserUpdateRequest) {
-    const institutionRepo = InstitutionsRepositories;
+  async updateInstitution(
+    institution_id: string,
+    institution_name: string,
+    responsible_name: string,
+    cnpj: string,
+    phone: string,
+    email: string,
+    password: string,
+    zip_code: string,
+    country: string,
+    uf: string,
+    city: string,
+    district: string,
+    street: string,
+    number: string,
+    complement: string
+  ) {
+    const institutionRepo = new InstitutionRepository();
 
-    const institution = await institutionRepo.findOne({
-      where: {
-        id: id,
-      },
-    });
+    const validInstitution = await institutionRepo.getById(institution_id);
 
-    if (!institution) {
-      return new Error("User does not exists");
+    if (!validInstitution) {
+      return new Error("Institution does not exists");
     }
 
-    institution.address = address ? address : institution.address;
-    institution.institution_name = institution_name
-      ? institution_name
-      : institution.institution_name;
-    institution.responsible_name = responsible_name
-      ? responsible_name
-      : institution.responsible_name;
-    institution.cnpj = cnpj ? cnpj : institution.cnpj;
-    institution.phone = phone ? phone : institution.phone;
-    institution.email = email ? email : institution.email;
-    institution.password = password ? password : institution.password;
-    institution.isActive = isActive ? isActive : institution.isActive;
-
-    await institutionRepo.save(institution);
-
-    return institution;
+    try {
+      const institution = await institutionRepo.updateInstitution(
+        institution_id,
+        institution_name,
+        responsible_name,
+        cnpj,
+        phone,
+        email,
+        password,
+        zip_code,
+        country,
+        uf,
+        city,
+        district,
+        street,
+        number,
+        complement
+      );
+      return institution;
+    } catch (err) {
+      throw Error("Error on update institution");
+    }
   }
 }

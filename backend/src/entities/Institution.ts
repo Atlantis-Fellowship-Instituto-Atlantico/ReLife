@@ -6,23 +6,22 @@ import {
   JoinColumn,
   OneToMany,
 } from "typeorm";
-import { IsEmail, Min, Max } from "class-validator";
+import { IsEmail } from "class-validator";
 import { Address } from "./Address";
 import { Donor } from "./Donor";
 import { Organ } from "./Organ";
 import { Receiver } from "./Receiver";
-import { Role } from "./Role";
 
 @Entity("institutions")
 export class Institution {
   @PrimaryGeneratedColumn("uuid")
-  readonly id: string;
+  readonly institution_id: string;
 
-  @OneToOne(() => Role)
-  @JoinColumn({ name: "role_id" })
-  role: Role;
-
-  @OneToOne(() => Address)
+  @OneToOne(() => Address, {
+    cascade: true,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
   @JoinColumn({ name: "address_id" })
   address: Address;
 
@@ -30,33 +29,39 @@ export class Institution {
   @JoinColumn({ name: "organ_id" })
   organs: Organ[]; //receber array de "organs"
 
-  @OneToMany(() => Donor, (donor) => donor.id)
+  @OneToMany(() => Donor, (donor) => donor.donor_id)
   @JoinColumn({ name: "donor_id" })
   donors: Donor[];
 
-  @OneToMany(() => Receiver, (receiver) => receiver.id)
+  @OneToMany(() => Receiver, (receiver) => receiver.receiver_id)
   @JoinColumn({ name: "receiver_id" })
   receivers: Receiver[];
 
-  @Column({ length: 100 })
+  @Column({ default: "INSTITUTION" })
+  role: string;
+
+  @Column({ unique: true, length: 100 })
   institution_name: string;
 
   @Column({ length: 150 })
   responsible_name: string;
 
-  @Column({ length: 20 })
+  @Column({ unique: true, length: 20 })
   cnpj: string;
 
-  @Column({ length: 15 })
+  @Column({ unique: true, length: 20 })
   phone: string;
 
-  @Column({ length: 40 })
+  @Column({ unique: true, length: 60 })
   @IsEmail()
   email: string;
 
-  @Column()
+  @Column({ select: false })
   password: string;
 
-  @Column()
+  @Column({ default: true })
   isActive: boolean;
+
+  @Column({ nullable: true, select: false, default: "" })
+  avatar: string;
 }

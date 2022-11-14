@@ -1,13 +1,9 @@
-import { InstitutionsRepositories } from "../../repositories/InstitutionsRepositories";
+import { InstitutionRepository } from "../../repositories/InstitutionsRepository";
 
 export class GetAllInstitutionsService {
-  async execute() {
-    const repo = InstitutionsRepositories;
-    const institutions = await repo
-      .createQueryBuilder("institutions")
-      .leftJoinAndSelect("institutions.role", "role")
-      .leftJoinAndSelect("institutions.address", "address")
-      .getMany();
+  async getAllInstitutions() {
+    const repo = new InstitutionRepository();
+    const institutions = await repo.getAll();
 
     return institutions;
   }

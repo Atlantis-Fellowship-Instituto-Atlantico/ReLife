@@ -12,7 +12,7 @@ import { Receiver } from "./Receiver";
 @Entity("organs")
 export class Organ {
   @PrimaryGeneratedColumn("uuid")
-  readonly id: string;
+  readonly organ_id: string;
 
   @ManyToOne(() => Institution, (institution) => institution.organs)
   @JoinColumn({ name: "organ_id" })
@@ -29,6 +29,6 @@ export class Organ {
   @Column({ length: 50 })
   organ_type: string;
 
-  @Column({ length: 50 })
+  @Column({ unique: true, length: 50 })
   description: string;
 }
