@@ -1,4 +1,3 @@
-import { DonorsRepository } from "../../repositories/DonorsRepository";
 import { ReceiversRepository } from "../../repositories/ReceiversRepository";
 
 export class UpdateReceiverService {

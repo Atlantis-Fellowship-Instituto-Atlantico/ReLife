@@ -1,5 +1,4 @@
 import { DonorsRepository } from "../../repositories/DonorsRepository";
-import { UsersRepository } from "../../repositories/UsersRepository";
 
 export class GetByIdDonorService {
   async getDonorById(donor_id: string) {
