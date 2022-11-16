@@ -6,6 +6,7 @@ export class UpdateReceiverService {
     receiver_id: string,
     role: string,
     full_name: string,
+    sex:string,
     cpf: string,
     phone: string,
     email: string,
@@ -25,31 +26,31 @@ export class UpdateReceiverService {
     const validReceiver = await receiverRepo.getById(receiver_id);
 
     if (!validReceiver) {
-      return new Error("User does not exists");
+      throw new Error("Receiver does not exists");
     }
 
-    try {
-      const receiver = await receiverRepo.updateReceiver(
-        receiver_id,
-        role,
-        full_name,
-        cpf,
-        phone,
-        email,
-        password,
-        zip_code,
-        country,
-        uf,
-        city,
-        district,
-        street,
-        number,
-        complement,
-        mother_name
-      );
-      return receiver;
-    } catch (err) {
-      throw Error("Error on update user");
-    }
+    
+    const receiver = await receiverRepo.updateReceiver(
+      receiver_id,
+      role,
+      full_name,
+      sex,
+      cpf,
+      phone,
+      email,
+      password,
+      zip_code,
+      country,
+      uf,
+      city,
+      district,
+      street,
+      number,
+      complement,
+      mother_name
+    );
+    
+    return receiver;
+    
   }
 }

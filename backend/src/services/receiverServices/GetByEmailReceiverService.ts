@@ -1,11 +1,15 @@
 import { ReceiversRepository } from "../../repositories/ReceiversRepository";
 
 export class GetByEmailReceiverService {
-  async getByEmail(email: string) {
+  async getReceiverByEmail(email: string) {
     const repo = new ReceiversRepository();
 
-    const user = await repo.getReceiverByEmail(email);
+    const receiver = await repo.getReceiverByEmail(email);
 
-    return user;
+    if(!receiver){
+      throw new Error("Receiver email does not exists");
+    }
+
+    return receiver;
   }
 }

@@ -22,7 +22,7 @@ export default function (req: Request, res: Response, next: NextFunction) {
       token,
       process.env.SECRET_KEY_JWT as string
     ) as IToken;
-    req.headers.userId = id;
+    req.headers.id = id;
     req.headers.role = role;
 
     return next();

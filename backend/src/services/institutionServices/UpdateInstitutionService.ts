@@ -23,30 +23,27 @@ export class UpdateInstitutionService {
     const validInstitution = await institutionRepo.getById(institution_id);
 
     if (!validInstitution) {
-      return new Error("Institution does not exists");
+      throw new Error("Institution does not exists");
     }
 
-    try {
-      const institution = await institutionRepo.updateInstitution(
-        institution_id,
-        institution_name,
-        responsible_name,
-        cnpj,
-        phone,
-        email,
-        password,
-        zip_code,
-        country,
-        uf,
-        city,
-        district,
-        street,
-        number,
-        complement
-      );
-      return institution;
-    } catch (err) {
-      throw Error("Error on update institution");
-    }
+    const institution = await institutionRepo.updateInstitution(
+      institution_id,
+      institution_name,
+      responsible_name,
+      cnpj,
+      phone,
+      email,
+      password,
+      zip_code,
+      country,
+      uf,
+      city,
+      district,
+      street,
+      number,
+      complement
+    );
+    return institution;
+    
   }
 }

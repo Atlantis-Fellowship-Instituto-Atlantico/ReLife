@@ -1,15 +1,14 @@
 import { ReceiversRepository } from "../../repositories/ReceiversRepository";
 
 export class DeleteReceiverService {
-  async delete(receiver_id: string) {
+  async deleteReceiver(receiver_id: string) {
     const repo = new ReceiversRepository();
+    const receiver = await repo.getById(receiver_id)
 
-    if (!(await repo.getById(receiver_id))) {
-      return Error("Donor does not exists");
+    if (!receiver) {
+      throw new Error("Receiver does not exists");
     }
 
-    const receiver = await repo.receiverDelete(receiver_id);
-
-    return receiver;
+    await repo.receiverDelete(receiver_id);
   }
 }

@@ -6,6 +6,7 @@ export class CreateUserController {
     const {
       role,
       full_name,
+      sex,
       cpf,
       phone,
       email,
@@ -25,6 +26,7 @@ export class CreateUserController {
     const result = await createService.createUser(
       role,
       full_name,
+      sex,
       cpf,
       phone,
       email,

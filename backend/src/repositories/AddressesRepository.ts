@@ -18,7 +18,8 @@ export class AddressesRepository {
   getByCountry = async (country: string) => {
     const result = addressRepo
       .createQueryBuilder("address")
-      .where("address.country = :country", { country });
+      .where("address.country = :country", { country })
+      .getOne();
 
     return result;
   };
@@ -26,7 +27,8 @@ export class AddressesRepository {
   getByState = async (uf: string) => {
     const result = addressRepo
       .createQueryBuilder("address")
-      .where("address.uf = :uf", { uf });
+      .where("address.uf = :uf", { uf })
+      .getOne();
 
     return result;
   };
@@ -34,7 +36,8 @@ export class AddressesRepository {
   getByCity = async (city: string) => {
     const result = addressRepo
       .createQueryBuilder("address")
-      .where("address.city = :city", { city });
+      .where("address.city = :city", { city })
+      .getOne();
 
     return result;
   };

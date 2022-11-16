@@ -3,12 +3,12 @@ import { AddressesRepository } from "../../repositories/AddressesRepository";
 export class GetAddressesByStateService {
   async getByState(state: string) {
     const repo = new AddressesRepository();
-    const addresses = await repo.getByState(state);
+    const address = await repo.getByState(state.toUpperCase());
 
-    if (!addresses) {
-      return Error("Addresses does not exists");
+    if (!address) {
+      throw new Error("State of address does not exists");
     }
 
-    return addresses;
+    return address;
   }
 }

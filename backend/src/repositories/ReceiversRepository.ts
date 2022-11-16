@@ -24,6 +24,16 @@ export class ReceiversRepository {
     return result;
   };
 
+  getReceiverByCpf = async (cpf: string) => {
+    const result = await receiversRepo
+      .createQueryBuilder("receiver")
+      .leftJoinAndSelect("receiver.user", "user")
+      .leftJoinAndSelect("receiver.address", "address")
+      .where("receiver.user.cpf = :cpf", { cpf })
+      .getOne();
+    return result;
+  };
+
   getReceiverByEmail = async (email: string) => {
     const result = await receiversRepo
       .createQueryBuilder("receiver")
@@ -48,6 +58,7 @@ export class ReceiversRepository {
   createReceiver = async (
     role: string,
     full_name: string,
+    sex:string,
     cpf: string,
     phone: string,
     email: string,
@@ -66,6 +77,7 @@ export class ReceiversRepository {
       user: {
         role,
         full_name,
+        sex,
         cpf,
         phone,
         email,
@@ -91,6 +103,7 @@ export class ReceiversRepository {
     receiver_id: string,
     role: string,
     full_name: string,
+    sex:string,
     cpf: string,
     phone: string,
     email: string,
@@ -114,6 +127,7 @@ export class ReceiversRepository {
       (receiver.user.full_name = full_name
         ? full_name
         : receiver.user.full_name),
+      (receiver.user.sex = sex ? sex : receiver.user.sex),
       (receiver.user.cpf = cpf ? cpf : receiver.user.cpf),
       (receiver.user.phone = phone ? phone : receiver.user.phone),
       (receiver.user.email = email ? email : receiver.user.email),

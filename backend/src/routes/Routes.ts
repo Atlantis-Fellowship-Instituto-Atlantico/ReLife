@@ -28,6 +28,6 @@ routes.use("/users/receivers", receiverRoutes);
 routes.use('/api-docs', swaggerUi.serve);
 routes.get('/api-docs', swaggerUi.setup(swaggerDocument));
 
-routes.use('/69ed90c76a11b9a7ee11467ef09503dbec35dbc7be84ba664a098c859416228b')
+// routes.use('/69ed90c76a11b9a7ee11467ef09503dbec35dbc7be84ba664a098c859416228b')
 
 export { routes };

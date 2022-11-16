@@ -7,7 +7,7 @@ export class GetByIdReceiverService {
     const receiver = await repo.getById(receiver_id);
 
     if (!receiver) {
-      return Error("User does not exists");
+      throw new Error("Receiver does not exists");
     }
 
     return receiver;

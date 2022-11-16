@@ -22,11 +22,11 @@ export class UsersRepository {
     return result;
   };
 
-  getUserByEmail = async (email: string) => {
+  getUserByEmail = async (cpf: string) => {
     const result = await userRepo
       .createQueryBuilder("user")
       .leftJoinAndSelect("user.address", "address")
-      .where("user.email = :email", { email })
+      .where("user.cpf = :cpf", { cpf })
       .getOne();
     return result;
   };
@@ -44,6 +44,7 @@ export class UsersRepository {
   createUser = async (
     role: string,
     full_name: string,
+    sex:string,
     cpf: string,
     phone: string,
     email: string,
@@ -61,6 +62,7 @@ export class UsersRepository {
     const result = userRepo.create({
       role,
       full_name,
+      sex,
       cpf,
       phone,
       email,
@@ -85,6 +87,7 @@ export class UsersRepository {
     user_id: string,
     role: string,
     full_name: string,
+    sex:string,
     cpf: string,
     phone: string,
     email: string,
@@ -105,6 +108,7 @@ export class UsersRepository {
 
     (user.role = role ? role.toUpperCase() : user.role),
       (user.full_name = full_name ? full_name : user.full_name),
+      (user.sex = sex ? sex : user.sex),
       (user.cpf = cpf ? cpf : user.cpf),
       (user.phone = phone ? phone : user.phone),
       (user.email = email ? email : user.email),

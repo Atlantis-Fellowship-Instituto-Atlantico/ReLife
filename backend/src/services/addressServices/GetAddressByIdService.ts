@@ -6,7 +6,7 @@ export class GetAddressByIdService {
     const address = await repo.getById(address_id);
 
     if (!address) {
-      return Error("Address does not exists");
+      throw new Error("Address does not exists");
     }
 
     return address;

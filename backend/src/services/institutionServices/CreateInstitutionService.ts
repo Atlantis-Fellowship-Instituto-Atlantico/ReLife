@@ -25,33 +25,30 @@ export class CreateInstitutionService {
     );
     const userExists = await userRepo.getUserByEmail(email);
 
-    if (
-      (institutionExists && institutionExists.email === email) ||
+    if ((institutionExists && institutionExists.email === email) ||
       (userExists && userExists.email === email)
-    )
+    ){
       throw new Error(`Email already in use.`);
-
-    try {
-      const institution = await institutionRepo.createInstitution(
-        institution_name,
-        responsible_name,
-        cnpj,
-        phone,
-        email,
-        password,
-        zip_code,
-        country.toUpperCase(),
-        uf.toUpperCase(),
-        city.toUpperCase(),
-        district.toUpperCase(),
-        street,
-        number,
-        complement
-      );
-
-      return institution;
-    } catch (error) {
-      throw new Error(`Error on user creation`);
     }
+    
+    const institution = await institutionRepo.createInstitution(
+      institution_name.toUpperCase(),
+      responsible_name,
+      cnpj,
+      phone,
+      email,
+      password,
+      zip_code,
+      country.toUpperCase(),
+      uf.toUpperCase(),
+      city.toUpperCase(),
+      district.toUpperCase(),
+      street,
+      number,
+      complement
+    );
+
+    return institution;
+    
   }
 }

@@ -1,15 +1,14 @@
 import { UsersRepository } from "../../repositories/UsersRepository";
 
 export class DeleteUserService {
-  async delete(user_id: string) {
+  async deleteUser(user_id: string) {
     const repo = new UsersRepository();
+    const user = await repo.getById(user_id)
 
-    if (!(await repo.getById(user_id))) {
-      return Error("User does not exists");
+    if (!user) {
+      throw new Error("User does not exists");
     }
 
-    const user = await repo.userDelete(user_id);
-
-    return user;
+    await repo.userDelete(user_id);
   }
 }
