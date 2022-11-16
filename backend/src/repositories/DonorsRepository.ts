@@ -24,6 +24,16 @@ export class DonorsRepository {
     return result;
   };
 
+  getDonorByCpf = async (cpf: string) => {
+    const result = await donorsRepo
+      .createQueryBuilder("donor")
+      .leftJoinAndSelect("donor.user", "user")
+      .leftJoinAndSelect("user.address", "address")
+      .where("donor.user.cpf = :cpf", { cpf })
+      .getOne();
+    return result;
+  };
+
   getDonorByEmail = async (email: string) => {
     const result = await donorsRepo
       .createQueryBuilder("donor")
@@ -48,6 +58,7 @@ export class DonorsRepository {
   createDonor = async (
     role: string,
     full_name: string,
+    sex: string,
     cpf: string,
     phone: string,
     email: string,
@@ -66,6 +77,7 @@ export class DonorsRepository {
       user: {
         role,
         full_name,
+        sex,
         cpf,
         phone,
         email,
@@ -91,6 +103,7 @@ export class DonorsRepository {
     donor_id: string,
     role: string,
     full_name: string,
+    sex:string,
     cpf: string,
     phone: string,
     email: string,
@@ -112,6 +125,7 @@ export class DonorsRepository {
 
     (donor.user.role = role ? role.toUpperCase() : donor.user.role),
       (donor.user.full_name = full_name ? full_name : donor.user.full_name),
+      (donor.user.sex = sex ? sex : donor.user.sex),
       (donor.user.cpf = cpf ? cpf : donor.user.cpf),
       (donor.user.phone = phone ? phone : donor.user.phone),
       (donor.user.email = email ? email : donor.user.email),

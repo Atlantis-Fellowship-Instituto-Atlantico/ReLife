@@ -1,11 +1,13 @@
 import { OrgansRepository } from "../../repositories/OrgansRepository";
 
 export class DeleteOrganService {
-  async delete(organ_id: string) {
+  async deleteOrgan(organ_id: string) {
     const repo = new OrgansRepository();
+    const organ = await repo.getById(organ_id)
 
-    if (!(await repo.getById(organ_id))) {
-      return Error("Organ does not exists");
+
+    if (!organ) {
+      throw new Error("Organ does not exists");
     }
 
     await repo.organDelete(organ_id);

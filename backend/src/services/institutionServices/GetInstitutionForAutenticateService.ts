@@ -1,11 +1,15 @@
 import { InstitutionRepository } from "../../repositories/InstitutionsRepository";
 
 export class GetInstitutionForAutenticateService {
-  async getForAuth(email: string) {
+  async getInstitutionForAuth(email: string) {
     const repo = new InstitutionRepository();
 
-    const user = await repo.getForAutenticate(email);
+    const institution = await repo.getForAutenticate(email);
 
-    return user;
+    if (!institution) {
+      throw new Error("Institution email does not exists");
+    }
+
+    return institution;
   }
 }

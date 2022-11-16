@@ -5,6 +5,7 @@ export class UpdateDonorService {
     donor_id: string,
     role: string,
     full_name: string,
+    sex:string,
     cpf: string,
     phone: string,
     email: string,
@@ -24,31 +25,29 @@ export class UpdateDonorService {
     const validDonor = await donorRepo.getById(donor_id);
 
     if (!validDonor) {
-      return new Error("User does not exists");
+      throw new Error("Donor does not exists");
     }
 
-    try {
-      const donor = await donorRepo.updateDonor(
-        donor_id,
-        role,
-        full_name,
-        cpf,
-        phone,
-        email,
-        password,
-        zip_code,
-        country,
-        uf,
-        city,
-        district,
-        street,
-        number,
-        complement,
-        mother_name
-      );
-      return donor;
-    } catch (err) {
-      throw Error("Error on update user");
-    }
+    const donor = await donorRepo.updateDonor(
+      donor_id,
+      role.toUpperCase(),
+      full_name,
+      sex,
+      cpf,
+      phone,
+      email,
+      password,
+      zip_code,
+      country.toUpperCase(),
+      uf.toUpperCase(),
+      city.toUpperCase(),
+      district.toUpperCase(),
+      street,
+      number,
+      complement,
+      mother_name
+    );
+    return donor;
+    
   }
 }

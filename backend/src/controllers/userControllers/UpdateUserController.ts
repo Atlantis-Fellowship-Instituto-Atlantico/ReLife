@@ -7,6 +7,7 @@ export class UpdateUserController {
     const {
       role,
       full_name,
+      sex,
       cpf,
       phone,
       email,
@@ -27,6 +28,7 @@ export class UpdateUserController {
       user_id,
       role,
       full_name,
+      sex,
       cpf,
       phone,
       email,

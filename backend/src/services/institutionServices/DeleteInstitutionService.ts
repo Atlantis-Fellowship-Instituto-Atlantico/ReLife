@@ -1,15 +1,14 @@
 import { InstitutionRepository } from "../../repositories/InstitutionsRepository";
 
 export class DeleteInstitutionService {
-  async delete(institution_id: string) {
+  async deleteInstitution(institution_id: string) {
     const repo = new InstitutionRepository();
+    const institution = await repo.getById(institution_id);
 
-    if (!(await repo.getById(institution_id))) {
-      return Error("User does not exists");
+    if (!institution) {
+      throw new Error("Institution does not exists");
     }
 
-    const institution = await repo.userDelete(institution_id);
-
-    return institution;
+    await repo.userDelete(institution_id);
   }
 }

@@ -4,8 +4,12 @@ export class GetReceiverForAutenticateService {
   async getForAuth(email: string) {
     const repo = new ReceiversRepository();
 
-    const user = await repo.getReceiverForAutenticate(email);
+    const receiver = await repo.getReceiverForAutenticate(email);
 
-    return user;
+    if(!receiver){
+      throw new Error("Receiver email does not exists");
+    }
+
+    return receiver;
   }
 }

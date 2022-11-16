@@ -1,11 +1,15 @@
 import { DonorsRepository } from "../../repositories/DonorsRepository";
 
 export class GetByEmailDonorService {
-  async getByEmail(email: string) {
+  async getDonorByEmail(email: string) {
     const repo = new DonorsRepository();
 
-    const user = await repo.getDonorByEmail(email);
+    const donor = await repo.getDonorByEmail(email);
 
-    return user;
+    if(!donor){
+      throw new Error("Donor email does not exists");
+    }
+
+    return donor;
   }
 }

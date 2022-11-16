@@ -27,6 +27,9 @@ export class User {
   @Column({ length: 150 })
   full_name: string;
 
+  @Column()
+  sex: string
+
   @Column({ unique: true, length: 14 })
   cpf: string;
 
