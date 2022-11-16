@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { GetByIdDonorService } from "../../services/donorServices/GetByIdDonorService";
 import { GetByIdReceiverService } from "../../services/receiverServices/GetByIdReceiverService";
 
 export class GetReceiverByIdController {
@@ -8,12 +7,11 @@ export class GetReceiverByIdController {
 
     const service = new GetByIdReceiverService();
 
-    const result = await service.getById(receiver_id);
-
-    if (result instanceof Error) {
-      return res.status(400).json(result.message);
+    try {
+      const result = await service.getById(receiver_id);
+      return res.status(200).json(result);
+    } catch (error) {
+      return res.status(404).send(error.message)
     }
-
-    return res.status(200).json(result);
   }
 }

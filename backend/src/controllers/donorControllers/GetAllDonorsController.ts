@@ -7,6 +7,6 @@ export class GetAllDonorsController {
 
     const users = await service.getAllDonors();
 
-    return res.json(users);
+    return res.status(200).json(users);
   }
 }

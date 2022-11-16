@@ -3,13 +3,16 @@ import { GetAddressByIdService } from "../../services/addressServices/GetAddress
 
 export class GetAddressByIdController {
   async getById(req: Request, res: Response) {
+    const { address_id } = req.params;
+
     const addressService = new GetAddressByIdService();
 
-    const { address_id } = req.params;
-    const address = await addressService.getById(address_id);
-    if (!address) {
-      return res.status(400).json("Address does not exists");
+    try {
+      const address = await addressService.getAddressById(address_id);
+      return res.status(200).json(address);
+    } catch (error) {
+      return res.status(404).send(error.message)
     }
-    return res.json(address);
+
   }
 }

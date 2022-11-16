@@ -7,6 +7,6 @@ export class GetAllUsersController {
 
     const users = await service.getAllUsers();
 
-    return res.json(users);
+    return res.status(200).json(users);
   }
 }

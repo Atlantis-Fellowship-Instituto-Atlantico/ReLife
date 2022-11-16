@@ -6,6 +6,7 @@ export class CreateDonorController {
     const {
       role,
       full_name,
+      sex,
       cpf,
       phone,
       email,
@@ -22,26 +23,27 @@ export class CreateDonorController {
 
     const service = new CreateDonorService();
 
-    const result = await service.createDonor(
-      role,
-      full_name,
-      cpf,
-      phone,
-      email,
-      password,
-      zip_code,
-      country,
-      uf,
-      city,
-      district,
-      street,
-      number,
-      complement
-    );
-
-    if (result instanceof Error)
-      return res.status(400).json("Error on create user");
-
-    return res.status(201).json(result);
+    try {
+      const result = await service.createDonor(
+        role,
+        full_name,
+        sex,
+        cpf,
+        phone,
+        email,
+        password,
+        zip_code,
+        country,
+        uf,
+        city,
+        district,
+        street,
+        number,
+        complement
+      );
+      return res.status(201).json(result)
+    } catch (error) {
+      return res.status(400).send(error.message)
+    }
   }
 }

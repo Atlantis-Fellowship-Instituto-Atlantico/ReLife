@@ -5,8 +5,8 @@ export class GetAllOrgansController {
   async handle(req: Request, res: Response) {
     const service = new GetAllOrgansService();
 
-    const organs = await service.getAll();
+    const organs = await service.getAllOrgans();
 
-    return res.json(organs);
+    return res.status(200).json(organs);
   }
 }

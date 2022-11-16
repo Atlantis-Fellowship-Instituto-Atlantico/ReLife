@@ -7,12 +7,12 @@ export class GetDonorByEmailController {
 
     const service = new GetByEmailDonorService();
 
-    const result = await service.getByEmail(email);
-
-    if (result instanceof Error) {
-      return res.status(400).json(result.message);
+    try {
+      const result = await service.getDonorByEmail(email);
+      return res.status(200).json(result);
+    } catch (error) {
+      return res.status(404).send(error.message)
     }
 
-    return res.status(200).json(result);
   }
 }

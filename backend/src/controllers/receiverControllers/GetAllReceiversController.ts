@@ -7,6 +7,6 @@ export class GetAllReceiversController {
 
     const users = await service.getAllReceivers();
 
-    return res.json(users);
+    return res.status(200).json(users);
   }
 }

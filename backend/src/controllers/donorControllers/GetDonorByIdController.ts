@@ -7,12 +7,12 @@ export class GetDonorByIdController {
 
     const service = new GetByIdDonorService();
 
-    const result = await service.getById(donor_id);
-
-    if (result instanceof Error) {
-      return res.status(400).json(result.message);
+    try {
+      const result = await service.getDonorById(donor_id);
+      return res.status(200).json(result);
+    } catch (error) {
+      return res.status(404).send(error.message)
     }
-
-    return res.status(200).json(result);
+    
   }
 }

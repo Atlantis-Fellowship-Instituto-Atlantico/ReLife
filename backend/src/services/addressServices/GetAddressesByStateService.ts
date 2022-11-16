@@ -1,7 +1,7 @@
 import { AddressesRepository } from "../../repositories/AddressesRepository";
 
 export class GetAddressesByStateService {
-  async getByState(state: string) {
+  async getAddressByState(state: string) {
     const repo = new AddressesRepository();
     const address = await repo.getByState(state.toUpperCase());
 

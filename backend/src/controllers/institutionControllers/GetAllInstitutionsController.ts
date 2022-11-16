@@ -7,6 +7,6 @@ export class GetAllInstitutionsController {
 
     const institutions = await service.getAllInstitutions();
 
-    return res.json(institutions);
+    return res.status(200).json(institutions);
   }
 }

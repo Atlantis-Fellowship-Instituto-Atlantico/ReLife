@@ -5,8 +5,8 @@ export class GetAllAddressesController {
   async getAll(req: Request, res: Response) {
     const addressService = new GetAllAddressesService();
 
-    const addresses = await addressService.getAll();
+    const addresses = await addressService.getAllAddresses();
 
-    return res.json(addresses);
+    return res.status(200).json(addresses);
   }
 }

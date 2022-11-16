@@ -1,7 +1,7 @@
 import { AddressesRepository } from "../../repositories/AddressesRepository";
 
 export class GetAddressByCountryService {
-  async getByCountry(country: string) {
+  async getAddressByCountry(country: string) {
     const repo = new AddressesRepository();
     const address = await repo.getByCountry(country.toUpperCase());
 

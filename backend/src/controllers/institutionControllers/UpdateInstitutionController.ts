@@ -23,28 +23,27 @@ export class UpdateInstitutionController {
 
     const service = new UpdateInstitutionService();
 
-    const result = await service.updateInstitution(
-      institution_id,
-      institution_name,
-      responsible_name,
-      cnpj,
-      phone,
-      email,
-      password,
-      zip_code,
-      country,
-      uf,
-      city,
-      district,
-      street,
-      number,
-      complement
-    );
-
-    if (result instanceof Error) {
-      return res.status(400).json(result.message);
+    try {
+      const result = await service.updateInstitution(
+        institution_id,
+        institution_name,
+        responsible_name,
+        cnpj,
+        phone,
+        email,
+        password,
+        zip_code,
+        country,
+        uf,
+        city,
+        district,
+        street,
+        number,
+        complement
+      );
+      return res.status(200).json(result);
+    } catch (error) {
+      return res.status(400).send(error.message)
     }
-
-    return res.status(200).json(result);
   }
 }

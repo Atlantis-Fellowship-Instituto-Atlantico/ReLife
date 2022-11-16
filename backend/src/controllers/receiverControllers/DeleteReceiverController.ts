@@ -7,12 +7,11 @@ export class DeleteReceiverController {
 
     const service = new DeleteReceiverService();
 
-    const result = await service.delete(receiver_id);
-
-    if (result instanceof Error) {
-      return res.status(400).json(result.message);
-    }
-
-    return res.status(204).end();
+    try {
+      await service.deleteReceiver(receiver_id);
+      return res.status(204).end();
+    } catch (error) {
+      return res.status(404).send(error.message)
+    }  
   }
 }
