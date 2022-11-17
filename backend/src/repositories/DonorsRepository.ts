@@ -1,4 +1,5 @@
 import { hash } from "bcryptjs";
+import { QueryBuilder } from "typeorm";
 import { AppDataSource } from "../database/Index";
 import { Donor } from "../entities/Donor";
 import { Organ } from "../entities/Organ";
@@ -30,7 +31,7 @@ export class DonorsRepository {
       .createQueryBuilder("donor")
       .leftJoinAndSelect("donor.user", "user")
       .leftJoinAndSelect("user.address", "address")
-      .where("donor.user.cpf = :cpf", { cpf })
+      .where("user.cpf = :cpf", { cpf })
       .getOne();
     return result;
   };
@@ -118,10 +119,13 @@ export class DonorsRepository {
     complement: string,
     mother_name: string
   ) => {
-    const donor = await donorsRepo.findOne({
-      where: { donor_id: donor_id },
-      relations: { user: true },
-    });
+    const donor = await donorsRepo
+      .createQueryBuilder("donor")
+      .leftJoinAndSelect("donor.user", "user")
+      .leftJoinAndSelect("user.address", "address")
+      .addSelect("donor.user.password")
+      .where("donor.donor_id = :donor_id", { donor_id })
+      .getOne();
 
     (donor.user.full_name = full_name ? full_name : donor.user.full_name),
       (donor.user.sex = sex ? sex.toUpperCase() : donor.user.sex),

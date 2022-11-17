@@ -1,4 +1,5 @@
 import { InstitutionRepository } from "../../repositories/InstitutionsRepository";
+import { UsersRepository } from "../../repositories/UsersRepository";
 
 export class UpdateInstitutionService {
   async updateInstitution(
@@ -19,11 +20,35 @@ export class UpdateInstitutionService {
     complement: string
   ) {
     const institutionRepo = new InstitutionRepository();
+    const userRepo = new UsersRepository();
 
     const validInstitution = await institutionRepo.getById(institution_id);
+    const userExists = await userRepo.getUserByEmail(email);
 
     if (!validInstitution) {
       throw new Error("Institution does not exists");
+    }
+
+    if (
+      (validInstitution && validInstitution.email === email) ||
+      (userExists && userExists.email === email)
+    ) {
+      throw new Error(`Email already in use.`);
+    }
+    if (
+      validInstitution &&
+      validInstitution.institution_name === institution_name
+    ) {
+      throw new Error(`Institution name already in use.`);
+    }
+    if (validInstitution && validInstitution.cnpj === cnpj) {
+      throw new Error(`Institution CNPJ already in use.`);
+    }
+    if (
+      (validInstitution && validInstitution.phone === phone) ||
+      (userExists && userExists.phone === phone)
+    ) {
+      throw new Error(`Phone already in use.`);
     }
 
     const institution = await institutionRepo.updateInstitution(

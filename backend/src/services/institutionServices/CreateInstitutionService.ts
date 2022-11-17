@@ -20,6 +20,7 @@ export class CreateInstitutionService {
   ) {
     const institutionRepo = new InstitutionRepository();
     const userRepo = new UsersRepository();
+
     const institutionExists = await institutionRepo.getInstitutionByEmail(
       email
     );
@@ -30,6 +31,21 @@ export class CreateInstitutionService {
       (userExists && userExists.email === email)
     ) {
       throw new Error(`Email already in use.`);
+    }
+    if (
+      institutionExists &&
+      institutionExists.institution_name === institution_name
+    ) {
+      throw new Error(`Institution name already in use.`);
+    }
+    if (institutionExists && institutionExists.cnpj === cnpj) {
+      throw new Error(`Institution CNPJ already in use.`);
+    }
+    if (
+      (institutionExists && institutionExists.phone === phone) ||
+      (userExists && userExists.phone === phone)
+    ) {
+      throw new Error(`Phone already in use.`);
     }
 
     const institution = await institutionRepo.createInstitution(

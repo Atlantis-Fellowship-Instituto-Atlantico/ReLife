@@ -10,6 +10,7 @@ export class InstitutionRepository {
       .createQueryBuilder("institution")
       .leftJoinAndSelect("institution.address", "address")
       .where("institution.institution_id = :institution_id", { institution_id })
+      .andWhere("institution.isActive = true")
       .getOne();
     return result;
   };
