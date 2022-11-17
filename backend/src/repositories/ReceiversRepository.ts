@@ -30,7 +30,7 @@ export class ReceiversRepository {
       .createQueryBuilder("receiver")
       .leftJoinAndSelect("receiver.user", "user")
       .leftJoinAndSelect("receiver.address", "address")
-      .where("receiver.user.cpf = :cpf", { cpf })
+      .where("user.cpf = :cpf", { cpf })
       .getOne();
     return result;
   };
@@ -117,10 +117,13 @@ export class ReceiversRepository {
     complement: string,
     mother_name: string
   ) => {
-    const receiver = await receiversRepo.findOne({
-      where: { receiver_id: receiver_id },
-      relations: { user: true },
-    });
+    const receiver = await receiversRepo
+      .createQueryBuilder("receiver")
+      .leftJoinAndSelect("receiver.user", "user")
+      .leftJoinAndSelect("user.address", "address")
+      .addSelect("receiver.user.password")
+      .where("receiver.receiver_id = :receiver_id", { receiver_id })
+      .getOne();
 
     (receiver.user.full_name = full_name ? full_name : receiver.user.full_name),
       (receiver.user.sex = sex ? sex : receiver.user.sex),
