@@ -19,7 +19,7 @@ export class ReceiversRepository {
     const result = receiversRepo
       .createQueryBuilder("receiver")
       .leftJoinAndSelect("receiver.user", "user")
-      .leftJoinAndSelect("receiver.address", "address")
+      .leftJoinAndSelect("user.address", "address")
       .getMany();
     return result;
   };
@@ -56,9 +56,8 @@ export class ReceiversRepository {
   };
 
   createReceiver = async (
-    role: string,
     full_name: string,
-    sex:string,
+    sex: string,
     cpf: string,
     phone: string,
     email: string,
@@ -75,7 +74,7 @@ export class ReceiversRepository {
     const passHash = await hash(password, 8);
     const result = receiversRepo.create({
       user: {
-        role,
+        role: "RECEIVER",
         full_name,
         sex,
         cpf,
@@ -101,9 +100,8 @@ export class ReceiversRepository {
 
   updateReceiver = async (
     receiver_id: string,
-    role: string,
     full_name: string,
-    sex:string,
+    sex: string,
     cpf: string,
     phone: string,
     email: string,
@@ -123,10 +121,7 @@ export class ReceiversRepository {
       relations: { user: true },
     });
 
-    (receiver.user.role = role ? role.toUpperCase() : receiver.user.role),
-      (receiver.user.full_name = full_name
-        ? full_name
-        : receiver.user.full_name),
+    (receiver.user.full_name = full_name ? full_name : receiver.user.full_name),
       (receiver.user.sex = sex ? sex : receiver.user.sex),
       (receiver.user.cpf = cpf ? cpf : receiver.user.cpf),
       (receiver.user.phone = phone ? phone : receiver.user.phone),

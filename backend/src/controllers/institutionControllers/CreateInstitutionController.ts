@@ -21,7 +21,7 @@ export class CreateInstitutionController {
     } = req.body;
 
     const service = new CreateInstitutionService();
-    
+
     try {
       const result = await service.createInstitution(
         institution_name,
@@ -41,8 +41,7 @@ export class CreateInstitutionController {
       );
       return res.status(201).json(result);
     } catch (error) {
-      return res.status(400).send(error.message)
+      return res.status(400).send(error.message);
     }
-
   }
 }

@@ -26,7 +26,7 @@ export default function (req: Request, res: Response, next: NextFunction) {
     req.headers.role = role;
 
     return next();
-  } catch(error) {
+  } catch (error) {
     return res.status(401).send(error.message);
   }
 }

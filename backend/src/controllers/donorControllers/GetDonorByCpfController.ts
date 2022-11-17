@@ -11,8 +11,7 @@ export class GetDonorByCpfController {
       const result = await service.getDonorByCpf(cpf);
       return res.status(200).json(result);
     } catch (error) {
-      return res.status(404).send(error.message)
+      return res.status(404).send(error.message);
     }
-    
   }
 }

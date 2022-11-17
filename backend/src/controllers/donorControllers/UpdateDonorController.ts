@@ -5,7 +5,6 @@ export class UpdateDonorController {
   async handle(req: Request, res: Response) {
     const { donor_id } = req.params;
     const {
-      role,
       full_name,
       sex,
       cpf,
@@ -28,7 +27,6 @@ export class UpdateDonorController {
     try {
       const result = await service.updateDonor(
         donor_id,
-        role,
         full_name,
         sex,
         cpf,
@@ -47,7 +45,7 @@ export class UpdateDonorController {
       );
       return res.status(200).json(result);
     } catch (error) {
-      return res.status(404).send(error.message)
+      return res.status(404).send(error.message);
     }
   }
 }

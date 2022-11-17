@@ -19,12 +19,12 @@ export default function (req: Request, res: Response, next: NextFunction) {
   const { role, id } = data as IToken;
 
   try {
-    if (role === "ADMINISTRATOR" || role === "INSTITUTION") {
+    if (role === "ADMIN" || role === "INSTITUTION") {
       return next();
     }
 
     return res.status(403).json("Does not have necessary authorization");
-  } catch(error) {
+  } catch (error) {
     return res.status(401).send(error.message);
   }
 }

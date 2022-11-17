@@ -4,9 +4,8 @@ import { UsersRepository } from "../../repositories/UsersRepository";
 
 export class CreateDonorService {
   async createDonor(
-    role: string,
     full_name: string,
-    sex:string,
+    sex: string,
     cpf: string,
     phone: string,
     email: string,
@@ -31,14 +30,13 @@ export class CreateDonorService {
     if (
       (donorExists && donorExists.email === email) ||
       (institutionExists && institutionExists.email === email)
-    ){
+    ) {
       throw new Error(`Email already in use.`);
     }
-    
+
     const donor = await donorRepo.createDonor(
-      role.toUpperCase(),
       full_name,
-      sex,
+      sex.toUpperCase(),
       cpf,
       phone,
       email,

@@ -5,8 +5,11 @@ export class GetAllUsersController {
   async handle(req: Request, res: Response) {
     const service = new GetAllUsersService();
 
-    const users = await service.getAllUsers();
-
-    return res.status(200).json(users);
+    try {
+      const users = await service.getAllUsers();
+      return res.status(200).json(users);
+    } catch (error) {
+      return res.status(404).send(error.message);
+    }
   }
 }

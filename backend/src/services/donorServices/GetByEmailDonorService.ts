@@ -6,7 +6,7 @@ export class GetByEmailDonorService {
 
     const donor = await repo.getDonorByEmail(email);
 
-    if(!donor){
+    if (!donor) {
       throw new Error("Donor email does not exists");
     }
 

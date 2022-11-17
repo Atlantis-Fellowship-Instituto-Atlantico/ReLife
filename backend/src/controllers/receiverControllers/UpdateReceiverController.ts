@@ -5,7 +5,6 @@ export class UpdateReceiverController {
   async handle(req: Request, res: Response) {
     const { receiver_id } = req.params;
     const {
-      role,
       full_name,
       sex,
       cpf,
@@ -28,7 +27,6 @@ export class UpdateReceiverController {
     try {
       const result = await service.updateReceiver(
         receiver_id,
-        role,
         full_name,
         sex,
         cpf,
@@ -47,7 +45,7 @@ export class UpdateReceiverController {
       );
       return res.status(200).json(result);
     } catch (error) {
-      return res.status(400).send(error.message)
-    }  
+      return res.status(400).send(error.message);
+    }
   }
 }

@@ -11,8 +11,7 @@ export class UpdateOrganService {
     }
 
     const organ = await repo.updateOrgan(organ_id, organ_type, description);
-    
+
     return organ;
-    
   }
 }

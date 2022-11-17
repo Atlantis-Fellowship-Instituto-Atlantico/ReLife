@@ -3,9 +3,8 @@ import { ReceiversRepository } from "../../repositories/ReceiversRepository";
 export class UpdateReceiverService {
   async updateReceiver(
     receiver_id: string,
-    role: string,
     full_name: string,
-    sex:string,
+    sex: string,
     cpf: string,
     phone: string,
     email: string,
@@ -28,10 +27,8 @@ export class UpdateReceiverService {
       throw new Error("Receiver does not exists");
     }
 
-    
     const receiver = await receiverRepo.updateReceiver(
       receiver_id,
-      role,
       full_name,
       sex,
       cpf,
@@ -48,8 +45,7 @@ export class UpdateReceiverService {
       complement,
       mother_name
     );
-    
+
     return receiver;
-    
   }
 }

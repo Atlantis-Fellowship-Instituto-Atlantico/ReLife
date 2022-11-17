@@ -11,7 +11,7 @@ export class DeleteDonorController {
       await service.deleteDonor(donor_id);
       return res.status(204).end();
     } catch (error) {
-      return res.status(404).send(error.message)
+      return res.status(404).send(error.message);
     }
   }
 }

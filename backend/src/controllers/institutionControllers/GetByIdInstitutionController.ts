@@ -11,7 +11,7 @@ export class GetByIdInstitutionController {
       const result = await service.getInstitutionById(institution_id);
       return res.status(200).json(result);
     } catch (error) {
-      return res.status(404).send(error.message)
+      return res.status(404).send(error.message);
     }
   }
 }

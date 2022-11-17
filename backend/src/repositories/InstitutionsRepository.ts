@@ -37,6 +37,7 @@ export class InstitutionRepository {
       .addSelect("institution.password")
       .leftJoinAndSelect("institution.address", "address")
       .where("institution.email = :email", { email })
+      .andWhere("institution.isActive = true")
       .getOne();
     return result;
   };

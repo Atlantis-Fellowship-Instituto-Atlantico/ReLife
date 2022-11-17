@@ -37,6 +37,7 @@ export class UsersRepository {
       .addSelect("user.password")
       .leftJoinAndSelect("user.address", "address")
       .where("user.email = :email", { email })
+      .andWhere("user.isActive = true")
       .getOne();
     return result;
   };
@@ -44,7 +45,7 @@ export class UsersRepository {
   createUser = async (
     role: string,
     full_name: string,
-    sex:string,
+    sex: string,
     cpf: string,
     phone: string,
     email: string,
@@ -87,7 +88,7 @@ export class UsersRepository {
     user_id: string,
     role: string,
     full_name: string,
-    sex:string,
+    sex: string,
     cpf: string,
     phone: string,
     email: string,
@@ -106,7 +107,7 @@ export class UsersRepository {
       relations: { address: true },
     });
 
-    (user.role = role ? role.toUpperCase() : user.role),
+    (user.role = role ? role : user.role),
       (user.full_name = full_name ? full_name : user.full_name),
       (user.sex = sex ? sex : user.sex),
       (user.cpf = cpf ? cpf : user.cpf),
@@ -114,14 +115,10 @@ export class UsersRepository {
       (user.email = email ? email : user.email),
       (user.password = password ? await hash(password, 8) : user.password),
       (user.address.zip_code = zip_code ? zip_code : user.address.zip_code),
-      (user.address.country = country
-        ? country.toUpperCase()
-        : user.address.country),
-      (user.address.uf = uf ? uf.toUpperCase() : user.address.uf),
-      (user.address.city = city ? city.toUpperCase() : user.address.city),
-      (user.address.district = district
-        ? district.toUpperCase()
-        : user.address.district),
+      (user.address.country = country ? country : user.address.country),
+      (user.address.uf = uf ? uf : user.address.uf),
+      (user.address.city = city ? city : user.address.city),
+      (user.address.district = district ? district : user.address.district),
       (user.address.street = street ? street : user.address.street),
       (user.address.number = number ? number : user.address.number),
       (user.address.complement = complement

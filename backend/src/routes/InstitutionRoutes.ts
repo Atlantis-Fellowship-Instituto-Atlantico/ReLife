@@ -5,8 +5,6 @@ import { GetAllInstitutionsController } from "../controllers/institutionControll
 import { GetByIdInstitutionController } from "../controllers/institutionControllers/GetByIdInstitutionController";
 import { UpdateInstitutionController } from "../controllers/institutionControllers/UpdateInstitutionController";
 import { GetUserByEmailController } from "../controllers/userControllers/GetUserByEmailController";
-import ensureAuthenticated from "../middlewares/ensureAuthenticated";
-import ensureAutorization from "../middlewares/ensureAutorization";
 
 const institutionRoutes = Router();
 
@@ -26,33 +24,16 @@ const deleteInstitutionController = new DeleteInstitutionController();
 //Post
 institutionRoutes.post("/", createInstitutionController.handle);
 //Get
-institutionRoutes.get(
-  "/",
-  ensureAuthenticated,
-  getAllInstitutionsController.handle
-);
+institutionRoutes.get("/", getAllInstitutionsController.handle);
 //GetById
-institutionRoutes.get(
-  "/:institution_id",
-  ensureAuthenticated,
-  getByIdInstitutionController.handle
-);
+institutionRoutes.get("/:institution_id", getByIdInstitutionController.handle);
 //GetUsersByEmail
-institutionRoutes.get(
-  "/users/:email",
-  ensureAutorization,
-  getByEmailUserController.handle
-);
+institutionRoutes.get("/users/:email", getByEmailUserController.handle);
 //Put
-institutionRoutes.put(
-  "/:institution_id",
-  ensureAutorization,
-  updateInstitutionController.handle
-);
+institutionRoutes.put("/:institution_id", updateInstitutionController.handle);
 //Delete
 institutionRoutes.delete(
   "/:institution_id",
-  ensureAutorization,
   deleteInstitutionController.handle
 );
 

@@ -6,8 +6,8 @@ export class GetDonorForAutenticateService {
 
     const donor = await repo.getDonorForAutenticate(email);
 
-    if(!donor){
-      throw new Error("Donor email does not exists")
+    if (!donor) {
+      throw new Error("Donor email does not exists");
     }
 
     return donor;

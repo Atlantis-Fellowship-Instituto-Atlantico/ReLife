@@ -6,7 +6,7 @@ export class GetByEmailReceiverService {
 
     const receiver = await repo.getReceiverByEmail(email);
 
-    if(!receiver){
+    if (!receiver) {
       throw new Error("Receiver email does not exists");
     }
 

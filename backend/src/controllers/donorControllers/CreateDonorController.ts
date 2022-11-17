@@ -4,7 +4,6 @@ import { CreateDonorService } from "../../services/donorServices/CreateDonorServ
 export class CreateDonorController {
   async handle(req: Request, res: Response) {
     const {
-      role,
       full_name,
       sex,
       cpf,
@@ -25,7 +24,6 @@ export class CreateDonorController {
 
     try {
       const result = await service.createDonor(
-        role,
         full_name,
         sex,
         cpf,
@@ -41,9 +39,9 @@ export class CreateDonorController {
         number,
         complement
       );
-      return res.status(201).json(result)
+      return res.status(201).json(result);
     } catch (error) {
-      return res.status(400).send(error.message)
+      return res.status(400).send(error.message);
     }
   }
 }

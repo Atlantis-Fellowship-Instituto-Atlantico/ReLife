@@ -20,12 +20,12 @@ export default function (req: Request, res: Response, next: NextFunction) {
     const data = verify(token, process.env.SECRET_KEY_JWT as string);
     const { role, id } = data as IToken;
 
-    if (role === "ADMINISTRATOR" || req.headers.id == id) {
+    if (role === "ADMIN" || req.headers.id == id) {
       return next();
     }
 
     return res.status(403).json("Does not have necessary authorization");
-  } catch(error) {
+  } catch (error) {
     return res.status(401).send(error.message);
   }
 }

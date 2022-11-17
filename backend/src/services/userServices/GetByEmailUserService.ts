@@ -6,8 +6,8 @@ export class GetByEmailUserService {
 
     const user = await repo.getUserByEmail(email);
 
-    if(!user){
-      throw new Error("User email does not exists")
+    if (!user) {
+      throw new Error("User email does not exists");
     }
 
     return user;

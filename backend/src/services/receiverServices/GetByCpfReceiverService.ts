@@ -6,7 +6,7 @@ export class GetByCpfReceiverService {
 
     const receiver = await repo.getReceiverByCpf(cpf);
 
-    if(!receiver){
+    if (!receiver) {
       throw new Error("Receiver cpf does not exists");
     }
 

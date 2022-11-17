@@ -11,8 +11,7 @@ export class GetReceiverByCpfController {
       const result = await service.getReceiverByCpf(cpf);
       return res.status(200).json(result);
     } catch (error) {
-      return res.status(404).send(error.message)
+      return res.status(404).send(error.message);
     }
-    
   }
 }

@@ -25,7 +25,7 @@ export default function (req: Request, res: Response, next: NextFunction) {
     }
 
     return res.status(403).json("Does not have necessary authorization");
-  } catch(error) {
+  } catch (error) {
     return res.status(401).send(error.message);
   }
 }

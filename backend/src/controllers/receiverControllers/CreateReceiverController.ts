@@ -4,7 +4,6 @@ import { CreateReceiverService } from "../../services/receiverServices/CreateRec
 export class CreateReceiverController {
   async handle(req: Request, res: Response) {
     const {
-      role,
       full_name,
       sex,
       cpf,
@@ -25,7 +24,6 @@ export class CreateReceiverController {
 
     try {
       const result = await service.createReceiver(
-        role,
         full_name,
         sex,
         cpf,
@@ -43,7 +41,7 @@ export class CreateReceiverController {
       );
       return res.status(201).json(result);
     } catch (error) {
-      return res.status(400).send(error.message)
+      return res.status(400).send(error.message);
     }
   }
 }

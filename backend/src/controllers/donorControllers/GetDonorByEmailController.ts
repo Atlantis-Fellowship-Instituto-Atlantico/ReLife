@@ -11,8 +11,7 @@ export class GetDonorByEmailController {
       const result = await service.getDonorByEmail(email);
       return res.status(200).json(result);
     } catch (error) {
-      return res.status(404).send(error.message)
+      return res.status(404).send(error.message);
     }
-
   }
 }
