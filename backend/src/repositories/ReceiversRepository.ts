@@ -1,5 +1,6 @@
 import { hash } from "bcryptjs";
 import { AppDataSource } from "../database/Index";
+import { Organ } from "../entities/Organ";
 import { Receiver } from "../entities/Receiver";
 
 const receiversRepo = AppDataSource.getRepository(Receiver);
@@ -158,7 +159,21 @@ export class ReceiversRepository {
     return receiver;
   };
 
-  //criar update somente para instituição
+  updateReceiverForInstitution = async (
+    receiver_id: string,
+    blood_type: string,
+    organs: Array<Organ>
+  ) => {
+    const receiver = await receiversRepo.findOne({
+      where: { receiver_id: receiver_id },
+    });
+    (receiver.blood_type = blood_type
+      ? blood_type.toUpperCase()
+      : receiver.blood_type),
+      (receiver.organs = organs ? organs : receiver.organs),
+      await receiversRepo.save(receiver);
+    return receiver;
+  };
 
   receiverDelete = async (receiver_id: string) => {
     const receiver = await receiversRepo.findOne({
