@@ -6,7 +6,7 @@ export class GetReceiverForAutenticateService {
 
     const receiver = await repo.getReceiverForAutenticate(email);
 
-    if(!receiver){
+    if (!receiver) {
       throw new Error("Receiver email does not exists");
     }
 

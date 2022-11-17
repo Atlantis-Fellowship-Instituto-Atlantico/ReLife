@@ -21,32 +21,34 @@ export class CreateUserService {
     const usersRepo = new UsersRepository();
     const userExists = await usersRepo.getUserByEmail(email);
 
-    if (userExists && userExists.email === email){
+    if (userExists && userExists.email === email) {
       throw new Error(`Email already in use.`);
     }
-    if (userExists){
-     throw new Error(`Already have user.`);
+    if (userExists) {
+      throw new Error(`Already have user.`);
     }
 
-    const user = await usersRepo.createUser(
-      role.toUpperCase(),
-      full_name,
-      sex,
-      cpf,
-      phone,
-      email,
-      password,
-      zip_code,
-      country.toUpperCase(),
-      uf.toUpperCase(),
-      city.toUpperCase(),
-      district.toUpperCase(),
-      street,
-      number,
-      complement
-    );
-
-    return user;
-    
+    try {
+      const user = await usersRepo.createUser(
+        role.toUpperCase(),
+        full_name,
+        sex,
+        cpf,
+        phone,
+        email,
+        password,
+        zip_code,
+        country.toUpperCase(),
+        uf.toUpperCase(),
+        city.toUpperCase(),
+        district.toUpperCase(),
+        street,
+        number,
+        complement
+      );
+      return user;
+    } catch (error) {
+      throw new Error(`Error on user creation`);
+    }
   }
 }

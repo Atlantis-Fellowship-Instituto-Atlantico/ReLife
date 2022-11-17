@@ -24,29 +24,28 @@ export class UpdateUserController {
 
     const service = new UpdateUserService();
 
-    const result = await service.updateUser(
-      user_id,
-      role,
-      full_name,
-      sex,
-      cpf,
-      phone,
-      email,
-      password,
-      zip_code,
-      country,
-      uf,
-      city,
-      district,
-      street,
-      number,
-      complement
-    );
-
-    if (result instanceof Error) {
-      return res.status(400).json(result.message);
+    try {
+      const result = await service.updateUser(
+        user_id,
+        role,
+        full_name,
+        sex,
+        cpf,
+        phone,
+        email,
+        password,
+        zip_code,
+        country,
+        uf,
+        city,
+        district,
+        street,
+        number,
+        complement
+      );
+      return res.status(200).json(result);
+    } catch (error) {
+      return res.status(400).send(error.message);
     }
-
-    return res.status(200).json(result);
   }
 }

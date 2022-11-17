@@ -25,12 +25,13 @@ export class CreateInstitutionService {
     );
     const userExists = await userRepo.getUserByEmail(email);
 
-    if ((institutionExists && institutionExists.email === email) ||
+    if (
+      (institutionExists && institutionExists.email === email) ||
       (userExists && userExists.email === email)
-    ){
+    ) {
       throw new Error(`Email already in use.`);
     }
-    
+
     const institution = await institutionRepo.createInstitution(
       institution_name.toUpperCase(),
       responsible_name,
@@ -49,6 +50,5 @@ export class CreateInstitutionService {
     );
 
     return institution;
-    
   }
 }

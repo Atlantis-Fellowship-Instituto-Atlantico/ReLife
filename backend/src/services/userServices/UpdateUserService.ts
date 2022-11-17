@@ -26,7 +26,7 @@ export class UpdateUserService {
     if (!validUser) {
       throw new Error("User does not exists");
     }
-    
+
     const user = await userRepo.updateUser(
       user_id,
       role.toUpperCase(),
@@ -46,6 +46,5 @@ export class UpdateUserService {
       complement
     );
     return user;
-    
   }
 }

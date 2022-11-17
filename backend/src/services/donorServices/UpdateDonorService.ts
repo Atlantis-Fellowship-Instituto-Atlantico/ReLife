@@ -3,9 +3,8 @@ import { DonorsRepository } from "../../repositories/DonorsRepository";
 export class UpdateDonorService {
   async updateDonor(
     donor_id: string,
-    role: string,
     full_name: string,
-    sex:string,
+    sex: string,
     cpf: string,
     phone: string,
     email: string,
@@ -30,7 +29,6 @@ export class UpdateDonorService {
 
     const donor = await donorRepo.updateDonor(
       donor_id,
-      role.toUpperCase(),
       full_name,
       sex,
       cpf,
@@ -38,16 +36,15 @@ export class UpdateDonorService {
       email,
       password,
       zip_code,
-      country.toUpperCase(),
-      uf.toUpperCase(),
-      city.toUpperCase(),
-      district.toUpperCase(),
+      country,
+      uf,
+      city,
+      district,
       street,
       number,
       complement,
       mother_name
     );
     return donor;
-    
   }
 }

@@ -5,8 +5,8 @@ export class UpdateDonorController {
   async handle(req: Request, res: Response) {
     const { donor_id } = req.params;
     const {
-      role,
       full_name,
+      sex,
       cpf,
       phone,
       email,
@@ -24,29 +24,28 @@ export class UpdateDonorController {
 
     const service = new UpdateDonorService();
 
-    const result = await service.updateDonor(
-      donor_id,
-      role,
-      full_name,
-      cpf,
-      phone,
-      email,
-      password,
-      zip_code,
-      country,
-      uf,
-      city,
-      district,
-      street,
-      number,
-      complement,
-      mother_name
-    );
-
-    if (result instanceof Error) {
-      return res.status(400).json(result.message);
+    try {
+      const result = await service.updateDonor(
+        donor_id,
+        full_name,
+        sex,
+        cpf,
+        phone,
+        email,
+        password,
+        zip_code,
+        country,
+        uf,
+        city,
+        district,
+        street,
+        number,
+        complement,
+        mother_name
+      );
+      return res.status(200).json(result);
+    } catch (error) {
+      return res.status(404).send(error.message);
     }
-
-    return res.status(200).json(result);
   }
 }

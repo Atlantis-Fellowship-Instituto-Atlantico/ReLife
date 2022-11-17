@@ -4,9 +4,11 @@ import { GetAllDonorsService } from "../../services/donorServices/GetAllDonorsSe
 export class GetAllDonorsController {
   async handle(req: Request, res: Response) {
     const service = new GetAllDonorsService();
-
-    const users = await service.getAllDonors();
-
-    return res.json(users);
+    try {
+      const users = await service.getAllDonors();
+      return res.status(200).json(users);
+    } catch (error) {
+      return res.status(404).send(error.message);
+    }
   }
 }

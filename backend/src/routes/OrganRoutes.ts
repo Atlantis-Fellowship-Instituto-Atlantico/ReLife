@@ -4,8 +4,6 @@ import { DeleteOrganController } from "../controllers/organControllers/DeleteOrg
 import { GetAllOrgansController } from "../controllers/organControllers/GetAllOrgansController";
 import { GetByIdOrganController } from "../controllers/organControllers/GetByIdOrganController";
 import { UpdateOrganController } from "../controllers/organControllers/UpdateOrganController";
-import ensureAuthenticated from "../middlewares/ensureAuthenticated";
-import ensureAutorization from "../middlewares/ensureAutorization";
 
 const organRoutes = Router();
 
@@ -21,22 +19,14 @@ const updateOrganController = new UpdateOrganController();
 const deleteOrganController = new DeleteOrganController();
 
 //Post
-organRoutes.post("/", ensureAutorization, createOrganController.handle);
+organRoutes.post("/", createOrganController.handle);
 //Get
-organRoutes.get("/", ensureAuthenticated, getAllOrgansController.handle);
+organRoutes.get("/", getAllOrgansController.handle);
 //GetById
-organRoutes.get(
-  "/:organ_id",
-  ensureAuthenticated,
-  getByIdOrganController.handle
-);
+organRoutes.get("/:organ_id", getByIdOrganController.handle);
 //Update
-organRoutes.put("/:organ_id", ensureAutorization, updateOrganController.handle);
+organRoutes.put("/:organ_id", updateOrganController.handle);
 //Delete
-organRoutes.delete(
-  "/:organ_id",
-  ensureAutorization,
-  deleteOrganController.handle
-);
+organRoutes.delete("/:organ_id", deleteOrganController.handle);
 
 export { organRoutes };

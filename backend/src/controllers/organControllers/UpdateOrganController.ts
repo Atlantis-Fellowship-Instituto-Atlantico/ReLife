@@ -8,12 +8,15 @@ export class UpdateOrganController {
 
     const service = new UpdateOrganService();
 
-    const result = await service.updateOrgan(organ_id, organ_type, description);
-
-    if (result instanceof Error) {
-      return res.status(400).json(result.message);
+    try {
+      const result = await service.updateOrgan(
+        organ_id,
+        organ_type,
+        description
+      );
+      return res.status(200).json(result);
+    } catch (error) {
+      return res.status(400).send(error.message);
     }
-
-    return res.status(200).json(result);
   }
 }

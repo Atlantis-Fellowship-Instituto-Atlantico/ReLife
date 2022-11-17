@@ -4,9 +4,8 @@ import { UsersRepository } from "../../repositories/UsersRepository";
 
 export class CreateReceiverService {
   async createReceiver(
-    role: string,
     full_name: string,
-    sex:string,
+    sex: string,
     cpf: string,
     phone: string,
     email: string,
@@ -31,12 +30,11 @@ export class CreateReceiverService {
     if (
       (receiverExists && receiverExists.email === email) ||
       (institutionExists && institutionExists.email === email)
-    ){
+    ) {
       throw new Error(`Email already in use.`);
     }
-    
+
     const receiver = await receiverRepo.createReceiver(
-      role.toUpperCase(),
       full_name,
       sex,
       cpf,

@@ -7,12 +7,11 @@ export class DeleteInstitutionController {
 
     const service = new DeleteInstitutionService();
 
-    const result = await service.delete(institution_id);
-
-    if (result instanceof Error) {
-      return res.status(400).json(result.message);
+    try {
+      await service.deleteInstitution(institution_id);
+      return res.status(204).end();
+    } catch (error) {
+      return res.status(404).send(error.message);
     }
-
-    return res.status(204).end();
   }
 }

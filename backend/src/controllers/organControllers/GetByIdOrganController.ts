@@ -7,12 +7,11 @@ export class GetByIdOrganController {
 
     const service = new GetByIdOrganService();
 
-    const result = await service.getById(organ_id);
-
-    if (result instanceof Error) {
-      return res.status(400).json(result.message);
+    try {
+      const result = await service.getOrganById(organ_id);
+      return res.status(200).json(result);
+    } catch (error) {
+      return res.status(404).send(error.message);
     }
-
-    return res.status(200).json(result);
   }
 }

@@ -1,7 +1,7 @@
 import { AddressesRepository } from "../../repositories/AddressesRepository";
 
 export class GetAllAddressesService {
-  async getAll() {
+  async getAllAddresses() {
     const repo = new AddressesRepository();
     const addresses = await repo.getAll();
 

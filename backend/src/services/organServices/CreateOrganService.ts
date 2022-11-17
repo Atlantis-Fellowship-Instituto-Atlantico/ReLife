@@ -7,12 +7,11 @@ export class CreateOrganService {
 
     if (organExists) throw new Error(`Organ already exists.`);
 
-    
     const organ = await organRepo.createOrgan(
       organ_type.toUpperCase(),
-      description.toUpperCase())
+      description.toUpperCase()
+    );
 
     return organ;
-    
   }
 }

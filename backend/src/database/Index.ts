@@ -9,11 +9,8 @@ export const AppDataSource = new DataSource({
   username: "postgres",
   password: "postgrespw",
   database: "relifedb",
-  synchronize: true,
+  synchronize: false,
   logging: false,
-  migrationsRun: true,
   entities: ["./src/entities/*.ts"],
   migrations: ["./src/database/migrations/*.ts"],
 });
-
-

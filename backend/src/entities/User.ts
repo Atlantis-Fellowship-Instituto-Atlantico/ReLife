@@ -28,7 +28,7 @@ export class User {
   full_name: string;
 
   @Column()
-  sex: string
+  sex: string;
 
   @Column({ unique: true, length: 14 })
   cpf: string;

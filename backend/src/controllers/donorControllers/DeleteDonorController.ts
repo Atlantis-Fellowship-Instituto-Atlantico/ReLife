@@ -7,12 +7,11 @@ export class DeleteDonorController {
 
     const service = new DeleteDonorService();
 
-    const result = await service.delete(donor_id);
-
-    if (result instanceof Error) {
-      return res.status(400).json(result.message);
+    try {
+      await service.deleteDonor(donor_id);
+      return res.status(204).end();
+    } catch (error) {
+      return res.status(404).send(error.message);
     }
-
-    return res.status(204).end();
   }
 }

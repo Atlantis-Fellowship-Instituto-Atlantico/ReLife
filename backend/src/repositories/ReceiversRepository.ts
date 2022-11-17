@@ -1,5 +1,6 @@
 import { hash } from "bcryptjs";
 import { AppDataSource } from "../database/Index";
+import { Organ } from "../entities/Organ";
 import { Receiver } from "../entities/Receiver";
 
 const receiversRepo = AppDataSource.getRepository(Receiver);
@@ -19,7 +20,7 @@ export class ReceiversRepository {
     const result = receiversRepo
       .createQueryBuilder("receiver")
       .leftJoinAndSelect("receiver.user", "user")
-      .leftJoinAndSelect("receiver.address", "address")
+      .leftJoinAndSelect("user.address", "address")
       .getMany();
     return result;
   };
@@ -56,9 +57,8 @@ export class ReceiversRepository {
   };
 
   createReceiver = async (
-    role: string,
     full_name: string,
-    sex:string,
+    sex: string,
     cpf: string,
     phone: string,
     email: string,
@@ -75,7 +75,7 @@ export class ReceiversRepository {
     const passHash = await hash(password, 8);
     const result = receiversRepo.create({
       user: {
-        role,
+        role: "RECEIVER",
         full_name,
         sex,
         cpf,
@@ -101,9 +101,8 @@ export class ReceiversRepository {
 
   updateReceiver = async (
     receiver_id: string,
-    role: string,
     full_name: string,
-    sex:string,
+    sex: string,
     cpf: string,
     phone: string,
     email: string,
@@ -123,10 +122,7 @@ export class ReceiversRepository {
       relations: { user: true },
     });
 
-    (receiver.user.role = role ? role.toUpperCase() : receiver.user.role),
-      (receiver.user.full_name = full_name
-        ? full_name
-        : receiver.user.full_name),
+    (receiver.user.full_name = full_name ? full_name : receiver.user.full_name),
       (receiver.user.sex = sex ? sex : receiver.user.sex),
       (receiver.user.cpf = cpf ? cpf : receiver.user.cpf),
       (receiver.user.phone = phone ? phone : receiver.user.phone),
@@ -163,7 +159,21 @@ export class ReceiversRepository {
     return receiver;
   };
 
-  //criar update somente para instituição
+  updateReceiverForInstitution = async (
+    receiver_id: string,
+    blood_type: string,
+    organs: Array<Organ>
+  ) => {
+    const receiver = await receiversRepo.findOne({
+      where: { receiver_id: receiver_id },
+    });
+    (receiver.blood_type = blood_type
+      ? blood_type.toUpperCase()
+      : receiver.blood_type),
+      (receiver.organs = organs ? organs : receiver.organs),
+      await receiversRepo.save(receiver);
+    return receiver;
+  };
 
   receiverDelete = async (receiver_id: string) => {
     const receiver = await receiversRepo.findOne({

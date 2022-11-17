@@ -7,11 +7,11 @@ export class CreateOrganController {
 
     const service = new CreateOrganService();
 
-    const result = await service.createUser(organ_type, description);
-    if (result instanceof Error) {
-      return res.status(400).json(result.message);
+    try {
+      const result = await service.createOrgan(organ_type, description);
+      return res.status(201).json(result);
+    } catch (error) {
+      return res.status(400).send(error.message);
     }
-
-    return res.status(201).json(result);
   }
 }
