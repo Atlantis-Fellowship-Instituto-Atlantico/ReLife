@@ -12,8 +12,7 @@ export class AddressesRepository {
   getUsersByCountry = async (country: string) => {
     const result = await addressRepo
       .createQueryBuilder("address")
-      .leftJoinAndSelect("address.donor", "donor")
-      .leftJoinAndSelect("address.receiver", "receiver")
+      .leftJoinAndSelect("address.user", "user")
       .where("address.country = :country", { country })
       .getMany();
 
@@ -23,10 +22,8 @@ export class AddressesRepository {
   getUsersByState = async (uf: string) => {
     const result = await addressRepo
       .createQueryBuilder("address")
-      .leftJoinAndSelect("address.donor", "donor")
-      .leftJoinAndSelect("address.receiver", "receiver")
-      .where("donor.address.uf = :uf", { uf })
-      .andWhere("receiver.address.uf = :uf", { uf })
+      .leftJoinAndSelect("address.user", "user")
+      .where("address.uf = :uf", { uf })
       .getMany();
 
     return result;
@@ -35,8 +32,7 @@ export class AddressesRepository {
   getUsersByCity = async (city: string) => {
     const result = await addressRepo
       .createQueryBuilder("address")
-      .leftJoinAndSelect("address.donor", "donor")
-      .leftJoinAndSelect("address.receiver", "receiver")
+      .leftJoinAndSelect("address.user", "user")
       .where("address.city = :city", { city })
       .getMany();
 

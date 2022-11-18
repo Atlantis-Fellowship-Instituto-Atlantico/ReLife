@@ -3,19 +3,43 @@ import { CreateUserService } from "../../services/userServices/CreateUserService
 
 export class CreateUserController {
   async handle(req: Request, res: Response) {
-    const { role, full_name, sex, cpf, phone, email, password } = req.body;
+    const {
+      role,
+      full_name,
+      sex,
+      cpf,
+      phone,
+      email,
+      password,
+      zip_code,
+      country,
+      uf,
+      city,
+      district,
+      street,
+      number,
+      complement,
+    } = req.body;
 
-    const createService = new CreateUserService();
+    const service = new CreateUserService();
 
     try {
-      const result = await createService.createUser(
+      const result = await service.createUser(
         role,
         full_name,
         sex,
         cpf,
         phone,
         email,
-        password
+        password,
+        zip_code,
+        country,
+        uf,
+        city,
+        district,
+        street,
+        number,
+        complement
       );
       return res.status(201).json(result);
     } catch (error) {

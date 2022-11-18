@@ -16,8 +16,8 @@ const deleteAdminController = new DeleteAdminController();
 //Post
 adminRoutes.post("/", createAdminController.handle);
 //Put
-adminRoutes.put("/:admin_id", ensureAdmin, updateAdminController.handle);
+adminRoutes.put("/:admin_id", updateAdminController.handle);
 //Delete
-adminRoutes.delete("/:email", ensureAdmin, deleteAdminController.handle);
+adminRoutes.delete("/:email", deleteAdminController.handle);
 
 export { adminRoutes };

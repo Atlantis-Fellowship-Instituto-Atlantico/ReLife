@@ -34,7 +34,7 @@ export class CreateInstitutionService {
     }
     if (
       institutionExists &&
-      institutionExists.institution_name === institution_name
+      institutionExists.institution_name === institution_name.toUpperCase()
     ) {
       throw new Error(`Institution name already in use.`);
     }

@@ -37,7 +37,7 @@ const listInstitutionsAddressByStateController =
 //GetByCountry
 // addressRoutes.get("/users/", listUsersAddressByCountryController.handle);
 //GetByState
-addressRoutes.get("/users/:state", listUsersAddressByStateController.handle);
+addressRoutes.get("/users/:uf", listUsersAddressByStateController.handle);
 //GetByCity
 addressRoutes.get(
   "/users/search/:city",
@@ -52,7 +52,7 @@ addressRoutes.get(
 // );
 //GetByState
 addressRoutes.get(
-  "/institutions/:state",
+  "/institutions/:uf",
   listInstitutionsAddressByStateController.handle
 );
 //GetByCity

@@ -5,7 +5,7 @@ const organRepo = AppDataSource.getRepository(Organ);
 
 export class OrgansRepository {
   getById = async (organ_id: string) => {
-    const result = organRepo
+    const result = await organRepo
       .createQueryBuilder("organ")
       .where("organ_id = :organ_id", { organ_id })
       .getOne();
@@ -13,7 +13,7 @@ export class OrgansRepository {
   };
 
   getByDescription = async (description: string) => {
-    const result = organRepo
+    const result = await organRepo
       .createQueryBuilder("organ")
       .where("description = :description", { description })
       .getOne();
@@ -21,7 +21,7 @@ export class OrgansRepository {
   };
 
   getAll = async () => {
-    const result = organRepo.createQueryBuilder().getMany();
+    const result = await organRepo.createQueryBuilder().getMany();
     return result;
   };
 
