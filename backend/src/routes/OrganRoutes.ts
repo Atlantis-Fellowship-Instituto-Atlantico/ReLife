@@ -23,7 +23,7 @@ organRoutes.post("/", createOrganController.handle);
 //Get
 organRoutes.get("/", getAllOrgansController.handle);
 //GetById
-organRoutes.get("/:organ_id", getByIdOrganController.handle);
+// organRoutes.get("/:organ_id", getByIdOrganController.handle);
 //Update
 organRoutes.put("/:organ_id", updateOrganController.handle);
 //Delete

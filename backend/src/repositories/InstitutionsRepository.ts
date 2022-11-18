@@ -1,16 +1,17 @@
 import { hash } from "bcryptjs";
 import { AppDataSource } from "../database/Index";
+import { Address } from "../entities/Address";
 import { Institution } from "../entities/Institution";
 
 const institutionRepo = AppDataSource.getRepository(Institution);
+const addressRepo = AppDataSource.getRepository(Address);
 
 export class InstitutionRepository {
   getById = async (institution_id: string) => {
     const result = institutionRepo
       .createQueryBuilder("institution")
       .leftJoinAndSelect("institution.address", "address")
-      .where("institution.institution_id = :institution_id", { institution_id })
-      .andWhere("institution.isActive = true")
+      .where("institution_id = :institution_id", { institution_id })
       .getOne();
     return result;
   };
@@ -27,18 +28,17 @@ export class InstitutionRepository {
     const result = await institutionRepo
       .createQueryBuilder("institution")
       .leftJoinAndSelect("institution.address", "address")
-      .where("institution.email = :email", { email })
+      .where("email = :email", { email })
       .getOne();
     return result;
   };
 
-  getForAutenticate = async (email: string) => {
+  getInstitutionForAutenticate = async (email: string) => {
     const result = await institutionRepo
       .createQueryBuilder("institution")
-      .addSelect("institution.password")
       .leftJoinAndSelect("institution.address", "address")
-      .where("institution.email = :email", { email })
-      .andWhere("institution.isActive = true")
+      .addSelect("institution.password")
+      .where("email = :email", { email })
       .getOne();
     return result;
   };
@@ -143,14 +143,14 @@ export class InstitutionRepository {
     return institution;
   };
 
-  userDelete = async (institution_id: string) => {
-    const institution = institutionRepo
-      .createQueryBuilder()
-      .update(Institution)
-      .set({ isActive: false })
-      .where({ institution_id: institution_id })
-      .execute();
+  institutionDelete = async (institution_id: string) => {
+    const institution = await institutionRepo.findOne({
+      where: { institution_id: institution_id },
+      relations: { address: true },
+    });
 
+    await institutionRepo.delete(institution);
+    await addressRepo.delete(institution.address);
     return institution;
   };
 }

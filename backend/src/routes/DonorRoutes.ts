@@ -34,10 +34,10 @@ donorRoutes.get("/", getAllDonorsController.handle);
 //GetByCpf
 donorRoutes.get("/:cpf", getByCpfDonorController.handle);
 //GetByEmail
-// donorRoutes.get("/:email", getByEmailDonorController.handle);
+donorRoutes.get("/search/:email", getByEmailDonorController.handle);
 //Put
 donorRoutes.put("/:donor_id", updateDonorController.handle);
 // //Delete
-donorRoutes.delete("/:donor_id", ensureAdmin, deleteDonorController.handle);
+donorRoutes.delete("/:donor_id", deleteDonorController.handle);
 
 export { donorRoutes };

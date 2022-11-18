@@ -20,13 +20,11 @@ const listAddressByContryController = new GetAddressByCountryController();
 
 //Get
 addressRoutes.get("/", listAddressesController.handle);
-//GetById
-addressRoutes.get("/:address_id", listAddressByIdController.handle);
 //GetByCity
-// addressRoutes.get("/:city", listAddressByCityController.handle);
+addressRoutes.get("/:city", listAddressByCityController.handle);
 //GetByState
-// addressRoutes.get(":/state", listAddressByStateController.handle);
+addressRoutes.get("/search/:state", listAddressByStateController.handle);
 //GetByContry
-// addressRoutes.get(":/contry", listAddressByContryController.handle);
+// addressRoutes.get(":/country", listAddressByContryController.handle);
 
 export { addressRoutes };

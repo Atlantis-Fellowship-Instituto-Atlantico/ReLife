@@ -5,7 +5,9 @@ export class CreateOrganService {
     const organRepo = new OrgansRepository();
     const organExists = await organRepo.getByDescription(description);
 
-    if (organExists) throw new Error(`Organ already exists.`);
+    if (organExists && organExists.description === description) {
+      throw new Error(`Organ already exists.`);
+    }
 
     const organ = await organRepo.createOrgan(
       organ_type.toUpperCase(),

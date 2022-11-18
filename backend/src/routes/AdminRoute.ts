@@ -2,6 +2,7 @@ import { Router } from "express";
 import { CreateAdminController } from "../controllers/adminControllers/CreateAdminController";
 import { DeleteAdminController } from "../controllers/adminControllers/DeleteAdminController";
 import { UpdateAdminController } from "../controllers/adminControllers/UpdateAdminController";
+import ensureAdmin from "../middlewares/ensureAdmin";
 
 const adminRoutes = Router();
 
@@ -15,8 +16,8 @@ const deleteAdminController = new DeleteAdminController();
 //Post
 adminRoutes.post("/", createAdminController.handle);
 //Put
-adminRoutes.put("/:admin_id", updateAdminController.handle);
+adminRoutes.put("/:admin_id", ensureAdmin, updateAdminController.handle);
 //Delete
-adminRoutes.delete("/:admin_id", deleteAdminController.handle);
+adminRoutes.delete("/:email", ensureAdmin, deleteAdminController.handle);
 
 export { adminRoutes };

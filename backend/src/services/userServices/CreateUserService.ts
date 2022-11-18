@@ -8,15 +8,7 @@ export class CreateUserService {
     cpf: string,
     phone: string,
     email: string,
-    password: string,
-    zip_code: string,
-    country: string,
-    uf: string,
-    city: string,
-    district: string,
-    street: string,
-    number: string,
-    complement?: string
+    password: string
   ) {
     const usersRepo = new UsersRepository();
     const userExists = await usersRepo.getUserByEmail(email);
@@ -36,15 +28,7 @@ export class CreateUserService {
         cpf,
         phone,
         email,
-        password,
-        zip_code,
-        country.toUpperCase(),
-        uf.toUpperCase(),
-        city.toUpperCase(),
-        district.toUpperCase(),
-        street,
-        number,
-        complement
+        password
       );
       return user;
     } catch (error) {

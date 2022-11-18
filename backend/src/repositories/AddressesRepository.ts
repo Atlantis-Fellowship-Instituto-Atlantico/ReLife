@@ -6,7 +6,6 @@ const addressRepo = AppDataSource.getRepository(Address);
 export class AddressesRepository {
   getById = async (address_id: string) => {
     const result = addressRepo.findOne({ where: { address_id: address_id } });
-
     return result;
   };
 
@@ -16,28 +15,34 @@ export class AddressesRepository {
   };
 
   getByCountry = async (country: string) => {
-    const result = addressRepo
+    const result = await addressRepo
       .createQueryBuilder("address")
+      .leftJoinAndSelect("address.donor", "donor")
+      .leftJoinAndSelect("address.receiver", "receiver")
       .where("address.country = :country", { country })
-      .getOne();
+      .getMany();
 
     return result;
   };
 
   getByState = async (uf: string) => {
-    const result = addressRepo
+    const result = await addressRepo
       .createQueryBuilder("address")
+      .leftJoinAndSelect("address.donor", "donor")
+      .leftJoinAndSelect("address.receiver", "receiver")
       .where("address.uf = :uf", { uf })
-      .getOne();
+      .getMany();
 
     return result;
   };
 
   getByCity = async (city: string) => {
-    const result = addressRepo
+    const result = await addressRepo
       .createQueryBuilder("address")
+      .leftJoinAndSelect("address.donor", "donor")
+      .leftJoinAndSelect("address.receiver", "receiver")
       .where("address.city = :city", { city })
-      .getOne();
+      .getMany();
 
     return result;
   };

@@ -4,7 +4,6 @@ import { DeleteInstitutionController } from "../controllers/institutionControlle
 import { GetAllInstitutionsController } from "../controllers/institutionControllers/GetAllInstitutionsController";
 import { GetByIdInstitutionController } from "../controllers/institutionControllers/GetByIdInstitutionController";
 import { UpdateInstitutionController } from "../controllers/institutionControllers/UpdateInstitutionController";
-import { GetUserByEmailController } from "../controllers/userControllers/GetUserByEmailController";
 
 const institutionRoutes = Router();
 
@@ -14,8 +13,6 @@ const createInstitutionController = new CreateInstitutionController();
 const getAllInstitutionsController = new GetAllInstitutionsController();
 //ListById
 const getByIdInstitutionController = new GetByIdInstitutionController();
-//GetUsersByEmail
-const getByEmailUserController = new GetUserByEmailController();
 //Update
 const updateInstitutionController = new UpdateInstitutionController();
 //Remove
@@ -26,9 +23,7 @@ institutionRoutes.post("/", createInstitutionController.handle);
 //Get
 institutionRoutes.get("/", getAllInstitutionsController.handle);
 //GetById
-institutionRoutes.get("/:institution_id", getByIdInstitutionController.handle);
-//GetUsersByEmail
-institutionRoutes.get("/users/:email", getByEmailUserController.handle);
+// institutionRoutes.get("/:institution_id", getByIdInstitutionController.handle);
 //Put
 institutionRoutes.put("/:institution_id", updateInstitutionController.handle);
 //Delete

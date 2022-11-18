@@ -1,7 +1,6 @@
 import { hash } from "bcryptjs";
 import { AppDataSource } from "../database/Index";
 import { Admin } from "../entities/Admin";
-import { User } from "../entities/User";
 
 const adminRepo = AppDataSource.getRepository(Admin);
 
@@ -9,7 +8,7 @@ export class AdminRepository {
   getById = async (admin_id: string) => {
     const result = adminRepo
       .createQueryBuilder("admin")
-      .where("admin.admin_id = :admin_id", { admin_id })
+      .where("admin_id = :admin_id", { admin_id })
       .getOne();
     return result;
   };
@@ -17,7 +16,7 @@ export class AdminRepository {
   getAdminByEmail = async (email: string) => {
     const result = await adminRepo
       .createQueryBuilder("admin")
-      .where("admin.email = :email", { email })
+      .where("email = :email", { email })
       .getOne();
     return result;
   };
@@ -26,8 +25,7 @@ export class AdminRepository {
     const result = await adminRepo
       .createQueryBuilder("admin")
       .addSelect("admin.password")
-      .where("admin.email = :email", { email })
-      .andWhere("admin.isActive = true")
+      .where("email = :email", { email })
       .getOne();
     return result;
   };
@@ -62,14 +60,9 @@ export class AdminRepository {
     return admin;
   };
 
-  adminDelete = async (admin_id: string) => {
-    const admin = adminRepo
-      .createQueryBuilder()
-      .update(Admin)
-      .set({ isActive: false })
-      .where({ admin_id: admin_id })
-      .execute();
-
+  adminDelete = async (email: string) => {
+    const admin = await adminRepo.findOne({ where: { email: email } });
+    await adminRepo.delete(admin);
     return admin;
   };
 }

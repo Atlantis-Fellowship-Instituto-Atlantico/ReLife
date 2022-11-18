@@ -3,23 +3,7 @@ import { CreateUserService } from "../../services/userServices/CreateUserService
 
 export class CreateUserController {
   async handle(req: Request, res: Response) {
-    const {
-      role,
-      full_name,
-      sex,
-      cpf,
-      phone,
-      email,
-      password,
-      zip_code,
-      country,
-      uf,
-      city,
-      district,
-      street,
-      number,
-      complement,
-    } = req.body;
+    const { role, full_name, sex, cpf, phone, email, password } = req.body;
 
     const createService = new CreateUserService();
 
@@ -31,15 +15,7 @@ export class CreateUserController {
         cpf,
         phone,
         email,
-        password,
-        zip_code,
-        country,
-        uf,
-        city,
-        district,
-        street,
-        number,
-        complement
+        password
       );
       return res.status(201).json(result);
     } catch (error) {

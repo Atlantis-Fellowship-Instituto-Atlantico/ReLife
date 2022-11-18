@@ -1,17 +1,21 @@
 import { hash } from "bcryptjs";
 import { AppDataSource } from "../database/Index";
+import { Address } from "../entities/Address";
 import { Organ } from "../entities/Organ";
 import { Receiver } from "../entities/Receiver";
+import { User } from "../entities/User";
 
 const receiversRepo = AppDataSource.getRepository(Receiver);
+const userRepo = AppDataSource.getRepository(User);
+const addressRepo = AppDataSource.getRepository(Address);
 
 export class ReceiversRepository {
   getById = async (receiver_id: string) => {
     const result = receiversRepo
       .createQueryBuilder("receiver")
       .leftJoinAndSelect("receiver.user", "user")
-      .leftJoinAndSelect("user.address", "address")
-      .where("receiver.receiver_id = :receiver_id", { receiver_id })
+      .leftJoinAndSelect("receiver.address", "address")
+      .where("receiver_id = :receiver_id", { receiver_id })
       .getOne();
     return result;
   };
@@ -20,7 +24,7 @@ export class ReceiversRepository {
     const result = receiversRepo
       .createQueryBuilder("receiver")
       .leftJoinAndSelect("receiver.user", "user")
-      .leftJoinAndSelect("user.address", "address")
+      .leftJoinAndSelect("receiver.address", "address")
       .getMany();
     return result;
   };
@@ -40,7 +44,7 @@ export class ReceiversRepository {
       .createQueryBuilder("receiver")
       .leftJoinAndSelect("receiver.user", "user")
       .leftJoinAndSelect("receiver.address", "address")
-      .where("receiver.user.email = :email", { email })
+      .where("user.email = :email", { email })
       .getOne();
     return result;
   };
@@ -50,8 +54,8 @@ export class ReceiversRepository {
       .createQueryBuilder("receiver")
       .leftJoinAndSelect("receiver.user", "user")
       .leftJoinAndSelect("receiver.address", "address")
-      .addSelect("receiver.user.password")
-      .where("receiver.user.email = :email", { email })
+      .addSelect("user.password")
+      .where("user.email = :email", { email })
       .getOne();
     return result;
   };
@@ -82,16 +86,16 @@ export class ReceiversRepository {
         phone,
         email,
         password: passHash,
-        address: {
-          zip_code,
-          country,
-          uf,
-          city,
-          district,
-          street,
-          number,
-          complement,
-        },
+      },
+      address: {
+        zip_code,
+        country,
+        uf,
+        city,
+        district,
+        street,
+        number,
+        complement,
       },
     });
 
@@ -120,9 +124,9 @@ export class ReceiversRepository {
     const receiver = await receiversRepo
       .createQueryBuilder("receiver")
       .leftJoinAndSelect("receiver.user", "user")
-      .leftJoinAndSelect("user.address", "address")
-      .addSelect("receiver.user.password")
-      .where("receiver.receiver_id = :receiver_id", { receiver_id })
+      .leftJoinAndSelect("receiver.address", "address")
+      .addSelect("user.password")
+      .where("receiver_id = :receiver_id", { receiver_id })
       .getOne();
 
     (receiver.user.full_name = full_name ? full_name : receiver.user.full_name),
@@ -133,43 +137,42 @@ export class ReceiversRepository {
       (receiver.user.password = password
         ? await hash(password, 8)
         : receiver.user.password),
-      (receiver.user.address.zip_code = zip_code
+      (receiver.address.zip_code = zip_code
         ? zip_code
-        : receiver.user.address.zip_code),
-      (receiver.user.address.country = country
+        : receiver.address.zip_code),
+      (receiver.address.country = country
         ? country.toUpperCase()
-        : receiver.user.address.country),
-      (receiver.user.address.uf = uf
-        ? uf.toUpperCase()
-        : receiver.user.address.uf),
-      (receiver.user.address.city = city
+        : receiver.address.country),
+      (receiver.address.uf = uf ? uf.toUpperCase() : receiver.address.uf),
+      (receiver.address.city = city
         ? city.toUpperCase()
-        : receiver.user.address.city),
-      (receiver.user.address.district = district
+        : receiver.address.city),
+      (receiver.address.district = district
         ? district.toUpperCase()
-        : receiver.user.address.district),
-      (receiver.user.address.street = street
-        ? street
-        : receiver.user.address.street),
-      (receiver.user.address.number = number
-        ? number
-        : receiver.user.address.number),
-      (receiver.user.address.complement = complement
+        : receiver.address.district),
+      (receiver.address.street = street ? street : receiver.address.street),
+      (receiver.address.number = number ? number : receiver.address.number),
+      (receiver.address.complement = complement
         ? complement
-        : receiver.user.address.complement),
+        : receiver.address.complement),
       (receiver.mother_name = mother_name ? mother_name : receiver.mother_name),
       await receiversRepo.save(receiver);
     return receiver;
   };
 
   updateReceiverForInstitution = async (
-    receiver_id: string,
+    email: string,
     blood_type: string,
     organs: Array<Organ>
   ) => {
-    const receiver = await receiversRepo.findOne({
-      where: { receiver_id: receiver_id },
-    });
+    const receiver = await receiversRepo
+      .createQueryBuilder("receiver")
+      .leftJoinAndSelect("receiver.user", "user")
+      .leftJoinAndSelect("receiver.address", "address")
+      .addSelect("user.password")
+      .where("user.email = :email", { email })
+      .getOne();
+
     (receiver.blood_type = blood_type
       ? blood_type.toUpperCase()
       : receiver.blood_type),
@@ -181,12 +184,12 @@ export class ReceiversRepository {
   receiverDelete = async (receiver_id: string) => {
     const receiver = await receiversRepo.findOne({
       where: { receiver_id: receiver_id },
-      relations: { user: true },
+      relations: { user: true, address: true },
     });
 
-    receiver.user.isActive = false;
-
-    receiversRepo.save(receiver);
+    await receiversRepo.delete(receiver);
+    await userRepo.delete(receiver.user);
+    await addressRepo.delete(receiver.address);
     return receiver;
   };
 }

@@ -25,10 +25,6 @@ export class Institution {
   @JoinColumn({ name: "address_id" })
   address: Address;
 
-  @OneToMany(() => Organ, (organ) => organ)
-  @JoinColumn({ name: "organ_id" })
-  organs: Organ[]; //receber array de "organs"
-
   @OneToMany(() => Donor, (donor) => donor.donor_id)
   @JoinColumn({ name: "donor_id" })
   donors: Donor[];

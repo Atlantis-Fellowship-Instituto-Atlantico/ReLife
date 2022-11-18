@@ -1,9 +1,23 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm";
+import { Donor } from "./Donor";
+import { Receiver } from "./Receiver";
 
 @Entity("addresses")
 export class Address {
   @PrimaryGeneratedColumn("uuid")
   readonly address_id: string;
+
+  @OneToOne(() => Donor, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
+  donor: Donor;
+
+  @OneToOne(() => Receiver, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
+  receiver: Receiver;
 
   @Column({ length: 10 })
   zip_code: string;

@@ -14,10 +14,6 @@ export class Organ {
   @PrimaryGeneratedColumn("uuid")
   readonly organ_id: string;
 
-  @ManyToOne(() => Institution, (institution) => institution.organs)
-  @JoinColumn({ name: "organ_id" })
-  institution: Institution;
-
   @ManyToOne(() => Donor, (donor) => donor.organs)
   @JoinColumn({ name: "donor_id" })
   donor: Donor;
