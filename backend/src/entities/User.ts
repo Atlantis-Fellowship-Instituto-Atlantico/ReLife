@@ -1,25 +1,24 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToOne,
-  JoinColumn,
-} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm";
 import { IsEmail } from "class-validator";
-import { Address } from "./Address";
+import { Donor } from "./Donor";
+import { Receiver } from "./Receiver";
 
 @Entity("users")
 export class User {
   @PrimaryGeneratedColumn("uuid")
   readonly user_id: string;
 
-  @OneToOne(() => Address, {
-    cascade: true,
+  @OneToOne(() => Donor, (donor) => donor.user, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",
   })
-  @JoinColumn({ name: "address_id" })
-  address: Address;
+  donor: Donor;
+
+  @OneToOne(() => Receiver, (receiver) => receiver.user, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
+  receiver: Receiver;
 
   @Column()
   role: string;

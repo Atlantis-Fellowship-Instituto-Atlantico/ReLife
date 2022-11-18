@@ -1,32 +1,64 @@
 import { Router } from "express";
-import { GetAddressByCountryController } from "../controllers/addressControllers/GetAddressByCountryController";
 import { GetAddressByIdController } from "../controllers/addressControllers/GetAddressByIdController";
-import { GetAddressesByCityController } from "../controllers/addressControllers/GetAddressesByCityController";
-import { GetAddressesByStateController } from "../controllers/addressControllers/GetAddressesByStateController";
-import { GetAllAddressesController } from "../controllers/addressControllers/GetAllAddressesController";
+import { GetInstitutionsAddressByCityController } from "../controllers/addressControllers/GetInstitutionsAddressByCityController";
+import { GetInstitutionsAddressByCountryController } from "../controllers/addressControllers/GetInstitutionsAddressByCountryController";
+import { GetInstitutionsAddressByStateController } from "../controllers/addressControllers/GetInstitutionsAddressByStateController";
+import { GetUsersAddressByCityController } from "../controllers/addressControllers/GetUsersAddressByCityController";
+import { GetUsersAddressByCountryController } from "../controllers/addressControllers/GetUsersAddressByCountryController";
+import { GetUsersAddressByStateController } from "../controllers/addressControllers/GetUsersAddressByStateController";
 
 const addressRoutes = Router();
 
-//ListAll
-const listAddressesController = new GetAllAddressesController();
 //ListById
 const listAddressByIdController = new GetAddressByIdController();
-//ListByCity
-const listAddressByCityController = new GetAddressesByCityController();
-//ListByState
-const listAddressByStateController = new GetAddressesByStateController();
-//ListByCountry
-const listAddressByContryController = new GetAddressByCountryController();
 
-//Get
-addressRoutes.get("/", listAddressesController.handle);
-//GetById
-addressRoutes.get("/:address_id", listAddressByIdController.handle);
-//GetByCity
-// addressRoutes.get("/:city", listAddressByCityController.handle);
+//Users
+//ListByCity
+const listUsersAddressByCityController = new GetUsersAddressByCityController();
+//ListByState
+const listUsersAddressByStateController =
+  new GetUsersAddressByStateController();
+//ListByCountry
+// const listUsersAddressByCountryController =
+//   new GetUsersAddressByCountryController();
+
+//Institutions
+//ListByCity
+const listInstitutionsAddressByCityController =
+  new GetInstitutionsAddressByCityController();
+//ListByState
+const listInstitutionsAddressByStateController =
+  new GetInstitutionsAddressByStateController();
+//ListByCountry
+// const listInstitutionsAddressByCountryController =
+//   new GetInstitutionsAddressByCountryController();
+
+//Users
+//GetByCountry
+// addressRoutes.get("/users/", listUsersAddressByCountryController.handle);
 //GetByState
-// addressRoutes.get(":/state", listAddressByStateController.handle);
-//GetByContry
-// addressRoutes.get(":/contry", listAddressByContryController.handle);
+addressRoutes.get("/users/:state", listUsersAddressByStateController.handle);
+//GetByCity
+addressRoutes.get(
+  "/users/search/:city",
+  listUsersAddressByCityController.handle
+);
+
+//Institutions
+//GetByCountry
+// addressRoutes.get(
+//   "/institutions/",
+//   listInstitutionsAddressByCountryController.handle
+// );
+//GetByState
+addressRoutes.get(
+  "/institutions/:state",
+  listInstitutionsAddressByStateController.handle
+);
+//GetByCity
+addressRoutes.get(
+  "/institutions/search/:city",
+  listInstitutionsAddressByCityController.handle
+);
 
 export { addressRoutes };

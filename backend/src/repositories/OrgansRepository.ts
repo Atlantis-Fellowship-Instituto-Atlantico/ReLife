@@ -7,7 +7,7 @@ export class OrgansRepository {
   getById = async (organ_id: string) => {
     const result = organRepo
       .createQueryBuilder("organ")
-      .where("organ.organ_id = :organ_id", { organ_id })
+      .where("organ_id = :organ_id", { organ_id })
       .getOne();
     return result;
   };
@@ -15,7 +15,7 @@ export class OrgansRepository {
   getByDescription = async (description: string) => {
     const result = organRepo
       .createQueryBuilder("organ")
-      .where("organ.description = :description", { description })
+      .where("description = :description", { description })
       .getOne();
     return result;
   };
@@ -51,10 +51,11 @@ export class OrgansRepository {
   };
 
   organDelete = async (organ_id: string) => {
-    const organ = await organRepo.findOne({ where: { organ_id: organ_id } });
+    const organ = await organRepo.findOne({
+      where: { organ_id: organ_id },
+    });
 
     await organRepo.delete(organ);
-
     return organ;
   };
 }

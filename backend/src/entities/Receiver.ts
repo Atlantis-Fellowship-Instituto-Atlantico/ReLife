@@ -7,6 +7,7 @@ import {
   OneToMany,
   ManyToOne,
 } from "typeorm";
+import { Address } from "./Address";
 import { Institution } from "./Institution";
 import { Organ } from "./Organ";
 import { User } from "./User";
@@ -23,6 +24,14 @@ export class Receiver {
   })
   @JoinColumn({ name: "user_id" })
   user: User;
+
+  @OneToOne(() => Address, {
+    cascade: true,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
+  @JoinColumn({ name: "address_id" })
+  address: Address;
 
   @OneToMany(() => Organ, (organ) => organ.receiver)
   @JoinColumn({ name: "organ_id" })

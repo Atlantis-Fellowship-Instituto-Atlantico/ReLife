@@ -9,6 +9,6 @@ export class DeleteInstitutionService {
       throw new Error("Institution does not exists");
     }
 
-    await repo.userDelete(institution_id);
+    await repo.institutionDelete(institution_id);
   }
 }

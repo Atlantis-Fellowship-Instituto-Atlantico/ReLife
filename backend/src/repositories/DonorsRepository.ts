@@ -1,18 +1,20 @@
 import { hash } from "bcryptjs";
-import { QueryBuilder } from "typeorm";
 import { AppDataSource } from "../database/Index";
+import { Address } from "../entities/Address";
 import { Donor } from "../entities/Donor";
 import { Organ } from "../entities/Organ";
+import { User } from "../entities/User";
 
 const donorsRepo = AppDataSource.getRepository(Donor);
-
+const userRepo = AppDataSource.getRepository(User);
+const addressRepo = AppDataSource.getRepository(Address);
 export class DonorsRepository {
   getById = async (donor_id: string) => {
     const result = donorsRepo
       .createQueryBuilder("donor")
       .leftJoinAndSelect("donor.user", "user")
-      .leftJoinAndSelect("user.address", "address")
-      .where("donor.donor_id = :donor_id", { donor_id })
+      .leftJoinAndSelect("donor.address", "address")
+      .where("donor_id = :donor_id", { donor_id })
       .getOne();
     return result;
   };
@@ -21,7 +23,7 @@ export class DonorsRepository {
     const result = donorsRepo
       .createQueryBuilder("donor")
       .leftJoinAndSelect("donor.user", "user")
-      .leftJoinAndSelect("user.address", "address")
+      .leftJoinAndSelect("donor.address", "address")
       .getMany();
     return result;
   };
@@ -30,7 +32,7 @@ export class DonorsRepository {
     const result = await donorsRepo
       .createQueryBuilder("donor")
       .leftJoinAndSelect("donor.user", "user")
-      .leftJoinAndSelect("user.address", "address")
+      .leftJoinAndSelect("donor.address", "address")
       .where("user.cpf = :cpf", { cpf })
       .getOne();
     return result;
@@ -40,8 +42,8 @@ export class DonorsRepository {
     const result = await donorsRepo
       .createQueryBuilder("donor")
       .leftJoinAndSelect("donor.user", "user")
-      .leftJoinAndSelect("user.address", "address")
-      .where("donor.user.email = :email", { email })
+      .leftJoinAndSelect("donor.address", "address")
+      .where("user.email = :email", { email })
       .getOne();
     return result;
   };
@@ -50,9 +52,9 @@ export class DonorsRepository {
     const result = await donorsRepo
       .createQueryBuilder("donor")
       .leftJoinAndSelect("donor.user", "user")
-      .leftJoinAndSelect("user.address", "address")
-      .addSelect("donor.user.password")
-      .where("donor.user.email = :email", { email })
+      .leftJoinAndSelect("donor.address", "address")
+      .addSelect("user.password")
+      .where("user.email = :email", { email })
       .getOne();
     return result;
   };
@@ -84,16 +86,16 @@ export class DonorsRepository {
         phone,
         email,
         password: passHash,
-        address: {
-          zip_code,
-          country,
-          uf,
-          city,
-          district,
-          street,
-          number,
-          complement,
-        },
+      },
+      address: {
+        zip_code,
+        country,
+        uf,
+        city,
+        district,
+        street,
+        number,
+        complement,
       },
     });
 
@@ -122,9 +124,9 @@ export class DonorsRepository {
     const donor = await donorsRepo
       .createQueryBuilder("donor")
       .leftJoinAndSelect("donor.user", "user")
-      .leftJoinAndSelect("user.address", "address")
-      .addSelect("donor.user.password")
-      .where("donor.donor_id = :donor_id", { donor_id })
+      .leftJoinAndSelect("donor.address", "address")
+      .addSelect("user.password")
+      .where("donor_id = :donor_id", { donor_id })
       .getOne();
 
     (donor.user.full_name = full_name ? full_name : donor.user.full_name),
@@ -135,24 +137,20 @@ export class DonorsRepository {
       (donor.user.password = password
         ? await hash(password, 8)
         : donor.user.password),
-      (donor.user.address.zip_code = zip_code
-        ? zip_code
-        : donor.user.address.zip_code),
-      (donor.user.address.country = country
+      (donor.address.zip_code = zip_code ? zip_code : donor.address.zip_code),
+      (donor.address.country = country
         ? country.toUpperCase()
-        : donor.user.address.country),
-      (donor.user.address.uf = uf ? uf.toUpperCase() : donor.user.address.uf),
-      (donor.user.address.city = city
-        ? city.toUpperCase()
-        : donor.user.address.city),
-      (donor.user.address.district = district
+        : donor.address.country),
+      (donor.address.uf = uf ? uf.toUpperCase() : donor.address.uf),
+      (donor.address.city = city ? city.toUpperCase() : donor.address.city),
+      (donor.address.district = district
         ? district.toUpperCase()
-        : donor.user.address.district),
-      (donor.user.address.street = street ? street : donor.user.address.street),
-      (donor.user.address.number = number ? number : donor.user.address.number),
-      (donor.user.address.complement = complement
+        : donor.address.district),
+      (donor.address.street = street ? street : donor.address.street),
+      (donor.address.number = number ? number : donor.address.number),
+      (donor.address.complement = complement
         ? complement
-        : donor.user.address.complement),
+        : donor.address.complement),
       (donor.mother_name = mother_name ? mother_name : donor.mother_name),
       await donorsRepo.save(donor);
     return donor;
@@ -177,12 +175,11 @@ export class DonorsRepository {
   donorDelete = async (donor_id: string) => {
     const donor = await donorsRepo.findOne({
       where: { donor_id: donor_id },
-      relations: { user: true },
+      relations: { user: true, address: true },
     });
-
-    donor.user.isActive = false;
-
-    donorsRepo.save(donor);
+    await donorsRepo.delete(donor);
+    await userRepo.delete(donor.user);
+    await addressRepo.delete(donor.address);
     return donor;
   };
 }

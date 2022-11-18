@@ -22,7 +22,7 @@ routes.use("/addresses", addressRoutes);
 routes.use("/organs", organRoutes);
 routes.use("/users", userRoutes);
 routes.use("/institutions", institutionRoutes);
-routes.use("/authenticate", authRoute);
+routes.use("/login", authRoute);
 routes.use("/users/donors", donorRoutes);
 routes.use("/users/receivers", receiverRoutes);
 

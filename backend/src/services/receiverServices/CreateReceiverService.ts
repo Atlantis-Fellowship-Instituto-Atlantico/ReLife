@@ -22,6 +22,7 @@ export class CreateReceiverService {
     const receiverRepo = new ReceiversRepository();
     const userRepo = new UsersRepository();
     const institutionRepo = new InstitutionRepository();
+
     const receiverExists = await userRepo.getUserByEmail(email);
     const institutionExists = await institutionRepo.getInstitutionByEmail(
       email
