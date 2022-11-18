@@ -14,7 +14,7 @@ export class UsersRepository {
   };
 
   getAll = async () => {
-    const result = userRepo.find();
+    const result = userRepo.createQueryBuilder("user").getMany();
     return result;
   };
 

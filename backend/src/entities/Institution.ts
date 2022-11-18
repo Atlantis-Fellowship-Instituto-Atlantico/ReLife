@@ -9,7 +9,6 @@ import {
 import { IsEmail } from "class-validator";
 import { Address } from "./Address";
 import { Donor } from "./Donor";
-import { Organ } from "./Organ";
 import { Receiver } from "./Receiver";
 
 @Entity("institutions")

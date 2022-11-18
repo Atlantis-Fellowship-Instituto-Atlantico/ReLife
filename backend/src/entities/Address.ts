@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm";
 import { Donor } from "./Donor";
+import { Institution } from "./Institution";
 import { Receiver } from "./Receiver";
 
 @Entity("addresses")
@@ -18,6 +19,12 @@ export class Address {
     onUpdate: "CASCADE",
   })
   receiver: Receiver;
+
+  @OneToOne(() => Institution, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
+  institution: Institution;
 
   @Column({ length: 10 })
   zip_code: string;

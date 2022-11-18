@@ -9,12 +9,7 @@ export class AddressesRepository {
     return result;
   };
 
-  getAll = async () => {
-    const result = addressRepo.find();
-    return result;
-  };
-
-  getByCountry = async (country: string) => {
+  getUsersByCountry = async (country: string) => {
     const result = await addressRepo
       .createQueryBuilder("address")
       .leftJoinAndSelect("address.donor", "donor")
@@ -25,22 +20,53 @@ export class AddressesRepository {
     return result;
   };
 
-  getByState = async (uf: string) => {
+  getUsersByState = async (uf: string) => {
     const result = await addressRepo
       .createQueryBuilder("address")
       .leftJoinAndSelect("address.donor", "donor")
       .leftJoinAndSelect("address.receiver", "receiver")
+      .where("donor.address.uf = :uf", { uf })
+      .andWhere("receiver.address.uf = :uf", { uf })
+      .getMany();
+
+    return result;
+  };
+
+  getUsersByCity = async (city: string) => {
+    const result = await addressRepo
+      .createQueryBuilder("address")
+      .leftJoinAndSelect("address.donor", "donor")
+      .leftJoinAndSelect("address.receiver", "receiver")
+      .where("address.city = :city", { city })
+      .getMany();
+
+    return result;
+  };
+
+  getInstitutionsByCountry = async (country: string) => {
+    const result = await addressRepo
+      .createQueryBuilder("address")
+      .leftJoinAndSelect("address.institution", "institution")
+      .where("address.country = :country", { country })
+      .getMany();
+
+    return result;
+  };
+
+  getInstitutionsByState = async (uf: string) => {
+    const result = await addressRepo
+      .createQueryBuilder("address")
+      .leftJoinAndSelect("address.institution", "institution")
       .where("address.uf = :uf", { uf })
       .getMany();
 
     return result;
   };
 
-  getByCity = async (city: string) => {
+  getInstitutionsByCity = async (city: string) => {
     const result = await addressRepo
       .createQueryBuilder("address")
-      .leftJoinAndSelect("address.donor", "donor")
-      .leftJoinAndSelect("address.receiver", "receiver")
+      .leftJoinAndSelect("address.institution", "institution")
       .where("address.city = :city", { city })
       .getMany();
 
