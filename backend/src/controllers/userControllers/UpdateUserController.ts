@@ -4,7 +4,24 @@ import { UpdateUserService } from "../../services/userServices/UpdateUserService
 export class UpdateUserController {
   async handle(req: Request, res: Response) {
     const { user_id } = req.params;
-    const { role, full_name, sex, cpf, phone, email, password } = req.body;
+    const {
+      role,
+      full_name,
+      sex,
+      cpf,
+      phone,
+      email,
+      password,
+      zip_code,
+      country,
+      uf,
+      city,
+      district,
+      street,
+      number,
+      complement,
+      mother_name,
+    } = req.body;
 
     const service = new UpdateUserService();
 
@@ -17,7 +34,16 @@ export class UpdateUserController {
         cpf,
         phone,
         email,
-        password
+        password,
+        zip_code,
+        country,
+        uf,
+        city,
+        district,
+        street,
+        number,
+        complement,
+        mother_name
       );
       return res.status(200).json(result);
     } catch (error) {

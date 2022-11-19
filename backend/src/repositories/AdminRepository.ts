@@ -21,6 +21,14 @@ export class AdminRepository {
     return result;
   };
 
+  getAdminByPhone = async (phone: string) => {
+    const result = await adminRepo
+      .createQueryBuilder("admin")
+      .where("phone = :phone", { phone })
+      .getOne();
+    return result;
+  };
+
   getAdminForAutenticate = async (email: string) => {
     const result = await adminRepo
       .createQueryBuilder("admin")

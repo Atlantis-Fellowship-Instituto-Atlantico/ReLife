@@ -8,8 +8,7 @@ import {
 } from "typeorm";
 import { IsEmail } from "class-validator";
 import { Address } from "./Address";
-import { Donor } from "./Donor";
-import { Receiver } from "./Receiver";
+import { User } from "./User";
 
 @Entity("institutions")
 export class Institution {
@@ -24,13 +23,9 @@ export class Institution {
   @JoinColumn({ name: "address_id" })
   address: Address;
 
-  @OneToMany(() => Donor, (donor) => donor.donor_id)
-  @JoinColumn({ name: "donor_id" })
-  donors: Donor[];
-
-  @OneToMany(() => Receiver, (receiver) => receiver.receiver_id)
-  @JoinColumn({ name: "receiver_id" })
-  receivers: Receiver[];
+  @OneToMany(() => User, (user) => user.user_id)
+  @JoinColumn({ name: "user_id" })
+  users: User[];
 
   @Column({ default: "INSTITUTION" })
   role: string;

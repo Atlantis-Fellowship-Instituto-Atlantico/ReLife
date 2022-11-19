@@ -8,7 +8,7 @@ const addressRepo = AppDataSource.getRepository(Address);
 
 export class InstitutionRepository {
   getById = async (institution_id: string) => {
-    const result = institutionRepo
+    const result = await institutionRepo
       .createQueryBuilder("institution")
       .leftJoinAndSelect("institution.address", "address")
       .where("institution_id = :institution_id", { institution_id })
@@ -17,7 +17,7 @@ export class InstitutionRepository {
   };
 
   getAll = async () => {
-    const result = institutionRepo
+    const result = await institutionRepo
       .createQueryBuilder("institution")
       .leftJoinAndSelect("institution.address", "address")
       .getMany();
@@ -29,6 +29,14 @@ export class InstitutionRepository {
       .createQueryBuilder("institution")
       .leftJoinAndSelect("institution.address", "address")
       .where("email = :email", { email })
+      .getOne();
+    return result;
+  };
+
+  getInstitutionByPhone = async (phone: string) => {
+    const result = await institutionRepo
+      .createQueryBuilder("institution")
+      .where("phone = :phone", { phone })
       .getOne();
     return result;
   };
@@ -140,6 +148,7 @@ export class InstitutionRepository {
         ? complement
         : institution.address.complement),
       await institutionRepo.save(institution);
+    await addressRepo.save(institution.address);
     return institution;
   };
 

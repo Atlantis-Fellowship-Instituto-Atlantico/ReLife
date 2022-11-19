@@ -18,12 +18,11 @@ export default function (req: Request, res: Response, next: NextFunction) {
   const token = authorization.replace("Bearer", "").trim();
 
   try {
-    const { id, role } = verify(
-      token,
-      process.env.SECRET_KEY_JWT as string
-    ) as IToken;
-    req.headers.id = id;
-    req.headers.role = role;
+    const desc = verify(token, process.env.SECRET_KEY_JWT as string) as IToken;
+    const { id, role } = desc;
+
+    req.id = id;
+    req.role = role;
 
     return next();
   } catch (error) {
