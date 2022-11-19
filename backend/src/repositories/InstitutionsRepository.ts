@@ -148,6 +148,7 @@ export class InstitutionRepository {
         ? complement
         : institution.address.complement),
       await institutionRepo.save(institution);
+    await addressRepo.save(institution.address);
     return institution;
   };
 

@@ -34,6 +34,14 @@ export class CreateUserService {
       throw new Error(`User already in use.`);
     }
 
+    if (
+      (userExists && userExists.email == email) ||
+      (adminExists && adminExists.email == email) ||
+      (institutionExists && institutionExists.email == email)
+    ) {
+      throw new Error(`Email already in use.`);
+    }
+
     if (userExists && userExists.cpf == cpf) {
       throw new Error(`CPF already in use.`);
     }
@@ -44,14 +52,6 @@ export class CreateUserService {
       (institutionExists && institutionExists.phone == phone)
     ) {
       throw new Error(`Phone already in use.`);
-    }
-
-    if (
-      (userExists && userExists.email == email) ||
-      (adminExists && adminExists.email == email) ||
-      (institutionExists && institutionExists.email == email)
-    ) {
-      throw new Error(`Email already in use.`);
     }
 
     try {

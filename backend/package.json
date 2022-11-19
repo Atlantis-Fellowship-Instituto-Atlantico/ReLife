@@ -31,8 +31,8 @@
     "uuid": "^9.0.0"
   },
   "scripts": {
-    "build": "rimraf ./build && tsc",
-    "start": "ts-node src/index.ts",
+    "build": "rimraf --files ./build && tsc",
+    "start": "ts-node --files src/index.ts",
     "migration:generate": "npx typeorm-ts-node-commonjs migration:generate -d src/database/index",
     "migration:up": "npx typeorm-ts-node-commonjs migration:run -d src/database/index",
     "migration:down": "npx typeorm-ts-node-commonjs migration:revert -d src/database/index"

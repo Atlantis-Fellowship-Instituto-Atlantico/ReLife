@@ -1,6 +1,10 @@
 import { AppDataSource } from "../database/Index";
 import { Address } from "../entities/Address";
+import { Institution } from "../entities/Institution";
+import { User } from "../entities/User";
 
+const userRepo = AppDataSource.getRepository(User);
+const institutionRepo = AppDataSource.getRepository(Institution);
 const addressRepo = AppDataSource.getRepository(Address);
 
 export class AddressesRepository {
@@ -10,61 +14,61 @@ export class AddressesRepository {
   };
 
   getUsersByCountry = async (country: string) => {
-    const result = await addressRepo
-      .createQueryBuilder("address")
-      .leftJoinAndSelect("address.user", "user")
+    const result = await userRepo
+      .createQueryBuilder("user")
+      .leftJoinAndSelect("user.address", "address")
       .where("address.country = :country", { country })
-      .getMany();
+      .getManyAndCount();
 
     return result;
   };
 
   getUsersByState = async (uf: string) => {
-    const result = await addressRepo
-      .createQueryBuilder("address")
-      .leftJoinAndSelect("address.user", "user")
+    const result = await userRepo
+      .createQueryBuilder("user")
+      .leftJoinAndSelect("user.address", "address")
       .where("address.uf = :uf", { uf })
-      .getMany();
+      .getManyAndCount();
 
     return result;
   };
 
   getUsersByCity = async (city: string) => {
-    const result = await addressRepo
-      .createQueryBuilder("address")
-      .leftJoinAndSelect("address.user", "user")
+    const result = await userRepo
+      .createQueryBuilder("user")
+      .leftJoinAndSelect("user.address", "address")
       .where("address.city = :city", { city })
-      .getMany();
+      .getManyAndCount();
 
     return result;
   };
 
   getInstitutionsByCountry = async (country: string) => {
-    const result = await addressRepo
-      .createQueryBuilder("address")
-      .leftJoinAndSelect("address.institution", "institution")
+    const result = await institutionRepo
+      .createQueryBuilder("institution")
+      .leftJoinAndSelect("institution.address", "address")
       .where("address.country = :country", { country })
-      .getMany();
+      .getManyAndCount();
 
     return result;
   };
 
   getInstitutionsByState = async (uf: string) => {
-    const result = await addressRepo
-      .createQueryBuilder("address")
-      .leftJoinAndSelect("address.institution", "institution")
+    const result = await institutionRepo
+      .createQueryBuilder("institution")
+      .leftJoinAndSelect("institution.address", "address")
       .where("address.uf = :uf", { uf })
-      .getMany();
+      .getManyAndCount();
 
     return result;
   };
 
   getInstitutionsByCity = async (city: string) => {
-    const result = await addressRepo
-      .createQueryBuilder("address")
-      .leftJoinAndSelect("address.institution", "institution")
+    const result = await institutionRepo
+      .createQueryBuilder("institution")
+      .leftJoinAndSelect("institution.address", "address")
       .where("address.city = :city", { city })
-      .getMany();
+      .getManyAndCount();
 
     return result;
   };

@@ -12,7 +12,7 @@ export default function (req: Request, res: Response, next: NextFunction) {
   const { authorization } = req.headers;
 
   if (!authorization) {
-    return res.status(401);
+    return res.status(401).json("Unauthorized");
   }
 
   try {

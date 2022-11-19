@@ -6,8 +6,8 @@ import { GetByIdInstitutionController } from "../controllers/institutionControll
 import { UpdateInstitutionController } from "../controllers/institutionControllers/UpdateInstitutionController";
 import { UpdateUserByInstitutionController } from "../controllers/userControllers/UpdateUserByInstitutionController";
 import ensureAdmin from "../middlewares/ensureAdmin";
-import ensureDeleteAutorization from "../middlewares/ensureDeleteAutorization";
 import ensureInstitution from "../middlewares/ensureInstitution";
+import ensureMajorAutorization from "../middlewares/ensureMajorAutorization";
 
 const institutionRoutes = Router();
 
@@ -47,7 +47,7 @@ institutionRoutes.put(
 //Delete
 institutionRoutes.delete(
   "/:institution_id",
-  ensureDeleteAutorization,
+  ensureAdmin,
   deleteInstitutionController.handle
 );
 

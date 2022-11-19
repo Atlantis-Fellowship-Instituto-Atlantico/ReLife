@@ -8,7 +8,7 @@ import { GetUserByEmailController } from "../controllers/userControllers/GetUser
 import { GetUserByCpfController } from "../controllers/userControllers/GetUserByCpfController";
 import ensureMajorAutorization from "../middlewares/ensureMajorAutorization";
 import ensureAuthenticated from "../middlewares/ensureAuthenticated";
-import ensureDeleteAutorization from "../middlewares/ensureDeleteAutorization";
+import ensureAdmin from "../middlewares/ensureAdmin";
 
 const userRoutes = Router();
 
@@ -44,10 +44,6 @@ userRoutes.get(
 //Put
 userRoutes.put("/:user_id", ensureAuthenticated, updateUserController.handle);
 //Delete
-userRoutes.delete(
-  "/:cpf",
-  ensureDeleteAutorization,
-  deleteUserController.handle
-);
+userRoutes.delete("/:cpf", ensureAdmin, deleteUserController.handle);
 
 export { userRoutes };
