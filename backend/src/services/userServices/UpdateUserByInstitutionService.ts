@@ -8,14 +8,14 @@ export class UpdateUserByInstitutionService {
     cpf: string,
     blood_type: string,
     organs: Organ[],
-    institution: Institution
+    institution_name: string
   ) {
     const userRepo = new UsersRepository();
     const institutionRepo = new InstitutionRepository();
 
     const validUser = await userRepo.getUserByCpf(cpf);
     const validInstitution = await institutionRepo.getInstitutionByName(
-      institution.institution_name
+      institution_name
     );
 
     if (!validUser) {
@@ -29,7 +29,7 @@ export class UpdateUserByInstitutionService {
       cpf,
       blood_type,
       organs,
-      institution
+      institution_name
     );
     return user;
   }

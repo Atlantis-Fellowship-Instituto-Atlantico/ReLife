@@ -7,6 +7,7 @@ import { User } from "../entities/User";
 
 const userRepo = AppDataSource.getRepository(User);
 const addressRepo = AppDataSource.getRepository(Address);
+const institutionRepo = AppDataSource.getRepository(Institution);
 
 export class UsersRepository {
   getById = async (user_id: string) => {
@@ -22,6 +23,7 @@ export class UsersRepository {
     const result = await userRepo
       .createQueryBuilder("user")
       .leftJoinAndSelect("user.address", "address")
+      .leftJoinAndSelect("user.institution", "institution")
       .getMany();
     return result;
   };
@@ -168,12 +170,16 @@ export class UsersRepository {
     cpf: string,
     blood_type: string,
     organs: Organ[],
-    institution: Institution
+    institution_name: string
   ) => {
     const user = await userRepo.findOne({
       where: { cpf: cpf },
       relations: { address: true },
     });
+    const institution = await institutionRepo.findOne({
+      where: { institution_name: institution_name.toUpperCase() },
+    });
+
     (user.blood_type = blood_type ? blood_type : user.blood_type),
       (user.organs = organs ? organs : user.organs),
       (user.institution = institution ? institution : user.institution);
