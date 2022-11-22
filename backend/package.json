@@ -32,9 +32,9 @@
   },
   "scripts": {
     "build": "rimraf --files ./build && tsc",
-    "start": "ts-node --files src/index.ts",
-    "migration:generate": "npx typeorm-ts-node-commonjs migration:generate -d src/database/index",
-    "migration:up": "npx typeorm-ts-node-commonjs migration:run -d src/database/index",
-    "migration:down": "npx typeorm-ts-node-commonjs migration:revert -d src/database/index"
+    "start": "ts-node --files ./src/index.ts",
+    "migration:generate": "npx typeorm-ts-node-commonjs migration:generate -d ./src/database/Index",
+    "migration:up": "npx typeorm-ts-node-commonjs migration:run -d ./src/database/Index",
+    "migration:down": "npx typeorm-ts-node-commonjs migration:revert -d ./src/database/index"
   }
 }

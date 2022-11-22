@@ -24,7 +24,7 @@ AppDataSource.initialize()
         message: "Internal Server Error",
       });
     });
-    app.listen(3000, () => console.log("Server is running"));
+    app.listen(3333, () => console.log("Server is running"));
   })
   .catch((err) => {
     console.error("Error during Data Source initialization", err);

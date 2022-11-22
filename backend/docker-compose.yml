@@ -15,7 +15,7 @@ services:
       restart: always             #Parametro para sempre dar um restart no container caso ele caia
       build: .
       ports:
-        - "3000:3000"
+        - "3333:3333"
       depends_on:                 #Define que este container so pode ser criado apos a criacao do bd
         - db
       command: npm start          #Roda o comando npm run start para iniciar o script que que está no package.json
