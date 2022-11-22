@@ -1,6 +1,7 @@
 import { hash } from "bcryptjs";
 import { AppDataSource } from "../database/Index";
 import { Address } from "../entities/Address";
+import { Institution } from "../entities/Institution";
 import { Organ } from "../entities/Organ";
 import { User } from "../entities/User";
 
@@ -166,7 +167,8 @@ export class UsersRepository {
   updateUserByInstitution = async (
     cpf: string,
     blood_type: string,
-    organs: Organ[]
+    organs: Organ[],
+    institution: Institution
   ) => {
     const user = await userRepo.findOne({
       where: { cpf: cpf },
@@ -174,7 +176,9 @@ export class UsersRepository {
     });
     (user.blood_type = blood_type ? blood_type : user.blood_type),
       (user.organs = organs ? organs : user.organs),
-      await userRepo.save(user);
+      (user.institution = institution ? institution : user.institution);
+
+    await userRepo.save(user);
     return user;
   };
 

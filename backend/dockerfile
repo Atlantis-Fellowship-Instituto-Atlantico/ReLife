@@ -12,7 +12,7 @@ RUN npm i
 ## para dentro da pasta /usr/src/app do container
 COPY . .
 ## Container ficará ouvindo os acessos na porta 3000
-EXPOSE 3000
+EXPOSE 3333
 ## Não se repete no Dockerfile
 ## Executa o comando npm run migration:up para iniciar para criar as tabelas dentro do BD.
 CMD ["npm", "run migration:up"]

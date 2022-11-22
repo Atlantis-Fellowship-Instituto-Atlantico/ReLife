@@ -33,6 +33,15 @@ export class InstitutionRepository {
     return result;
   };
 
+  getInstitutionByName = async (institution_name: string) => {
+    const result = await institutionRepo
+      .createQueryBuilder("institution")
+      .leftJoinAndSelect("institution.address", "address")
+      .where("institution_name = :institution_name", { institution_name })
+      .getOne();
+    return result;
+  };
+
   getInstitutionByPhone = async (phone: string) => {
     const result = await institutionRepo
       .createQueryBuilder("institution")

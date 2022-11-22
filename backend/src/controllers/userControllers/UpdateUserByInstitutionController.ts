@@ -4,7 +4,7 @@ import { UpdateUserByInstitutionService } from "../../services/userServices/Upda
 export class UpdateUserByInstitutionController {
   async handle(req: Request, res: Response) {
     const { cpf } = req.params;
-    const { blood_type, organs } = req.body;
+    const { blood_type, organs, institution_name } = req.body;
 
     const service = new UpdateUserByInstitutionService();
 
@@ -12,7 +12,8 @@ export class UpdateUserByInstitutionController {
       const result = await service.UpdateUserByInstitution(
         cpf,
         blood_type,
-        organs
+        organs,
+        institution_name
       );
       return res.status(200).json(result);
     } catch (error) {

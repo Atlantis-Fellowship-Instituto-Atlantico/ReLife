@@ -1,24 +1,35 @@
+import { Institution } from "../../entities/Institution";
 import { Organ } from "../../entities/Organ";
+import { InstitutionRepository } from "../../repositories/InstitutionsRepository";
 import { UsersRepository } from "../../repositories/UsersRepository";
 
 export class UpdateUserByInstitutionService {
   async UpdateUserByInstitution(
     cpf: string,
     blood_type: string,
-    organs: Organ[]
+    organs: Organ[],
+    institution: Institution
   ) {
     const userRepo = new UsersRepository();
+    const institutionRepo = new InstitutionRepository();
 
     const validUser = await userRepo.getUserByCpf(cpf);
+    const validInstitution = await institutionRepo.getInstitutionByName(
+      institution.institution_name
+    );
 
     if (!validUser) {
       throw new Error("User does not exists");
+    }
+    if (!validInstitution) {
+      throw new Error("Institution does not exists");
     }
 
     const user = await userRepo.updateUserByInstitution(
       cpf,
       blood_type,
-      organs
+      organs,
+      institution
     );
     return user;
   }
