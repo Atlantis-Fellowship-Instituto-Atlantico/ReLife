@@ -27,11 +27,8 @@ export class UpdateUserService {
     const institutionRepo = new InstitutionRepository();
 
     const validUser = await userRepo.getById(user_id);
-    const adminPhone = await adminRepo.getAdminByPhone(phone);
-    const adminEmail = await adminRepo.getAdminByEmail(email);
-
-    const institutionPhone = await institutionRepo.getInstitutionByPhone(phone);
-    const institutionEmail = await institutionRepo.getInstitutionByEmail(email);
+    const validAdmin = await adminRepo.getAdminByEmail(email);
+    const validInstitution = await institutionRepo.getInstitutionByEmail(email);
 
     if (!validUser) {
       throw new Error("User does not exists");
@@ -43,16 +40,16 @@ export class UpdateUserService {
 
     if (
       (validUser && validUser.phone == phone) ||
-      (adminPhone && adminPhone.phone == phone) ||
-      (institutionPhone && institutionPhone.phone == phone)
+      (validAdmin && validAdmin.phone == phone) ||
+      (validInstitution && validInstitution.phone == phone)
     ) {
       throw new Error(`Phone already in use.`);
     }
 
     if (
       (validUser && validUser.email == email) ||
-      (adminEmail && adminEmail.email == email) ||
-      (institutionEmail && institutionEmail.email == email)
+      (validAdmin && validAdmin.email == email) ||
+      (validInstitution && validInstitution.email == email)
     ) {
       throw new Error(`Email already in use.`);
     }

@@ -4,6 +4,7 @@ import { verify } from "jsonwebtoken";
 interface IToken {
   id: string;
   role: string;
+  email: string;
   iat: number;
   exp: number;
 }
@@ -19,10 +20,11 @@ export default function (req: Request, res: Response, next: NextFunction) {
 
   try {
     const desc = verify(token, process.env.SECRET_KEY_JWT as string) as IToken;
-    const { id, role } = desc;
+    const { id, role, email } = desc;
 
     req.id = id;
     req.role = role;
+    req.email = email;
 
     return next();
   } catch (error) {

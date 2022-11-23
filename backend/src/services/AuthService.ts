@@ -1,5 +1,6 @@
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
+import { InsertValuesMissingError } from "typeorm";
 import { AdminRepository } from "../repositories/AdminRepository";
 import { InstitutionRepository } from "../repositories/InstitutionsRepository";
 import { UsersRepository } from "../repositories/UsersRepository";
@@ -25,6 +26,7 @@ export class AuthService {
           {
             id: user.user_id,
             role: user.role,
+            email: user.email,
           },
           process.env.SECRET_KEY_JWT as string,
           { expiresIn: "24h" }
@@ -39,6 +41,7 @@ export class AuthService {
           {
             id: admin.admin_id,
             role: admin.role,
+            email: admin.email,
           },
           process.env.SECRET_KEY_JWT as string,
           { expiresIn: "24h" }
@@ -53,6 +56,7 @@ export class AuthService {
           {
             id: institution.institution_id,
             role: institution.role,
+            email: institution.email,
           },
           process.env.SECRET_KEY_JWT as string,
           { expiresIn: "24h" }
