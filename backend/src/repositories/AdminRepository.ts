@@ -16,7 +16,7 @@ export class AdminRepository {
   getAdminByEmail = async (email: string) => {
     const result = await adminRepo
       .createQueryBuilder("admin")
-      .where("email = :email", { email })
+      .where("admin.email = :email", { email })
       .getOne();
     return result;
   };
@@ -24,7 +24,7 @@ export class AdminRepository {
   getAdminByPhone = async (phone: string) => {
     const result = await adminRepo
       .createQueryBuilder("admin")
-      .where("phone = :phone", { phone })
+      .where("admin.phone = :phone", { phone })
       .getOne();
     return result;
   };
@@ -33,7 +33,7 @@ export class AdminRepository {
     const result = await adminRepo
       .createQueryBuilder("admin")
       .addSelect("admin.password")
-      .where("email = :email", { email })
+      .where("admin.email = :email", { email })
       .getOne();
     return result;
   };

@@ -12,7 +12,10 @@ export class Organ {
   @PrimaryGeneratedColumn("uuid")
   readonly organ_id: string;
 
-  @ManyToOne(() => User, (user) => user.organs)
+  @ManyToOne(() => User, (user) => user.organs, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
   @JoinColumn({ name: "user_id" })
   user: User;
 

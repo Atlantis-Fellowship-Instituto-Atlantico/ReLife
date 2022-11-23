@@ -4,10 +4,10 @@ import { DeleteInstitutionController } from "../controllers/institutionControlle
 import { GetAllInstitutionsController } from "../controllers/institutionControllers/GetAllInstitutionsController";
 import { GetByIdInstitutionController } from "../controllers/institutionControllers/GetByIdInstitutionController";
 import { UpdateInstitutionController } from "../controllers/institutionControllers/UpdateInstitutionController";
+import { UpdateOrgansUserByInstitutionController } from "../controllers/userControllers/UpdateOrgansUserByInstitutionController";
 import { UpdateUserByInstitutionController } from "../controllers/userControllers/UpdateUserByInstitutionController";
 import ensureAdmin from "../middlewares/ensureAdmin";
 import ensureInstitution from "../middlewares/ensureInstitution";
-import ensureMajorAutorization from "../middlewares/ensureMajorAutorization";
 
 const institutionRoutes = Router();
 
@@ -25,6 +25,9 @@ const deleteInstitutionController = new DeleteInstitutionController();
 //Edit User
 const updateUserByInstitutionController =
   new UpdateUserByInstitutionController();
+//Edit User
+const updateUserOrgansByInstitutionController =
+  new UpdateOrgansUserByInstitutionController();
 
 //Post
 institutionRoutes.post("/", ensureAdmin, createInstitutionController.handle);
@@ -38,11 +41,17 @@ institutionRoutes.put(
   ensureInstitution,
   updateInstitutionController.handle
 );
-//Put
+//Put Users
 institutionRoutes.put(
   "/users/:cpf",
   ensureInstitution,
   updateUserByInstitutionController.handle
+);
+//Put Organs Users
+institutionRoutes.put(
+  "/users/:cpf/organs",
+  ensureInstitution,
+  updateUserOrgansByInstitutionController.handle
 );
 //Delete
 institutionRoutes.delete(

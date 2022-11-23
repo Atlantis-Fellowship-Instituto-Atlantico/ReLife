@@ -31,7 +31,12 @@ export class User {
   @JoinColumn({ name: "institution_id" })
   institution: Institution;
 
-  @OneToMany(() => Organ, (organ) => organ.user, { nullable: true })
+  @OneToMany(() => Organ, (organ) => organ.user, {
+    nullable: true,
+    cascade: true,
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+  })
   @JoinColumn({ name: "organ_id" })
   organs: Organ[];
 

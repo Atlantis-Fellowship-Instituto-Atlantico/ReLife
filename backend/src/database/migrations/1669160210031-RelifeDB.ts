@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class RelifeDB1668803185461 implements MigrationInterface {
-  name = "RelifeDB1668803185461";
+export class RelifeDB1669160210031 implements MigrationInterface {
+  name = "RelifeDB1669160210031";
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
@@ -20,7 +20,7 @@ export class RelifeDB1668803185461 implements MigrationInterface {
       `CREATE TABLE "admins" ("admin_id" uuid NOT NULL DEFAULT uuid_generate_v4(), "role" character varying NOT NULL DEFAULT 'ADMIN', "phone" character varying(15) NOT NULL, "email" character varying(40) NOT NULL, "password" character varying NOT NULL, "isActive" boolean NOT NULL DEFAULT true, CONSTRAINT "UQ_bacf1cabdd51dca73d1a57ea66d" UNIQUE ("phone"), CONSTRAINT "UQ_051db7d37d478a69a7432df1479" UNIQUE ("email"), CONSTRAINT "PK_88070d08be64522fc84fdefef85" PRIMARY KEY ("admin_id"))`
     );
     await queryRunner.query(
-      `ALTER TABLE "organs" ADD CONSTRAINT "FK_5e221472987d5af7d263c7108b8" FOREIGN KEY ("user_id") REFERENCES "users"("user_id") ON DELETE NO ACTION ON UPDATE NO ACTION`
+      `ALTER TABLE "organs" ADD CONSTRAINT "FK_5e221472987d5af7d263c7108b8" FOREIGN KEY ("user_id") REFERENCES "users"("user_id") ON DELETE CASCADE ON UPDATE CASCADE`
     );
     await queryRunner.query(
       `ALTER TABLE "users" ADD CONSTRAINT "FK_1b05689f6b6456680d538c3d2ea" FOREIGN KEY ("address_id") REFERENCES "addresses"("address_id") ON DELETE CASCADE ON UPDATE CASCADE`
