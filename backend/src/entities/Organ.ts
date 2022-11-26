@@ -22,6 +22,6 @@ export class Organ {
   @Column({ length: 50 })
   organ_type: string;
 
-  @Column({ unique: true, length: 50 })
+  @Column({ length: 50 })
   description: string;
 }
