@@ -1,5 +1,3 @@
-import { Institution } from "../../entities/Institution";
-import { Organ } from "../../entities/Organ";
 import { InstitutionRepository } from "../../repositories/InstitutionsRepository";
 import { UsersRepository } from "../../repositories/UsersRepository";
 
