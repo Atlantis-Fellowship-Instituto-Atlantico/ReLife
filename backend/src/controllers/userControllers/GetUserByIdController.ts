@@ -7,11 +7,8 @@ export class GetUserByIdController {
 
     const service = new GetByIdUserService();
 
-    try {
-      const result = await service.getUserById(user_id);
-      return res.status(200).json(result);
-    } catch (error) {
-      return res.status(404).send(error.message);
-    }
+    const result = await service.getUserById(user_id);
+    return res.status(200).json(result);
+
   }
 }

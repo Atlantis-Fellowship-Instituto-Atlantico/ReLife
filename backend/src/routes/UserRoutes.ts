@@ -32,7 +32,7 @@ userRoutes.post("/", createUserController.handle);
 //Get
 userRoutes.get("/", getAllUsersController.handle);
 //GetById
-// userRoutes.get("/:user_id",  getByIdUserController.handle);
+userRoutes.get("/registers/:user_id", getByIdUserController.handle);
 //GetBycpf
 userRoutes.get("/:cpf", ensureMajorAutorization, getByCpfUserController.handle);
 //GetByEmail
